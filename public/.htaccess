@@ -11,6 +11,13 @@
 <IfModule mod_rewrite.c>
   RewriteEngine On
 
+  # ── Block VCS and tooling directories ────────────────────────────────────
+  # Deploying via Hostinger's Git integration leaves a .git/ directory inside
+  # public_html. The FilesMatch rule at the bottom of this file only covers
+  # dotted *files*, not files inside a dotted *directory* — /.git/config would
+  # otherwise be served, exposing the remote URL and the whole object store.
+  RewriteRule (^|/)\.(git|github|astro)(/|$) - [F,L]
+
   # ── Canonical host + HTTPS ───────────────────────────────────────────────
   RewriteCond %{HTTPS} off
   RewriteRule ^(.*)$ https://%{HTTP_HOST}/$1 [R=301,L]

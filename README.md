@@ -23,18 +23,57 @@ npm run preview  # serve dist/ locally
 
 ## Deploying to Hostinger
 
-The build output is plain static files, so there is nothing to configure on the
-server beyond uploading them.
+> **The one thing to understand first:** Hostinger's shared hosting serves
+> static files. It does **not** run `npm install` or a build command on deploy.
+> So what goes into `public_html` is the contents of `dist/` — never this
+> repository. Pointing Hostinger's Git integration at `main` would put the Astro
+> *source* on the server: no `index.html` at the root, nothing rendering.
+>
+> There is no Node runtime to configure and no startup file. If you find
+> yourself on a "Node.js app" setup screen asking for an entry point, that is
+> the wrong tool for this site — back out of it.
 
-1. `npm run build`
-2. Upload **the contents of `dist/`** (not the folder itself) into `public_html`
-   on the Hostinger account for cityboundnomad.com.
-3. Done. `public/.htaccess` is copied into `dist/` by the build and handles
-   HTTPS, the `www` → non-`www` redirect, extensionless URLs, the legacy
-   redirects, caching, and the 404 page.
+### Option A — upload the build (simplest)
 
-If you prefer Hostinger's Git deployment, point it at this repo with build
-command `npm run build` and public directory `dist`.
+1. `npm run build`, or download the `dist` artifact from the latest
+   [astro-build run](../../actions/workflows/astro-build.yml).
+2. Upload **the contents of `dist/`** — not the folder itself — into
+   `public_html`, via hPanel → File Manager or FTP.
+
+That's the whole deploy. `public/.htaccess` is copied into `dist/` by the build
+and handles HTTPS, the `www` → non-`www` redirect, extensionless URLs, the
+legacy redirects, caching and the 404 page.
+
+### Option B — Git auto-deploy (push to main → live)
+
+`publish-deploy-branch.yml` builds on every push to `main` and force-pushes the
+finished static files to a **`deploy`** branch, which contains nothing but the
+contents of `dist/`. Hostinger is pointed at that branch, so there is nothing
+for it to build.
+
+In hPanel → **Advanced → GIT**:
+
+| Field | Value |
+|---|---|
+| Repository | `https://github.com/strandwaysystems-cpu/cityboundnomad.git` |
+| Branch | **`deploy`** — not `main` |
+| Directory | `public_html` |
+
+Then use **Auto Deployment** to copy the webhook URL, and add it in GitHub under
+Settings → Webhooks (content type `application/json`, push events). After that,
+merging to `main` rebuilds and updates the live site on its own.
+
+The directory must be empty before the first clone — clear out any old site
+first, and keep a copy.
+
+> Deploying this way leaves a `.git/` directory inside `public_html`. The
+> `.htaccess` blocks requests to it, but the files are still on disk.
+
+### Which to use
+
+Option A if the site changes rarely and you would rather not wire up a webhook.
+Option B once the content starts moving — it removes the manual upload step
+entirely.
 
 **If the site returns a 500 the moment it's uploaded**, the cause is almost
 certainly the single `Options -Indexes` line in `.htaccess`, which needs
