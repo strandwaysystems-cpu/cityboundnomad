@@ -1,0 +1,21 @@
+---
+import ListPage from '../layouts/ListPage.astro';
+import { WARDROBE, WARDROBE_META, WARDROBE_PRINCIPLES } from '../data/wardrobe';
+---
+
+<ListPage meta={WARDROBE_META} entries={WARDROBE} eyebrow="Things" showCity={false}>
+  <div slot="before" class="mb-4">
+    <p class="eyebrow mb-3">How it gets decided</p>
+    <div class="cell-grid cell-grid--tight">
+      {
+        WARDROBE_PRINCIPLES.map((p) => (
+          <div style="padding:2rem">
+            <p class="collection__count">{p.num}</p>
+            <h2 class="display-sm mb-1">{p.title}</h2>
+            <p class="body-sm">{p.body}</p>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</ListPage>

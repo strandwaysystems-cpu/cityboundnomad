@@ -1,6 +1,5 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import DispatchSignup from '../../components/DispatchSignup.astro';
 import Icon from '../../components/Icon.astro';
 import { SITE } from '../../data/site';
 import { ESSAYS, ESSAY_TYPE_LABELS, type Essay } from '../../data/journey';
@@ -28,7 +27,7 @@ const jsonLd = [
     description: essay.excerpt,
     author: { '@type': 'Person', name: SITE.author },
     publisher: { '@type': 'Organization', name: SITE.name },
-    mainEntityOfPage: `${SITE.url}/the-journey/${essay.slug}`,
+    mainEntityOfPage: `${SITE.url}/notes/${essay.slug}`,
   },
 ];
 ---
@@ -55,19 +54,11 @@ const jsonLd = [
         </div>
 
         <p class="mt-4">
-          <a class="link-cta" href="/the-journey">
-            <Icon name="arrow-right" size={12} /> All of The Journey
+          <a class="link-cta" href="/notes">
+            <Icon name="arrow-right" size={12} /> All notes
           </a>
         </p>
       </div>
-    </div>
-
-    <div class="container container--narrow" style="padding-bottom:5rem">
-      <DispatchSignup
-        headline="Notes from the road"
-        subtext="One email per week, every Friday. The shorter, more frequent version of essays like this one."
-        source="essay"
-      />
     </div>
   </article>
 </BaseLayout>

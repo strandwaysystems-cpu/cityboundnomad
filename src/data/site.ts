@@ -7,10 +7,10 @@ export const SITE = {
   name: 'CityboundNomad',
   domain: 'cityboundnomad.com',
   url: 'https://cityboundnomad.com',
-  title: "CityboundNomad — Minimalist Solo Travel, Scandinavian Style, Lifestyle Freedom",
-  tagline: 'A minimalist travel journal by Chandler',
+  title: "CityboundNomad — Places I've Been, Things I Use",
+  tagline: 'A personal catalogue by Chandler',
   description:
-    "A Canadian solo traveller documenting European cities, honest stay reviews, Scandinavian men's style, and the minimalist philosophy of building a life without a fixed address.",
+    "A Canadian documenting European cities first-hand — the places I've been, the cafés and tours worth the time, what's in the bag, and why I travel this way. Everything here is from experience, not research.",
   author: 'Chandler',
   parentEntity: 'An entity of Strandway Systems',
   locale: 'en',
@@ -23,26 +23,8 @@ export const SOCIAL = {
   facebook: 'https://facebook.com/cityboundnomad',
 } as const;
 
-/*
- * The Dispatch newsletter.
- *
- * Per docs/email-infrastructure.md in strandway-ventures, CityboundNomad's
- * newsletter platform is Beehiiv (never MailerLite or ConvertKit — those
- * belong to the travel-affiliate and Digital City brands respectively). The
- * publication/form IDs were still marked TBD in that doc, so `action` is empty
- * here.
- *
- * While `action` is empty every signup form falls back to a mailto: link, which
- * works on day one without pretending an endpoint exists. Paste the Beehiiv
- * form POST URL in below and the forms switch to real submissions with no other
- * change. Beehiiv's embedded form action looks like:
- *   https://embeds.beehiiv.com/<publication-uuid>
- */
-export const NEWSLETTER = {
-  action: '',
-  emailField: 'email',
-  fallbackMailto: 'hello@cityboundnomad.com',
-  cadence: 'Every Friday',
+export const CONTACT = {
+  email: 'hello@cityboundnomad.com',
 } as const;
 
 /*
@@ -58,10 +40,9 @@ export const ANALYTICS = {
 } as const;
 
 export const NAV = [
-  { label: 'Travel', href: '/travel' },
-  { label: 'Style', href: '/style' },
-  { label: 'The Journey', href: '/the-journey' },
-  { label: 'Dispatch', href: '/dispatch' },
+  { label: 'Places', href: '/places' },
+  { label: 'Things', href: '/things' },
+  { label: 'Notes', href: '/notes' },
   { label: 'About', href: '/about' },
 ] as const;
 
@@ -71,38 +52,34 @@ export const LEGAL_NAV = [
   { label: 'Affiliate Disclosure', href: '/affiliate-disclosure' },
 ] as const;
 
-export const PILLARS = [
+/*
+ * The four things the site is. Used on the homepage and in the footer.
+ * Deliberately plain: this is a catalogue of one person's experience, not a
+ * content brand with pillars.
+ */
+export const SECTIONS = [
   {
     num: '01',
-    label: 'Minimalist Solo Travel',
-    href: '/travel',
-    tagline: 'Real cities. Real costs. Honest reviews.',
+    label: 'Places',
+    href: '/places',
+    tagline: "Every city I've been to, and what I did there.",
     description:
-      'The documentary layer of the brand. City journals, stay logs, cost breakdowns, and the honest record of what it actually costs to travel this way. No sponsored destinations — only genuine experience.',
-    short:
-      'The documentary layer. City journals, stay logs, cost breakdowns. The honest record of what it actually costs to travel this way.',
-    monetization: 'Hostelworld · Booking.com · GetYourGuide · Airbnb',
+      'Cities, what they cost, where I slept, the cafés I kept going back to, and the tours that were worth the day. Grouped by the trip they belong to.',
   },
   {
     num: '02',
-    label: "Scandinavian Men's Style",
-    href: '/style',
-    tagline: 'Functionality-first dressing. One bag. No compromises.',
+    label: 'Things',
+    href: '/things',
+    tagline: 'What I own, what I use, what I travel with.',
     description:
-      'The aesthetic identity layer. Capsule wardrobes, one-bag packing, and the design philosophy behind dressing the same in Atlantic Canada as in Copenhagen. Honest product reviews — only what is actually worn.',
-    short:
-      'The aesthetic identity layer. Capsule wardrobes, one-bag packing, and the design philosophy behind dressing the same in Atlantic Canada as in Copenhagen.',
-    monetization: 'Clothing & gear affiliate links · Brand partnerships',
+      "The wardrobe that fits in one bag, the hair and skin routine, the gear. Nothing listed that isn't actually in use.",
   },
   {
     num: '03',
-    label: 'Lifestyle Freedom',
-    href: '/the-journey',
-    tagline: 'Building a life without a fixed address. The honest version.',
+    label: 'Notes',
+    href: '/notes',
+    tagline: 'Why I do it this way.',
     description:
-      'The connective tissue of the brand. It started with a one-month Airbnb in Tallinn in May 2022. Journey updates, systems essays, and the honest realities of building a life without a fixed address. This is where readers become subscribers.',
-    short:
-      'The connective tissue. Journey updates, systems essays, and the honest realities of building a location-independent life.',
-    monetization: 'Newsletter growth · Digital products · Future course pipeline',
+      'The origin story, the trip timeline, and the thinking behind travelling light and staying longer. Written when there is something to say, not on a schedule.',
   },
 ] as const;

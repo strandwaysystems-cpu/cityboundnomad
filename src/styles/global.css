@@ -33,7 +33,7 @@
   --c-line: oklch(0.87 0.008 80);
   --c-line-soft: oklch(0.9 0.005 80);
 
-  /* Dark sections (footer, quote bands, Dispatch header) */
+  /* Dark sections (footer, quote bands, dark page headers) */
   --c-dark: oklch(0.13 0.008 65);
   --c-dark-2: oklch(0.18 0.008 65);
   --c-dark-line: oklch(0.22 0.008 65);
@@ -932,7 +932,7 @@ ol {
   display: none;
 }
 
-/* ─── Rows (stay-log preview, dispatch issue list) ────────────────────────── */
+/* ─── Rows (compact link lists) ───────────────────────────────────────────── */
 
 .row-list {
   display: flex;
@@ -1143,116 +1143,127 @@ ol {
   flex-shrink: 0;
 }
 
-/* ─── Dispatch signup ─────────────────────────────────────────────────────── */
+/* ─── Photo grid (imported camera-roll shots on a city page) ──────────────── */
 
-.signup {
+.photo-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 1.5rem;
+}
+
+.photo-grid img {
+  width: 100%;
+  height: auto;
   background: var(--c-bg-alt);
-  border-top: 1px solid var(--c-line);
-  padding: 2rem;
 }
 
-.signup--dark {
-  background: var(--c-dark);
-  border-top: none;
-  color: var(--c-on-dark);
+.photo-grid figcaption {
+  margin-top: 0.5rem;
+  font-size: 0.75rem;
+  letter-spacing: 0.06em;
+  color: var(--c-ink-faint);
 }
 
-.signup__headline {
-  font-family: var(--font-display);
-  font-size: clamp(1.375rem, 2.5vw, 1.875rem);
-  font-weight: 400;
-  line-height: 1.15;
+/* Flag before a city name in a display heading */
+.city-flag {
+  font-size: 0.4em;
+  vertical-align: 0.35em;
+  margin-right: 0.5rem;
+}
+
+/* ─── Entry lists (cafés, tours, wardrobe, grooming) ──────────────────────── */
+
+.entry-group + .entry-group {
+  margin-top: 3rem;
+}
+
+.entry-group__title {
+  font-size: 1.25rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid var(--c-line);
   margin-bottom: 0.5rem;
 }
 
-.signup__sub {
-  font-size: 0.9375rem;
-  color: var(--c-ink-soft);
-  line-height: 1.65;
-  margin-bottom: 1.5rem;
-  max-width: 36rem;
-}
-
-.signup--dark .signup__sub {
-  color: var(--c-on-dark-soft);
-}
-
-.signup__note {
-  font-size: 0.75rem;
-  color: var(--c-ink-faint);
-  margin-top: 0.75rem;
-}
-
-.signup--dark .signup__note {
-  color: var(--c-on-dark-faint);
-}
-
-.subscribe-form {
+.entry-row {
   display: flex;
-  max-width: 28rem;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 2rem;
+  flex-wrap: wrap;
+  padding: 1.25rem 0;
+  border-bottom: 1px solid var(--c-line-soft);
 }
 
-.subscribe-form input[type='email'] {
-  flex: 1;
-  min-width: 0;
-  padding: 0.75rem 1rem;
-  font-size: 0.875rem;
-  background: var(--c-bg);
+.entry-row__main {
+  flex: 1 1 22rem;
+}
+
+.entry-row__name {
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  font-weight: 400;
   color: var(--c-ink);
-  border: 1px solid oklch(0.82 0.008 80);
-  border-right: none;
-  border-radius: 0;
-  outline-offset: -2px;
+  margin-bottom: 0.2rem;
 }
 
-.signup--dark .subscribe-form input[type='email'] {
-  background: var(--c-dark-2);
-  color: var(--c-on-dark);
-  border-color: oklch(0.28 0.008 65);
-}
-
-.subscribe-form button {
-  flex-shrink: 0;
-  padding: 0.75rem 1.25rem;
-  background: var(--c-accent);
-  color: var(--c-bg);
-  border: 1px solid var(--c-accent);
-  display: inline-flex;
-  align-items: center;
-  transition: background 200ms ease;
-}
-
-.subscribe-form button:hover {
-  background: var(--c-accent-dark);
-}
-
-/* Hero variant — sits on the photo, so it inverts */
-.hero-signup {
-  max-width: 420px;
-}
-
-.hero-signup__label {
+/* The city sits inline with the name, set back so the name still leads */
+.entry-row__city {
+  font-family: var(--font-body);
   font-size: 0.6875rem;
   font-weight: 500;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: oklch(0.72 0.006 80);
+  color: var(--c-accent);
+  margin-left: 0.75rem;
+  vertical-align: middle;
+}
+
+.entry-row__note {
+  font-size: 0.9375rem;
+  line-height: 1.65;
+  color: var(--c-ink-soft);
+  margin-top: 0.5rem;
+  max-width: 44rem;
+}
+
+.entry-row__aside {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  flex-shrink: 0;
+}
+
+.entry-row__since {
+  font-size: 0.75rem;
+  letter-spacing: 0.06em;
+  color: var(--c-ink-faint);
+}
+
+/* ─── Collection cards (the Things and Places hubs) ───────────────────────── */
+
+.collection {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding: 2.5rem 2rem 3.5rem;
+  text-decoration: none;
+  color: inherit;
+}
+
+.collection__count {
+  font-family: var(--font-display);
+  font-size: 3rem;
+  font-weight: 300;
+  color: oklch(0.9 0.005 80);
+  line-height: 1;
+  margin-bottom: 0.75rem;
+  user-select: none;
+}
+
+.collection h2,
+.collection h3 {
+  font-size: 1.75rem;
   margin-bottom: 0.625rem;
-}
-
-.hero-signup .subscribe-form input[type='email'] {
-  background: oklch(0.978 0.006 80 / 0.12);
-  color: oklch(0.97 0.004 80);
-  border-color: oklch(0.978 0.006 80 / 0.35);
-  padding: 0.7rem 1rem;
-}
-
-.hero-signup .subscribe-form input[type='email']::placeholder {
-  color: oklch(0.82 0.006 80 / 0.75);
-}
-
-.hero-signup .subscribe-form button {
-  padding: 0.7rem 1.1rem;
 }
 
 /* ─── Stat strip ──────────────────────────────────────────────────────────── */

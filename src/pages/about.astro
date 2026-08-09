@@ -1,7 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import DispatchSignup from '../components/DispatchSignup.astro';
-import { SITE, PILLARS } from '../data/site';
+import Icon from '../components/Icon.astro';
+import { SITE, SECTIONS, CONTACT } from '../data/site';
 import { IMAGES } from '../data/images';
 import { CITIES, COUNTRY_COUNT } from '../data/cities';
 ---
@@ -39,9 +39,9 @@ import { CITIES, COUNTRY_COUNT } from '../data/cities';
               I walked everywhere. I found the medieval old town, which is one of the best-preserved
               in Europe and somehow still feels lived-in. I took day trips to Tartu and Pärnu. I took
               the ferry to Helsinki and stood in the city feeling, for the first time, exactly what
-              I was chasing with the style side of this project. I went out, met strangers, ended up
-              at an apartment party at 7am, and walked home at 8am as the city was waking up. I met
-              people everywhere I went.
+              I was chasing with the way I dress. I went out, met strangers, ended up at an
+              apartment party at 7am, and walked home at 8am as the city was waking up. I met people
+              everywhere I went.
             </p>
             <p class="body-lg">
               That trip gave me something I hadn't fully had before: confidence. The knowledge that
@@ -52,9 +52,7 @@ import { CITIES, COUNTRY_COUNT } from '../data/cities';
             <p class="body-lg">
               What followed was Iceland in September 2022, a four-month run across twenty-one cities
               in 2023, Iberia in 2024, and a return to Scandinavia in 2025 — {CITIES.length} cities
-              across {COUNTRY_COUNT} countries so far. CityboundNomad is the honest documentation of
-              all of it. The cities, the style, the freedom — they were always connected. Tallinn
-              just made it clear.
+              across {COUNTRY_COUNT} countries so far.
             </p>
           </div>
         </div>
@@ -81,27 +79,32 @@ import { CITIES, COUNTRY_COUNT } from '../data/cities';
 
   <hr class="rule" />
 
-  <!-- ─── The framework ────────────────────────────────────────────────── -->
+  <!-- ─── What the site is ─────────────────────────────────────────────── -->
   <section class="section">
     <div class="container">
-      <p class="eyebrow mb-1">The Framework</p>
-      <h2 class="display-lg mb-2" style="max-width:500px">Why three pillars?</h2>
+      <p class="eyebrow mb-1">What this site is</p>
+      <h2 class="display-lg mb-2" style="max-width:600px">
+        A catalogue, not a travel blog.
+      </h2>
       <p class="body-lg measure-wide mb-4">
-        Most travel blogs are just travel blogs. Most style blogs are just style blogs.
-        CityboundNomad is built on the observation that these things are connected — that the way
-        you travel informs how you dress, and the way you dress reflects how you think about
-        possessions and permanence.
+        This isn't a guide and it isn't researched. It's a record of what I've actually done and
+        what I actually use — the cities I've walked, the cafés I kept going back to, the tours that
+        were worth the day, and everything that fits in the bag. If I haven't been there or don't
+        own it, it isn't here.
       </p>
 
       <div class="cell-grid cell-grid--tight">
         {
-          PILLARS.map((pillar) => (
-            <a class="pillar-card card-hover" href={pillar.href}>
+          SECTIONS.map((section) => (
+            <a class="pillar-card card-hover" href={section.href}>
               <p class="pillar-card__num" style="font-size:3rem">
-                {pillar.num}
+                {section.num}
               </p>
-              <p class="pillar-label mb-1">{pillar.label}</p>
-              <p class="body-sm">{pillar.short}</p>
+              <p class="pillar-label mb-1">{section.label}</p>
+              <p class="body-sm">{section.description}</p>
+              <span class="card-arrow">
+                <Icon name="arrow-right" size={16} />
+              </span>
             </a>
           ))
         }
@@ -119,39 +122,27 @@ import { CITIES, COUNTRY_COUNT } from '../data/cities';
         <h2 class="display-lg mb-2">How this works</h2>
         <div class="stack">
           <p class="body-lg">
-            CityboundNomad is built to earn through affiliate links (accommodation, tours, and
-            clothing or gear brands), occasional brand partnerships, and eventually digital
-            products. Every affiliate link is disclosed and marked. Nothing gets linked that I
-            haven't actually used — see the <a href="/affiliate-disclosure" style="color:var(--c-accent)">affiliate disclosure</a>.
+            Some links on this site earn a commission — tour bookings, accommodation, and the
+            occasional piece of gear. They're marked wherever they appear, they never change the
+            price you pay, and they have no say in what gets listed. Nothing is on here that I
+            haven't stayed in, gone on, or worn. See the <a href="/affiliate-disclosure" style="color:var(--c-accent)">affiliate disclosure</a>.
           </p>
           <p class="body-lg">
-            The rule for partnerships is simple: nothing that requires me to say something I don't
-            believe. The Dispatch does not carry sponsored messages. That's not a policy imposed on
-            me — it's a preference, and it's the reason the newsletter is worth subscribing to.
+            Sections of this site are deliberately empty. Where there is no café, no tour, or no
+            product listed, it's because I haven't written it down yet — not because there's nothing
+            to fill the space with. Filling it with something approximate would defeat the point of
+            the whole thing.
           </p>
           <p class="body-lg">
-            Sections of this site are deliberately empty. Where there is no stay review, no gear
-            review, or no essay, it's because the writing hasn't been done yet — not because there's
-            nothing to fill the space with. Filling it with something approximate would defeat the
-            point of the whole project.
-          </p>
-          <p class="body-lg">
-            CityboundNomad is an entity of Strandway Systems, based in Nova Scotia, Canada.
+            CityboundNomad is an entity of Strandway Systems, based in Nova Scotia, Canada. If you
+            want to get in touch, it's <a href={`mailto:${CONTACT.email}`} style="color:var(--c-accent)">{CONTACT.email}</a>.
           </p>
         </div>
 
         <p class="callout mt-3">
-          “Fewer readers who trust me beats more readers who don't.”
+          “If I haven't been there or don't own it, it isn't on the list.”
         </p>
       </div>
     </div>
   </section>
-
-  <div class="container" style="padding-bottom:5rem">
-    <DispatchSignup
-      headline="Follow the journey"
-      subtext="The Dispatch is the best way to follow along. One email per week, every Friday."
-      source="about"
-    />
-  </div>
 </BaseLayout>

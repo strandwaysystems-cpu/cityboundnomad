@@ -1,7 +1,15 @@
 ---
-import { SITE, SOCIAL, NAV, LEGAL_NAV } from '../data/site';
+import { SITE, SOCIAL, NAV, LEGAL_NAV, CONTACT } from '../data/site';
 
 const year = new Date().getFullYear();
+
+const LISTS = [
+  { label: 'Cafés & bars', href: '/cafes' },
+  { label: 'Tours', href: '/tours' },
+  { label: 'Stays', href: '/stays' },
+  { label: 'Wardrobe', href: '/wardrobe' },
+  { label: 'Hair & skin', href: '/grooming' },
+];
 ---
 
 <footer class="site-footer">
@@ -10,14 +18,14 @@ const year = new Date().getFullYear();
       <div>
         <h2>{SITE.name}</h2>
         <p class="body-sm" style="color: oklch(0.6 0.008 65); line-height: 1.7;">
-          A minimalist travel journal by {SITE.author}. Cities, style, and freedom — from Atlantic
-          Canada to Europe's cobblestone streets.
+          A personal catalogue by {SITE.author}. The places I've been and the things I use — from
+          Atlantic Canada to Europe's cobblestone streets.
         </p>
         <p class="footer-note">{SITE.parentEntity}</p>
       </div>
 
       <div>
-        <span class="eyebrow">Navigate</span>
+        <span class="eyebrow">Sections</span>
         <ul class="footer-links">
           {
             NAV.map((link) => (
@@ -32,11 +40,22 @@ const year = new Date().getFullYear();
       </div>
 
       <div>
-        <span class="eyebrow">Connect</span>
-        <p style="font-size: 0.875rem; color: oklch(0.6 0.008 65); line-height: 1.7; margin-bottom: 1.25rem;">
-          Follow the journey or join the Dispatch for weekly notes on cities, stays, and the
-          minimalist travel life.
-        </p>
+        <span class="eyebrow">The lists</span>
+        <ul class="footer-links">
+          {
+            LISTS.map((link) => (
+              <li>
+                <a href={link.href} class="footer-link">
+                  {link.label}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+
+      <div>
+        <span class="eyebrow">Elsewhere</span>
         <ul class="footer-links">
           <li>
             <a
@@ -51,7 +70,7 @@ const year = new Date().getFullYear();
               >TikTok</a
             >
           </li>
-          <li><a href="/dispatch" class="footer-link">Subscribe to the Dispatch</a></li>
+          <li><a href={`mailto:${CONTACT.email}`} class="footer-link">Email</a></li>
         </ul>
       </div>
     </div>

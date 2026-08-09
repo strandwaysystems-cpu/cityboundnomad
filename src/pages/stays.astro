@@ -1,0 +1,45 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import StayLog from '../components/StayLog.astro';
+import EmptyState from '../components/EmptyState.astro';
+import { SITE } from '../data/site';
+import { STAYS } from '../data/stays';
+import { published } from '../data/flags';
+
+const stays = published(STAYS);
+---
+
+<BaseLayout
+  title={`Stays — Where I Actually Slept | ${SITE.name}`}
+  description="Hostels, apartments and hotels I actually slept in, with what they cost, what was good and what wasn't."
+>
+  <div class="page-head">
+    <div class="container">
+      <p class="pillar-label mb-1">Places</p>
+      <h1 class="display-xl mb-2">Stays</h1>
+      <p class="body-lg measure-wide">
+        Every review here comes from a night actually spent in the place, at the price I paid, with
+        the things that went wrong included.
+      </p>
+    </div>
+  </div>
+
+  <section class="section">
+    <div class="container">
+      {
+        stays.length > 0 ? (
+          <div class="cell-grid cell-grid--stack">
+            {stays.map((stay) => (
+              <StayLog stay={stay} />
+            ))}
+          </div>
+        ) : (
+          <EmptyState
+            title="Being rewritten"
+            body="The reviews that didn't come from a real stay have been pulled. New ones go up as the notes get written."
+          />
+        )
+      }
+    </div>
+  </section>
+</BaseLayout>

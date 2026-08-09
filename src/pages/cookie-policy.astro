@@ -1,6 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import { SITE, NEWSLETTER } from '../data/site';
+import { SITE, CONTACT } from '../data/site';
 ---
 
 <BaseLayout
@@ -32,9 +32,9 @@ import { SITE, NEWSLETTER } from '../data/site';
           Google Signals is disabled, so no cross-device advertising profile is built.
         </li>
         <li>
-          <strong>Affiliate & newsletter</strong> — off by default. When enabled, affiliate
-          attribution and the newsletter signup embed may set cookies. Affiliate cookies are set by
-          the partner, not by this site, and only after you click through to them.
+          <strong>Affiliate</strong> — off by default. When enabled, affiliate attribution may set
+          cookies. These are set by the partner, not by this site, and only after you click through
+          to them.
         </li>
       </ul>
 
@@ -46,7 +46,7 @@ import { SITE, NEWSLETTER } from '../data/site';
 
       <h2>Questions</h2>
       <p>
-        Email <a href={`mailto:${NEWSLETTER.fallbackMailto}`}>{NEWSLETTER.fallbackMailto}</a>.
+        Email <a href={`mailto:${CONTACT.email}`}>{CONTACT.email}</a>.
       </p>
     </div>
   </section>

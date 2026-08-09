@@ -1,0 +1,55 @@
+---
+import type { Entry } from '../data/lists';
+import { groupByCategory } from '../data/lists';
+import Icon from './Icon.astro';
+
+/*
+ * Renders any list of entries — cafés, tours, wardrobe, grooming — grouped by
+ * category. One component for every collection on the site, so a new list is a
+ * data file and a page, nothing more.
+ */
+interface Props {
+  entries: Entry[];
+  order?: string[];
+  /** Show the city on each row. Off on per-city pages, where it's redundant. */
+  showCity?: boolean;
+}
+
+const { entries, order, showCity = true } = Astro.props;
+const groups = groupByCategory(entries, order);
+---
+
+{
+  groups.map((group) => (
+    <section class="entry-group">
+      <h3 class="entry-group__title">{group.category}</h3>
+      <ul>
+        {group.entries.map((entry) => (
+          <li class="entry-row">
+            <div class="entry-row__main">
+              <p class="entry-row__name">
+                {entry.name}
+                {showCity && entry.city && <span class="entry-row__city">{entry.city}</span>}
+              </p>
+              {entry.detail && <p class="body-sm">{entry.detail}</p>}
+              <p class="entry-row__note">{entry.note}</p>
+            </div>
+            <div class="entry-row__aside">
+              {entry.since && <span class="entry-row__since">{entry.since}</span>}
+              {entry.url && (
+                <a
+                  class="link-cta"
+                  href={entry.url}
+                  target="_blank"
+                  rel={entry.affiliate ? 'noopener sponsored' : 'noopener noreferrer'}
+                >
+                  {entry.affiliate ? 'Book' : 'Visit'} <Icon name="external-link" size={11} />
+                </a>
+              )}
+            </div>
+          </li>
+        ))}
+      </ul>
+    </section>
+  ))
+}

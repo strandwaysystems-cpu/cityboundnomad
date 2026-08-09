@@ -425,6 +425,19 @@ export const CITIES: City[] = [
   },
 ];
 
+/**
+ * URL slug for a city page. Strips the diacritics that Pärnu, Luleå and
+ * Jönköping carry, so /places/parnu rather than a percent-encoded mess.
+ */
+export function citySlug(name: string): string {
+  return name
+    .normalize('NFD')
+    .replace(/[̀-ͯ]/g, '')
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-|-$/g, '');
+}
+
 /** Cities shown on the homepage teaser — the ones with real photography. */
 export const FEATURED_CITY_NAMES = ['Reykjavik', 'Tallinn', 'Stockholm', 'Pärnu'] as const;
 

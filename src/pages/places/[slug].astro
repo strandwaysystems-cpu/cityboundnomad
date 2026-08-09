@@ -1,0 +1,202 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import EntryList from '../../components/EntryList.astro';
+import StayLog from '../../components/StayLog.astro';
+import Icon from '../../components/Icon.astro';
+import { SITE } from '../../data/site';
+import { CITIES, TRIPS, citySlug, type City } from '../../data/cities';
+import { CAFES } from '../../data/cafes';
+import { TOURS } from '../../data/tours';
+import { STAYS } from '../../data/stays';
+import { byCity } from '../../data/lists';
+import { photosFor } from '../../data/photos';
+import { published } from '../../data/flags';
+
+/*
+ * A city's own page: the description, then everything on the site that happened
+ * there — where I slept, the cafés, the tours. This is the payoff for tagging
+ * every list entry with a `city`: the same data reads two ways, by category on
+ * the list pages and by place here.
+ */
+export function getStaticPaths() {
+  return CITIES.map((city) => ({ params: { slug: citySlug(city.name) }, props: { city } }));
+}
+
+interface Props {
+  city: City;
+}
+
+const { city } = Astro.props;
+
+const cafes = byCity(published(CAFES), city.name);
+const tours = byCity(published(TOURS), city.name);
+const stays = published(STAYS).filter((s) => s.city === city.name);
+
+const trip = TRIPS.find((t) => t.id === city.trip)!;
+const returns = (city.returnedOn ?? []).map((id) => TRIPS.find((t) => t.id === id)!).filter(Boolean);
+
+const cost =
+  city.costPerDayMin && city.costPerDayMax
+    ? `€${city.costPerDayMin}–€${city.costPerDayMax}`
+    : null;
+
+/* Photos imported from the camera roll, matched to this city by their GPS. */
+const photos = photosFor(city.name);
+
+const hasAnything = cafes.length + tours.length + stays.length + photos.length > 0;
+
+const jsonLd = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'City',
+    name: city.name,
+    description: city.description,
+    address: { '@type': 'PostalAddress', addressCountry: city.country },
+    url: `${SITE.url}/places/${citySlug(city.name)}`,
+  },
+];
+---
+
+<BaseLayout
+  title={`${city.name}, ${city.country} | ${SITE.name}`}
+  description={city.description.slice(0, 300)}
+  jsonLd={jsonLd}
+>
+  <div class="page-head">
+    <div class="container">
+      <p class="pillar-label mb-1">
+        {trip.period} — {trip.label}
+      </p>
+      <h1 class="display-xl mb-2">
+        {/* Emoji ignore font-size inheritance badly at display sizes — a flag
+            set at 5.5rem dwarfs the city name, so it is scaled down and
+            optically aligned rather than sitting on the cap height. */}
+        <span aria-hidden="true" class="city-flag">{city.flag}</span>{city.name}
+      </h1>
+      <p class="body-lg measure-wide">{city.description}</p>
+
+      <dl class="stats mt-3">
+        <div>
+          <dd class="stat__value">{city.country}</dd>
+          <dt class="stat__label">Country</dt>
+        </div>
+        {
+          cost && (
+            <div>
+              <dd class="stat__value">{cost}</dd>
+              <dt class="stat__label">Per day</dt>
+            </div>
+          )
+        }
+        <div>
+          <dd class="stat__value">{trip.period}</dd>
+          <dt class="stat__label">First visited</dt>
+        </div>
+        {
+          returns.length > 0 && (
+            <div>
+              <dd class="stat__value">{returns.map((r) => r.period).join(', ')}</dd>
+              <dt class="stat__label">Returned</dt>
+            </div>
+          )
+        }
+      </dl>
+
+      <ul class="tag-row mt-3">
+        {city.tags.map((tag) => <li class="tag">{tag}</li>)}
+      </ul>
+    </div>
+  </div>
+
+  {
+    city.image && (
+      <div class="container" style="padding-top:3rem">
+        <img
+          src={city.image}
+          alt={`${city.name}, ${city.country}`}
+          style="width:100%; max-height:520px; object-fit:cover"
+          loading="lazy"
+          decoding="async"
+        />
+      </div>
+    )
+  }
+
+  {
+    photos.length > 0 && (
+      <section class="section">
+        <div class="container">
+          <p class="eyebrow mb-2">From the camera roll</p>
+          <div class="photo-grid">
+            {photos.map((photo) => (
+              <figure>
+                <img
+                  src={photo.src}
+                  alt={photo.alt}
+                  width={photo.width}
+                  height={photo.height}
+                  loading="lazy"
+                  decoding="async"
+                />
+                {photo.taken && <figcaption class="body-sm">{photo.taken}</figcaption>}
+              </figure>
+            ))}
+          </div>
+        </div>
+      </section>
+    )
+  }
+
+  <section class="section">
+    <div class="container">
+      {
+        stays.length > 0 && (
+          <div class="mb-4">
+            <p class="eyebrow mb-2">Where I stayed</p>
+            <div class="cell-grid cell-grid--stack">
+              {stays.map((stay) => (
+                <StayLog stay={stay} />
+              ))}
+            </div>
+          </div>
+        )
+      }
+
+      {
+        cafes.length > 0 && (
+          <div class="mb-4">
+            <p class="eyebrow mb-2">Cafés & bars</p>
+            <EntryList entries={cafes} showCity={false} />
+          </div>
+        )
+      }
+
+      {
+        tours.length > 0 && (
+          <div class="mb-4">
+            <p class="eyebrow mb-2">Tours</p>
+            <EntryList entries={tours} showCity={false} />
+          </div>
+        )
+      }
+
+      {
+        !hasAnything && (
+          <div style="padding:3rem 2rem; border:1px solid var(--c-line); background:var(--c-bg)">
+            <p class="display-md mb-1">Nothing written up yet</p>
+            <p class="body-lg measure-wide">
+              I've been here, but the cafés, stays and tours from this trip aren't written down
+              yet. They go up as I get to them — the camera roll is doing a lot of the remembering.
+            </p>
+          </div>
+        )
+      }
+
+      <p class="mt-4">
+        <a class="link-cta" href="/places">
+          <Icon name="arrow-right" size={12} /> All places
+        </a>
+      </p>
+    </div>
+  </section>
+</BaseLayout>

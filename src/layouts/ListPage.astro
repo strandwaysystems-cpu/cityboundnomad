@@ -1,0 +1,62 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import EntryList from '../components/EntryList.astro';
+import EmptyState from '../components/EmptyState.astro';
+import { SITE } from '../data/site';
+import type { Entry, ListMeta } from '../data/lists';
+import { published } from '../data/flags';
+
+/*
+ * Every collection page — cafés, tours, wardrobe, grooming — is this layout
+ * with a different data file. Adding a list is a data file plus a four-line
+ * page, which is what keeps the site cheap to extend.
+ */
+interface Props {
+  meta: ListMeta;
+  entries: Entry[];
+  eyebrow?: string;
+  showCity?: boolean;
+}
+
+const { meta, entries, eyebrow = 'The list', showCity = true } = Astro.props;
+const visible = published(entries);
+const hasAffiliate = visible.some((e) => e.affiliate);
+---
+
+<BaseLayout title={`${meta.title} | ${SITE.name}`} description={meta.intro}>
+  <div class="page-head">
+    <div class="container">
+      <p class="pillar-label mb-1">{eyebrow}</p>
+      <h1 class="display-xl mb-2">{meta.title}</h1>
+      <p class="body-lg measure-wide">{meta.intro}</p>
+    </div>
+  </div>
+
+  <section class="section">
+    <div class="container">
+      <slot name="before" />
+
+      {
+        visible.length > 0 ? (
+          <>
+            <EntryList entries={visible} order={meta.order} showCity={showCity} />
+            {hasAffiliate && (
+              <p class="body-sm mt-3">
+                Links marked “Book” earn a commission at no extra cost to you, and never decide
+                what goes on this page — see the{' '}
+                <a href="/affiliate-disclosure" style="color:var(--c-accent)">
+                  affiliate disclosure
+                </a>
+                .
+              </p>
+            )}
+          </>
+        ) : (
+          <EmptyState title="Nothing here yet" body={meta.empty} />
+        )
+      }
+
+      <slot name="after" />
+    </div>
+  </section>
+</BaseLayout>
