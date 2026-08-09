@@ -1,0 +1,109 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import CityCard from '../components/CityCard.astro';
+import Icon from '../components/Icon.astro';
+import { SITE } from '../data/site';
+import { citiesByTrip, CITIES, COUNTRY_COUNT, citySlug } from '../data/cities';
+import { CAFES, CAFES_META } from '../data/cafes';
+import { TOURS, TOURS_META } from '../data/tours';
+import { STAYS } from '../data/stays';
+import { published } from '../data/flags';
+
+const cafes = published(CAFES);
+const tours = published(TOURS);
+const stays = published(STAYS);
+
+const SUBLISTS = [
+  { meta: CAFES_META, count: cafes.length, href: '/cafes' },
+  { meta: TOURS_META, count: tours.length, href: '/tours' },
+  {
+    meta: {
+      title: 'Stays',
+      intro: 'Hostels, apartments and hotels I actually slept in, with what they cost.',
+      empty: 'Being rewritten — every review here has to come from a night actually spent there.',
+    },
+    count: stays.length,
+    href: '/stays',
+  },
+];
+
+const jsonLd = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'ItemList',
+    name: 'Cities documented by CityboundNomad',
+    numberOfItems: CITIES.length,
+    itemListElement: CITIES.map((city, i) => ({
+      '@type': 'ListItem',
+      position: i + 1,
+      url: `${SITE.url}/places/${citySlug(city.name)}`,
+      item: {
+        '@type': 'City',
+        name: city.name,
+        address: { '@type': 'PostalAddress', addressCountry: city.country },
+      },
+    })),
+  },
+];
+---
+
+<BaseLayout
+  title={`Places — ${CITIES.length} Cities, First Hand | ${SITE.name}`}
+  description={`Every city I've been to — ${CITIES.length} of them across ${COUNTRY_COUNT} countries — what they cost, where I slept, and what was worth the time.`}
+  jsonLd={jsonLd}
+>
+  <div class="page-head">
+    <div class="container">
+      <p class="pillar-label mb-1">01 — Places</p>
+      <h1 class="display-xl mb-2">Places I've been.</h1>
+      <p class="body-lg measure-wide">
+        {CITIES.length} cities across {COUNTRY_COUNT} countries, grouped by the trip they belong to.
+        Each one has its own page with what it cost, where I stayed, and what was worth doing.
+      </p>
+    </div>
+  </div>
+
+  <!-- ─── The sub-lists ────────────────────────────────────────────────── -->
+  <section class="section">
+    <div class="container">
+      <div class="cell-grid cell-grid--3">
+        {
+          SUBLISTS.map(({ meta, count, href }) => (
+            <a class="collection card-hover" href={href}>
+              <p class="collection__count">{count > 0 ? String(count).padStart(2, '0') : '—'}</p>
+              <h2>{meta.title}</h2>
+              <p class="body-sm">{count > 0 ? meta.intro : meta.empty}</p>
+              <span class="card-arrow">
+                <Icon name="arrow-right" size={16} />
+              </span>
+            </a>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <hr class="rule" />
+
+  <!-- ─── Cities by trip ───────────────────────────────────────────────── -->
+  <section class="section">
+    <div class="container">
+      {
+        citiesByTrip.map(({ trip, cities }, i) => (
+          <div style={i > 0 ? 'margin-top:4.5rem' : ''}>
+            <div class="mb-3">
+              <p class="pillar-label mb-1">{trip.period}</p>
+              <h2 class="display-md mb-1">{trip.label}</h2>
+              <p class="body-lg measure-wide">{trip.blurb}</p>
+            </div>
+            <div class="cell-grid cell-grid--wide">
+              {cities.map((city) => (
+                <CityCard city={city} href={`/places/${citySlug(city.name)}`} />
+              ))}
+            </div>
+          </div>
+        ))
+      }
+    </div>
+  </section>
+</BaseLayout>

@@ -1,21 +1,27 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import DispatchSignup from '../components/DispatchSignup.astro';
 import Icon from '../components/Icon.astro';
-import { SITE, PILLARS, NEWSLETTER } from '../data/site';
+import { SITE, SECTIONS } from '../data/site';
 import { IMAGES } from '../data/images';
-import { featuredCities, CITIES, COUNTRY_COUNT } from '../data/cities';
+import { featuredCities, CITIES, COUNTRY_COUNT, citySlug } from '../data/cities';
+import { CAFES } from '../data/cafes';
+import { TOURS } from '../data/tours';
 import { STAYS } from '../data/stays';
-import { ISSUES } from '../data/dispatch';
+import { WARDROBE } from '../data/wardrobe';
+import { GROOMING } from '../data/grooming';
 import { published } from '../data/flags';
 
-const PILLAR_ICONS = ['map-pin', 'shirt', 'compass'] as const;
+const SECTION_ICONS = ['map-pin', 'shirt', 'compass'] as const;
 
-const stays = published(STAYS).slice(0, 3);
-const issues = published(ISSUES).slice(0, 3);
-
-const hasEndpoint = NEWSLETTER.action.length > 0;
-const mailto = `mailto:${NEWSLETTER.fallbackMailto}?subject=${encodeURIComponent('Subscribe to the Dispatch')}`;
+/* The homepage counts are computed, never written down — so a page that says
+   "28 cities" can't drift out of sync with the data behind it. */
+const COUNTS = [
+  { value: CITIES.length, label: 'Cities' },
+  { value: COUNTRY_COUNT, label: 'Countries' },
+  { value: published(STAYS).length, label: 'Stays' },
+  { value: published(CAFES).length + published(TOURS).length, label: 'Cafés & tours' },
+  { value: published(WARDROBE).length + published(GROOMING).length, label: 'Things I use' },
+];
 ---
 
 <BaseLayout title={SITE.title} description={SITE.description}>
@@ -26,70 +32,43 @@ const mailto = `mailto:${NEWSLETTER.fallbackMailto}?subject=${encodeURIComponent
 
     <div class="container hero__body">
       <p class="eyebrow hero__eyebrow">{SITE.tagline}</p>
-      <h1 class="display-xl">Cities, style,<br /><em>and freedom.</em></h1>
+      <h1 class="display-xl">This is the stuff,<br /><em>and these are the places.</em></h1>
       <p class="hero__lede">
-        Three pillars. One integrated identity. Minimalist solo travel, Scandinavian men's style,
-        and the honest philosophy of building a life without a fixed address.
+        A running catalogue of somewhere I've actually been and something I've actually used.
+        No research, no round-ups, nothing recommended second-hand.
       </p>
-
-      <div class="hero-signup">
-        <p class="hero-signup__label">The Dispatch — Weekly notes from the road</p>
-        {
-          hasEndpoint ? (
-            <form class="subscribe-form" action={NEWSLETTER.action} method="post" target="_blank">
-              <label class="visually-hidden" for="hero-email">
-                Your email address
-              </label>
-              <input
-                type="email"
-                id="hero-email"
-                name={NEWSLETTER.emailField}
-                placeholder="Your email address"
-                autocomplete="email"
-                required
-              />
-              <input type="hidden" name="source" value="hero" />
-              <button type="submit">
-                <span class="visually-hidden">Subscribe</span>
-                <Icon name="arrow-right" size={15} />
-              </button>
-            </form>
-          ) : (
-            <a class="btn-primary" href={mailto}>
-              Subscribe by email
-              <Icon name="arrow-right" size={15} />
-            </a>
-          )
-        }
-      </div>
+      <a class="btn-primary" href="/places">
+        Start with the places
+        <Icon name="arrow-right" size={15} />
+      </a>
     </div>
   </section>
 
-  <!-- ─── Three pillars ────────────────────────────────────────────────── -->
+  <!-- ─── What's here ──────────────────────────────────────────────────── -->
   <section class="section--lead">
     <div class="container">
       <div class="fade-in">
-        <p class="eyebrow mb-1">The Framework</p>
-        <h2 class="display-lg mb-1">Three pillars.<br /><em>One integrated identity.</em></h2>
+        <p class="eyebrow mb-1">What this is</p>
+        <h2 class="display-lg mb-1">Everything here,<br /><em>I did or I own.</em></h2>
         <p class="body-lg measure mb-4">
-          The way you travel informs how you dress. The way you dress reflects how you think about
-          possessions and permanence. The way you think about possessions and permanence defines why
-          you travel the way you do.
+          That's the whole rule. If a café is on this site I sat in it, if a tour is listed I went
+          on it, and if something is in the wardrobe it's in my bag right now. It fills up slowly
+          and some of it is still empty — which is the honest state for something I haven't written
+          down yet.
         </p>
       </div>
 
       <div class="cell-grid cell-grid--3">
         {
-          PILLARS.map((pillar, i) => (
-            <a class="pillar-card card-hover" href={pillar.href}>
-              <p class="pillar-card__num">{pillar.num}</p>
+          SECTIONS.map((section, i) => (
+            <a class="pillar-card card-hover" href={section.href}>
+              <p class="pillar-card__num">{section.num}</p>
               <div class="pillar-card__head">
-                <Icon name={PILLAR_ICONS[i]} size={14} color="var(--c-accent)" />
-                <span class="pillar-label">{pillar.label}</span>
+                <Icon name={SECTION_ICONS[i]} size={14} color="var(--c-accent)" />
+                <span class="pillar-label">{section.label}</span>
               </div>
-              <p class="serif-lead mb-1">{pillar.tagline}</p>
-              <p class="body-sm mb-2">{pillar.description}</p>
-              <p class="pillar-card__monetization">{pillar.monetization}</p>
+              <p class="serif-lead mb-1">{section.tagline}</p>
+              <p class="body-sm mb-2">{section.description}</p>
               <span class="card-arrow">
                 <Icon name="arrow-right" size={16} />
               </span>
@@ -102,25 +81,42 @@ const mailto = `mailto:${NEWSLETTER.fallbackMailto}?subject=${encodeURIComponent
 
   <hr class="rule" />
 
-  <!-- ─── Pillar 01 — Travel ───────────────────────────────────────────── -->
+  <!-- ─── Counts ───────────────────────────────────────────────────────── -->
+  <section class="section">
+    <div class="container">
+      <dl class="stats">
+        {
+          COUNTS.map((c) => (
+            <div>
+              <dd class="stat__value">{c.value}</dd>
+              <dt class="stat__label">{c.label}</dt>
+            </div>
+          ))
+        }
+      </dl>
+    </div>
+  </section>
+
+  <hr class="rule" />
+
+  <!-- ─── Places ───────────────────────────────────────────────────────── -->
   <section class="section">
     <div class="container">
       <div class="fade-in" style="display:grid; gap:3rem">
         <div>
-          <p class="pillar-label mb-1">01 — Minimalist Solo Travel</p>
+          <p class="pillar-label mb-1">01 — Places</p>
           <h2 class="display-lg mb-1">From Reykjavik<br /><em>to Chania.</em></h2>
           <p class="body-lg measure mb-3">
-            City journals, stay logs, and cost breakdowns — the honest record of {CITIES.length}
-            European cities across {COUNTRY_COUNT} countries, the places I slept, and what it
-            actually costs to travel this way.
+            {CITIES.length} cities across {COUNTRY_COUNT} countries, grouped by the trip they belong
+            to. Each has its own page — what it cost, where I slept, what was worth the day.
           </p>
-          <a class="btn-ghost" href="/travel">View all travel</a>
+          <a class="btn-ghost" href="/places">All places</a>
         </div>
 
         <div class="cell-grid cell-grid--cards">
           {
             featuredCities.map((city) => (
-              <a class="tile card-hover" href="/travel">
+              <a class="tile card-hover" href={`/places/${citySlug(city.name)}`}>
                 {city.image && (
                   <div class="zoom-frame">
                     <img
@@ -141,65 +137,41 @@ const mailto = `mailto:${NEWSLETTER.fallbackMailto}?subject=${encodeURIComponent
             ))
           }
         </div>
-
-        {
-          stays.length > 0 && (
-            <div>
-              <p class="eyebrow mb-2">Stay logs</p>
-              <div class="row-list">
-                {stays.map((stay) => (
-                  <a class="row" href="/travel#stays">
-                    <span>
-                      <span class="row__name">{stay.name}</span>
-                      <span class="body-sm">
-                        {stay.city} · {stay.stayType} · {stay.pricePerNight}
-                      </span>
-                    </span>
-                    <span style="display:flex; align-items:center; gap:0.75rem">
-                      <span class="row__score">{stay.rating.toFixed(1)}</span>
-                      <Icon name="arrow-right" size={14} color="var(--c-ink-faint)" />
-                    </span>
-                  </a>
-                ))}
-              </div>
-            </div>
-          )
-        }
       </div>
     </div>
   </section>
 
   <hr class="rule" />
 
-  <!-- ─── Pillars 02 + 03 ──────────────────────────────────────────────── -->
+  <!-- ─── Things ───────────────────────────────────────────────────────── -->
   <section class="section">
     <div class="container">
       <div class="cell-grid cell-grid--wide fade-in">
-        <a class="feature-card card-hover" href="/style">
+        <a class="feature-card card-hover" href="/things">
           <div class="zoom-frame" style="height:260px">
             <img src={IMAGES.style} alt="An all-black travel outfit" loading="lazy" decoding="async" />
           </div>
           <div class="feature-card__body">
-            <p class="pillar-label mb-1">02 — Scandinavian Men's Style</p>
+            <p class="pillar-label mb-1">02 — Things</p>
             <h3 class="display-md mb-1">All black, one bag,<br /><em>no compromises.</em></h3>
             <p class="body-sm">
-              Capsule wardrobes, one-bag packing, and the philosophy of dressing the same in
-              Atlantic Canada as in Copenhagen.
+              The wardrobe that fits in 26 litres, the hair and skin routine, the gear. Listed
+              honestly, replaced rarely.
             </p>
           </div>
           <span class="card-arrow"><Icon name="arrow-right" size={16} /></span>
         </a>
 
-        <a class="feature-card card-hover" href="/the-journey">
+        <a class="feature-card card-hover" href="/notes">
           <div class="zoom-frame" style="height:260px">
             <img src={IMAGES.journey} alt="Chandler in a European cafe" loading="lazy" decoding="async" />
           </div>
           <div class="feature-card__body">
-            <p class="pillar-label mb-1">03 — Lifestyle Freedom</p>
-            <h3 class="display-md mb-1">Freedom by design,<br /><em>not by accident.</em></h3>
+            <p class="pillar-label mb-1">03 — Notes</p>
+            <h3 class="display-md mb-1">Why I do it<br /><em>this way.</em></h3>
             <p class="body-sm">
-              Journey updates, systems essays, and the honest realities of building a
-              location-independent life — not as a finished achievement, but as a work in progress.
+              It started with a one-month Airbnb in Tallinn in May 2022. The origin story, the
+              timeline, and the thinking behind travelling light and staying longer.
             </p>
           </div>
           <span class="card-arrow"><Icon name="arrow-right" size={16} /></span>
@@ -208,46 +180,7 @@ const mailto = `mailto:${NEWSLETTER.fallbackMailto}?subject=${encodeURIComponent
     </div>
   </section>
 
-  <hr class="rule" />
-
-  <!-- ─── Dispatch ─────────────────────────────────────────────────────── -->
-  <section class="section fade-in">
-    <div class="container">
-      <div class="split">
-        <div>
-          <p class="eyebrow mb-1">The Dispatch</p>
-          <h2 class="display-lg mb-2">Notes from the road,<br /><em>delivered weekly.</em></h2>
-          <p class="body-lg">
-            The most personal thing I write — shorter than a blog post, more honest than social
-            media. City observations, stay reviews, style notes, and reflections on the minimalist
-            travel life.
-          </p>
-        </div>
-        <div>
-          <DispatchSignup
-            headline="Join the Dispatch"
-            subtext="One email per week. Every Friday. No affiliate pitches. No sponsored content. Unsubscribe anytime."
-            source="home"
-          />
-          {
-            issues.length > 0 && (
-              <div class="mt-3">
-                <p class="eyebrow mb-2">Recent issues</p>
-                {issues.map((issue) => (
-                  <a class="issue-row" href="/dispatch">
-                    <span class="issue-row__num">#{String(issue.number).padStart(3, '0')}</span>
-                    <span class="issue-row__title">{issue.title}</span>
-                  </a>
-                ))}
-              </div>
-            )
-          }
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ─── Brand quote ──────────────────────────────────────────────────── -->
+  <!-- ─── Quote ────────────────────────────────────────────────────────── -->
   <section class="section section--dark">
     <div class="container">
       <blockquote class="pullquote">

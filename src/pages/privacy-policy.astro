@@ -1,11 +1,11 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import { SITE, NEWSLETTER } from '../data/site';
+import { SITE, CONTACT } from '../data/site';
 ---
 
 <BaseLayout
   title={`Privacy Policy | ${SITE.name}`}
-  description={`How ${SITE.name} handles personal data, analytics and newsletter subscriptions.`}
+  description={`How ${SITE.name} handles personal data and analytics.`}
 >
   <section class="legal">
     <div class="container container--narrow">
@@ -15,11 +15,14 @@ import { SITE, NEWSLETTER } from '../data/site';
       <h2>Who runs this site</h2>
       <p>
         {SITE.name} ({SITE.domain}) is operated by Strandway Systems, based in Nova Scotia, Canada.
-        For any privacy question, email <a href={`mailto:${NEWSLETTER.fallbackMailto}`}>{NEWSLETTER.fallbackMailto}</a>.
+        For any privacy question, email <a href={`mailto:${CONTACT.email}`}>{CONTACT.email}</a>.
       </p>
 
       <h2>What is collected</h2>
-      <p>This is a static site. There is no account system and no database of visitors. Data is only collected in two places:</p>
+      <p>
+        This is a static site. There is no account system, no signup form, no newsletter and no
+        database of visitors. Personal data is collected in exactly one place:
+      </p>
       <ul>
         <li>
           <strong>Analytics</strong> — if you consent, aggregate usage statistics (pages viewed,
@@ -27,32 +30,29 @@ import { SITE, NEWSLETTER } from '../data/site';
           advertising signals are collected. If you decline, or ignore the banner, no analytics
           cookies are set.
         </li>
-        <li>
-          <strong>Newsletter</strong> — if you subscribe to the Dispatch, your email address is
-          stored by the newsletter provider so the newsletter can be sent to you. Nothing else is
-          required and the address is never sold or shared.
-        </li>
       </ul>
+      <p>
+        If you email me, I have your email address for as long as the conversation is useful, and
+        for nothing else.
+      </p>
 
       <h2>Legal basis</h2>
       <p>
         Analytics run on consent, which you give or withhold in the banner and can change at any
-        time by clearing this site's storage in your browser. Newsletter delivery runs on consent
-        given when you subscribe; every issue carries an unsubscribe link that takes effect
-        immediately.
+        time by clearing this site's storage in your browser.
       </p>
 
       <h2>Your rights</h2>
       <p>
         If you are in the EU/EEA or the UK, you have the right to access, correct, export or delete
         the personal data held about you, and to withdraw consent at any time. Email the address
-        above and it will be handled. Unsubscribing removes your address from the newsletter list.
+        above and it will be handled.
       </p>
 
       <h2>Third parties</h2>
       <p>
         Fonts are served by Google Fonts. Some images are served from a content delivery network.
-        Analytics and newsletter processing are handled by the providers described in the
+        Analytics are handled by the provider described in the
         <a href="/cookie-policy">cookie policy</a>. Affiliate partners set their own cookies only
         after you click an affiliate link — see the
         <a href="/affiliate-disclosure">affiliate disclosure</a>.

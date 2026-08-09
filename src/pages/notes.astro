@@ -1,6 +1,5 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import DispatchSignup from '../components/DispatchSignup.astro';
 import EmptyState from '../components/EmptyState.astro';
 import Icon from '../components/Icon.astro';
 import { SITE } from '../data/site';
@@ -12,19 +11,19 @@ const essays = published(ESSAYS);
 ---
 
 <BaseLayout
-  title={`The Journey — Lifestyle Freedom | ${SITE.name}`}
-  description="It started with a one-month Airbnb on Narva Mantee, Tallinn, in May 2022. The honest documentation of what came after — the systems, the mistakes, and the ongoing work of building a life without a fixed address."
+  title={`Notes — Why I Travel This Way | ${SITE.name}`}
+  description="It started with a one-month Airbnb on Narva Mantee, Tallinn, in May 2022. The origin story, the trip timeline, and the thinking behind travelling light and staying longer."
 >
   <div class="page-head">
     <div class="container">
       <div class="split split--wide-gap split--end">
         <div>
-          <p class="pillar-label mb-1">03 — Lifestyle Freedom</p>
-          <h1 class="display-xl mb-2">The Journey</h1>
+          <p class="pillar-label mb-1">03 — Notes</p>
+          <h1 class="display-xl mb-2">Notes</h1>
           <p class="body-lg" style="max-width:480px">
-            It started with a one-month Airbnb on Narva Mantee, Tallinn, in May 2022. This is the
-            honest documentation of what came after — the systems, the mistakes, and the ongoing
-            work of building a life without a fixed address.
+            It started with a one-month Airbnb on Narva Mantee, Tallinn, in May 2022. This is where
+            the longer writing goes — the origin story, the timeline, and why I do it this way.
+            Written when there is something to say, not on a schedule.
           </p>
         </div>
         <div>
@@ -40,7 +39,7 @@ const essays = published(ESSAYS);
     </div>
   </div>
 
-  <!-- ─── Brand statement ──────────────────────────────────────────────── -->
+  <!-- ─── The philosophy ───────────────────────────────────────────────── -->
   <section class="section section--dark">
     <div class="container">
       <div class="split split--wide-gap" style="align-items:center">
@@ -50,13 +49,13 @@ const essays = published(ESSAYS);
         </blockquote>
         <div>
           <p style="font-size:0.9375rem; color:var(--c-on-dark-soft); line-height:1.7; margin-bottom:1.5rem">
-            This pillar is where the brand earns trust. Not through aspirational content — through
-            honest documentation. The numbers, the mistakes, the systems that work, and the ones
-            that don't.
+            Everything on this site comes from having been there. The cities are ones I've walked,
+            the stays are nights I paid for, the things on the Things pages are in my bag right now.
+            There is no research layer and no second-hand recommendation.
           </p>
           <p style="font-size:0.9375rem; color:var(--c-on-dark-soft); line-height:1.7">
-            Nothing here is published before it is true. Where a section is empty, it is empty
-            because the writing hasn't been done yet — not because there's nothing to say.
+            Which means it fills up slowly, and some pages are empty. Empty is the honest state for
+            something I haven't written yet — it isn't a gap to be filled with an approximation.
           </p>
         </div>
       </div>
@@ -66,7 +65,7 @@ const essays = published(ESSAYS);
   <!-- ─── Essays ───────────────────────────────────────────────────────── -->
   <section class="section">
     <div class="container">
-      <p class="eyebrow mb-3">Essays</p>
+      <p class="eyebrow mb-3">Writing</p>
       {
         essays.length > 0 ? (
           <div class="cell-grid cell-grid--wide">
@@ -76,7 +75,7 @@ const essays = published(ESSAYS);
               return (
                 <Tag
                   class={`entry${hasBody ? ' card-hover' : ''}`}
-                  href={hasBody ? `/the-journey/${essay.slug}` : undefined}
+                  href={hasBody ? `/notes/${essay.slug}` : undefined}
                   style="text-decoration:none; color:inherit; display:block"
                 >
                   <div class="entry__meta">
@@ -91,7 +90,7 @@ const essays = published(ESSAYS);
                   <p class="body-sm">{essay.excerpt}</p>
                   {hasBody && (
                     <p class="link-cta mt-2">
-                      Read the essay <Icon name="arrow-right" size={12} />
+                      Read it <Icon name="arrow-right" size={12} />
                     </p>
                   )}
                 </Tag>
@@ -100,8 +99,8 @@ const essays = published(ESSAYS);
           </div>
         ) : (
           <EmptyState
-            title="No essays published yet"
-            body="The long-form pieces are written slowly and only when there is something honest to say. The Dispatch is where the shorter, more frequent version lives."
+            title="Nothing published yet"
+            body="The longer pieces get written slowly and only when there is something honest to say."
           />
         )
       }
@@ -137,16 +136,6 @@ const essays = published(ESSAYS);
           </ol>
         </div>
       </div>
-    </div>
-  </section>
-
-  <section style="padding-bottom:5rem">
-    <div class="container" style="max-width:640px">
-      <DispatchSignup
-        headline="Follow the journey"
-        subtext="The Dispatch is where the ongoing version of this lives — one honest note per week."
-        source="the-journey"
-      />
     </div>
   </section>
 </BaseLayout>

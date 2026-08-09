@@ -1,123 +1,133 @@
 # Content TODO
 
-What needs a decision from Chandler before it can be published, and what got
-left out of the port and why.
+The site is a catalogue of first-hand experience. That means most of what's
+missing can only be written by the person who was there — this file is the list
+of what that is.
 
 ---
 
-## 1. Content that is written but not published
+## 1. The lists to fill in
 
-The Manus build's database mixed two kinds of content. The trips are real — they
-came out of the "authenticity pass" that replaced the generic first draft. The
-rest was filler written before those passes: plausible-sounding, but making
-first-person claims that were never checked against anything.
+Each of these is a data file in `src/data/`. Adding an entry is copying an
+object and filling it in; see "Adding an entry" in the README for the shape.
 
-Since this is a personal brand whose entire premise is honest documentation,
-the unverified material is kept in the data files with `verified: false` and is
-not rendered. Set an item's `verified` to `true` to publish it, or flip
-`PUBLISH_UNVERIFIED` in `src/data/flags.ts` to publish all of it at once.
+| List | File | State |
+|---|---|---|
+| Cafés & bars | `cafes.ts` | **1 entry** — Butterfly Lounge, Tallinn, from the origin story. Everywhere else is blank. |
+| Tours | `tours.ts` | **Empty.** The Iceland south-coast day trips are the obvious first entries. |
+| Hair & skin | `grooming.ts` | **Empty.** |
+| Stays | `stays.ts` | **1 published** — Hi Loft Hostel, Reykjavik. Four others held back (below). |
+| Wardrobe | `wardrobe.ts` | **10 items, none confirmed** (below). |
+
+Nothing was invented to fill these. A café list for cities someone hasn't sat in
+is exactly what this site exists not to be.
+
+### Tours and the GetYourGuide store
+
+`url` is `null` on every tour entry because there is no GetYourGuide partner ID
+in this repo yet. Once there is:
+
+1. Put the real partner link in `url`.
+2. Set `affiliate: true` — that adds `rel="noopener sponsored"`, which is what
+   makes the analytics tracker fire `affiliate_click`, and surfaces the
+   disclosure line on the page.
+
+Never commit a placeholder ID — `affiliate-id-guard.yml` fails the build on
+them, deliberately.
+
+---
+
+## 2. Content that is written but not published
+
+Held back behind `verified: false`, rendered by nothing. Set an item's
+`verified` to `true` to publish it, or flip `PUBLISH_UNVERIFIED` in
+`src/data/flags.ts` to see everything at once while designing.
 
 | What | Where | Why it's held back |
 |---|---|---|
-| 4 stay reviews — Generator Copenhagen, Reykjavik Downtown Hostel, Old Town Apartment (Tallinn), Pärnu Beach Apartment | `src/data/stays.ts` | Invented ratings and pros/cons. Also carried bare `booking.com` / `airbnb.com` links with no affiliate ID. |
-| The 10-item capsule wardrobe | `src/data/style.ts` | Specific brands, prices and quantities that were never confirmed — including a €350 sneaker and a €280 jacket. |
-| 3 gear notes | `src/data/style.ts` | Excerpts make claims ("I've washed it 60+ times") about articles that were never written. |
-| 4 journey essays | `src/data/journey.ts` | Titles and excerpts only, no body. |
-| 4 Dispatch issues | `src/data/dispatch.ts` | Never sent. The titles are good and worth keeping as a writing queue. |
+| 4 stay reviews — Generator Copenhagen, Reykjavik Downtown Hostel, Old Town Apartment (Tallinn), Pärnu Beach Apartment | `stays.ts` | Invented ratings and pros/cons, and bare `booking.com` / `airbnb.com` links with no affiliate ID. |
+| The 10-item wardrobe | `wardrobe.ts` | Brands, prices and quantities were never confirmed — including a €350 sneaker and a €280 jacket. |
+| 4 notes | `journey.ts` | Titles and excerpts with no body behind them. |
 
-**Published as-is** (all from the authenticity passes): the 28 cities, the trip
-timeline, the Tallinn May 2022 origin essay, the Hi Loft Hostel review, and the
+**Published as-is** (all real): the 28 cities, the trip timeline, the Tallinn
+May 2022 origin note, the Hi Loft Hostel review, the Butterfly Lounge, and the
 About page story.
 
 ### Removed outright
 
-The first-draft seed also carried a **second, contradictory timeline** — a
-one-way flight out of Halifax in September 2022, "47 subscribers in week one",
-"crossed 1,000 subscribers", "first brand partnership, turned down three
-others", "Dispatch at 4,200 subscribers". It describes a different history from
-the real one (May 2022 Tallinn → September 2022 Iceland → the 2023 run), so it
-was not carried over at all rather than left sitting behind a flag.
+- The **Dispatch** — the newsletter, its signup forms, the four unwritten
+  issues, and the Beehiiv configuration. `/dispatch` now 301s to `/notes`.
+- The fabricated audience metrics that went with it: **"4,200+ subscribers"**
+  and **"52% open rate"**, plus the About page's **"4,000 readers who trust
+  me"** and "I've turned down several [partnerships]".
+- A **second, contradictory timeline** from the pre-authenticity seed — a
+  one-way flight out of Halifax in September 2022, "47 subscribers in week one",
+  "first brand partnership". It described a different history from the real one.
 
-Two claims were also cut from page copy for the same reason:
-
-- The Dispatch page's stat strip — **"4,200+ subscribers"** and **"52% open
-  rate"**. Replaced with the cadence, the price, and the sponsorship policy,
-  which are all true today.
-- The About page's **"I'd rather have 4,000 readers who trust me than 40,000 who
-  don't"** and "I've turned down several [partnerships]". Rewritten as a
-  forward-looking policy with no invented track record.
-
-If any of these numbers are real, say so and they go straight back in.
+If any of those numbers were real, say so and they go back in.
 
 ---
 
-## 2. Images
+## 3. Images
 
 `src/data/images.ts` is the only file with image URLs in it.
 
 **Still pointing at Manus's CDN** (`d2xsxph8kpxj0f.cloudfront.net`) — works
-today, but it is not our infrastructure and can disappear without notice:
-hero (Copenhagen street), travel, style, journey, Stockholm, Reykjavik, Pärnu.
-Download each, convert to `.webp`, put them in `public/images/`, and change the
-values in `images.ts`.
+today, but it is not our infrastructure and can disappear without notice: hero,
+travel, style, journey, Stockholm, Reykjavik, Pärnu. Download each, convert to
+`.webp`, put them in `public/images/`, update `images.ts`.
 
-**Lost in the export** — these lived at `/manus-storage/...` paths that only
-resolved inside Manus's runtime and are not in the zip:
+**Lost in the Manus export** — these lived at `/manus-storage/...` paths that
+only resolved inside Manus's runtime:
 
-- `tartu-chandler` — the Tartu portrait, used for the Tartu city card and the
-  About page
-- `london-tower-bridge` — used for the London city card and the About page
+- `tartuPortrait` — the Tartu portrait, used on the Tartu card and About
+- `londonTowerBridge` — the London card and About
 
-They are `null` in `images.ts`, and every component treats a null image as
-"render without media", so the layout is intact — city cards without a photo get
-a typographic panel with the country flag instead. Supplying the files and
-setting the paths is all that's needed.
+Both are `null`, and every component treats a null image as "render without
+media" — city cards without a photo get a typographic panel with the country
+flag instead, so the grid stays even.
 
-**Stock stand-ins** from the original seed, worth replacing with Chandler's own
-shots: Tallinn, Copenhagen, Chania (all Unsplash).
+**Stock stand-ins** worth replacing with Chandler's own shots: Tallinn,
+Copenhagen, Chania (all Unsplash).
 
-**Photographs wanted** for the 21 cities that have none — the whole 2023 run,
-plus Lisbon, Lagos, Sevilla, Gothenburg and Jönköping.
+**Photographs wanted** for the 21 cities with none — the whole 2023 run, plus
+Lisbon, Lagos, Sevilla, Gothenburg and Jönköping. Each city now has its own page
+with room for a wide hero image.
 
 ---
 
-## 3. Configuration
+## 4. Configuration
 
-- [ ] **Beehiiv form URL** → `NEWSLETTER.action` in `src/data/site.ts`. Until
-      then all signup forms fall back to `mailto:hello@cityboundnomad.com`.
-- [ ] **Confirm that email address** actually exists, or change
-      `NEWSLETTER.fallbackMailto`.
+- [ ] **Confirm `hello@cityboundnomad.com`** exists, or change `CONTACT.email`
+      in `src/data/site.ts` — it is the only contact route on the site now.
 - [ ] **GA4 Measurement ID** → `ANALYTICS.gaId` in `src/data/site.ts` *and*
       `CONFIG.gaId` in `public/consent.js`.
 - [ ] **Google Search Console token** → `ANALYTICS.searchConsoleVerification`.
-- [ ] **Crazy Egg script** → `CONFIG.crazyEggSrc` in `public/consent.js` if this
-      site is joining the portfolio's shared account.
-- [ ] **Social URLs** — TikTok and Facebook in `SOCIAL` (`src/data/site.ts`) are
-      constructed from the handle; confirm they resolve.
+- [ ] **Crazy Egg script** → `CONFIG.crazyEggSrc` if this site joins the
+      portfolio's shared account.
+- [ ] **Social URLs** — TikTok and Facebook in `SOCIAL` are built from the
+      handle; confirm they resolve.
 - [ ] **Replace `public/consent.js`** with the portfolio's byte-identical copy
-      from `stay-albanian-riviera` and re-set only the `CONFIG` block. This
-      version was written from the spec in `docs/analytics-privacy-standard.md`
-      because that repo wasn't reachable during the build; the standard's rule
-      is that the body of the file is never forked per site.
+      from `stay-albanian-riviera` and re-set only the `CONFIG` block. This one
+      was written from the spec in `docs/analytics-privacy-standard.md` because
+      that repo wasn't reachable during the build.
 
 ---
 
-## 4. Backlog carried over from the Manus build
+## 5. Ideas not built
 
-Not started, listed so nothing is lost:
-
-- Individual city detail pages (`/travel/copenhagen`)
-- Individual stay-log and gear-note pages
-- Search across all content
-- Instagram feed on the homepage
-- Monthly cost-breakdown page (there is a real data model for this in the
-  trip cost ranges already)
-- The affiliate links themselves — no real affiliate IDs exist in this repo
-  yet, which is why `bookingUrl` and `affiliateUrl` are `null` everywhere
+- **Tech & everyday carry** — bag, laptop, camera, chargers. Overlaps the
+  one-bag angle. One data file plus a four-line page.
+- **Restaurants** — same shape as cafés; currently they'd go in `cafes.ts`
+  under a "Food" category.
+- **Books, music, film** — the "things I like" that aren't bought or visited.
+- Per-entry detail pages, if any café or tour ever justifies more than a
+  paragraph.
+- Search across the lists, once there is enough to search.
 
 ---
 
-## 5. Security
+## 6. Security
 
 The Manus export shipped `.project-config.json` containing a **live TiDB
 connection string with password, AWS session credentials, a JWT secret, and

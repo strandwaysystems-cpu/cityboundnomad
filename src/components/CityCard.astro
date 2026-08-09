@@ -4,17 +4,23 @@ import Icon from './Icon.astro';
 
 interface Props {
   city: City;
+  /** When given the whole card becomes a link to the city's page. */
+  href?: string;
+  /** Counts shown on the card foot, e.g. "2 cafés · 1 stay" */
+  meta?: string;
 }
 
-const { city } = Astro.props;
+const { city, href, meta } = Astro.props;
 
 const cost =
   city.costPerDayMin && city.costPerDayMax
     ? `€${city.costPerDayMin}–€${city.costPerDayMax}/day`
     : null;
+
+const Tag = href ? 'a' : 'article';
 ---
 
-<article class="card-hover">
+<Tag class="card-hover feature-card" href={href}>
   {
     city.image ? (
       <div class="city-card__media zoom-frame">
@@ -39,8 +45,10 @@ const cost =
       {city.tags.map((tag) => <li class="tag">{tag}</li>)}
     </ul>
     <div class="card-foot">
-      <span class="body-sm">{city.returnedOn?.length ? 'Returned on a later trip' : ''}</span>
-      <Icon name="map-pin" size={14} color="var(--c-accent)" />
+      <span class="body-sm">
+        {meta ?? (city.returnedOn?.length ? 'Returned on a later trip' : '')}
+      </span>
+      {href ? <Icon name="arrow-right" size={14} color="var(--c-accent)" /> : <Icon name="map-pin" size={14} color="var(--c-accent)" />}
     </div>
   </div>
-</article>
+</Tag>

@@ -1,7 +1,13 @@
 # cityboundnomad
 
-The website for **cityboundnomad.com** — Chandler's personal brand: minimalist solo
-travel, Scandinavian men's style, and lifestyle freedom.
+The website for **cityboundnomad.com** — Chandler's personal catalogue: the places
+he's actually been and the things he actually uses.
+
+**The rule the whole site runs on:** nothing is listed that hasn't been visited,
+stayed in, gone on, or worn. No research layer, no round-ups, no second-hand
+recommendations. That is what separates this repo from the AI-assembled
+affiliate sites elsewhere in the portfolio — and it is why several pages ship
+deliberately empty.
 
 Static [Astro](https://astro.build) site, built to
 [`STRANDWAY-WEB-STANDARD.md`](https://github.com/strandwaysystems-cpu/strandway-ventures/blob/main/STRANDWAY-WEB-STANDARD.md)
@@ -87,12 +93,16 @@ They exercise every rewrite rule in the file:
 | URL | Expected |
 |---|---|
 | `/` | 200, homepage |
-| `/travel` | 200 |
-| `/travel.html` | 301 → `/travel` |
-| `/the-journey` | 200 — the one that breaks if the rewrite rules are edited carelessly, because a `the-journey/` directory exists alongside `the-journey.html` |
-| `/the-journey/tallinn-may-2022` | 200 |
-| `/cities`, `/stay-logs` | 301 → `/travel` |
-| `/philosophy` | 301 → `/the-journey` |
+| `/places` | 200 |
+| `/places.html` | 301 → `/places` |
+| `/notes` | 200 — the one that breaks if the rewrite rules are edited carelessly, because a `notes/` directory exists alongside `notes.html`. Same for `/places`. |
+| `/places/tallinn` | 200 |
+| `/notes/tallinn-may-2022` | 200 |
+| `/travel`, `/cities` | 301 → `/places` |
+| `/style` | 301 → `/wardrobe` |
+| `/stay-logs` | 301 → `/stays` |
+| `/the-journey`, `/philosophy`, `/dispatch` | 301 → `/notes` |
+| `/the-journey/tallinn-may-2022` | 301 → `/notes/tallinn-may-2022` |
 | `/nope` | 404, styled 404 page |
 | `http://cityboundnomad.com` | 301 → `https://` |
 | `https://www.cityboundnomad.com` | 301 → non-`www` |
@@ -103,11 +113,13 @@ They exercise every rewrite rule in the file:
 ### URLs
 
 `astro.config.mjs` uses `build.format: 'file'`, so pages are emitted as
-`travel.html`, `about.html`, `the-journey/tallinn-may-2022.html`. The `.htaccess`
-rewrite serves those at `/travel`, `/about`, `/the-journey/tallinn-may-2022`,
-which is the canonical form used in links, `<link rel="canonical">` and the
-sitemap. Old URLs from the previous site (`/cities`, `/stay-logs`,
-`/philosophy`) 301 to their new homes.
+`places.html`, `about.html`, `places/tallinn.html`. The `.htaccess` rewrite
+serves those at `/places`, `/about`, `/places/tallinn`, which is the canonical
+form used in links, `<link rel="canonical">` and the sitemap.
+
+Two generations of old URLs 301 to their new homes: the original site
+(`/cities`, `/stay-logs`, `/philosophy`) and the three-pillar build that
+followed (`/travel`, `/style`, `/the-journey`, `/dispatch`).
 
 ---
 
@@ -116,47 +128,72 @@ sitemap. Old URLs from the previous site (`/cities`, `/stay-logs`,
 ```
 src/
   data/          ← ALL content. Edit here, not in the pages.
-    site.ts        site metadata, nav, newsletter + analytics config, pillars
-    images.ts      every image URL in one place
+    site.ts        site metadata, nav, analytics config, the three sections
+    lists.ts       the shared Entry type behind every list + grouping helpers
+    cafes.ts       cafés & bars, tagged by city
+    tours.ts       tours actually taken (the GetYourGuide layer)
+    wardrobe.ts    what's in the bag, plus the four principles
+    grooming.ts    hair & skin
     cities.ts      28 cities, grouped by trip
-    stays.ts       stay logs
-    style.ts       style principles, capsule wardrobe, gear notes
-    journey.ts     timeline + essays (essay bodies included)
-    dispatch.ts    newsletter facts, what-to-expect, issue archive
+    stays.ts       accommodation reviews
+    journey.ts     timeline + long-form notes (essay bodies included)
+    images.ts      every image URL in one place
     flags.ts       which content is published — read this first
   components/    ← presentational Astro components
-  layouts/       ← BaseLayout: head, SEO, JSON-LD, header/footer
+  layouts/
+    BaseLayout     head, SEO, JSON-LD, header/footer
+    ListPage       every collection page is this + a data file
   pages/         ← one file per route
   styles/
     global.css   ← the entire design system, all tokens in :root
-public/          ← copied verbatim into dist/: .htaccess, consent.js,
-                   script.js, favicons, robots.txt, og-image.jpg
+public/          ← copied verbatim into dist/
 ```
 
-Adding a city is one object in `src/data/cities.ts`. Restyling the whole site
-is the `:root` block in `src/styles/global.css` — nothing else hardcodes a
-colour.
+### Adding an entry
 
----
+Open the relevant data file and copy an existing object. Every list — cafés,
+tours, wardrobe, grooming — uses the same `Entry` shape from `lists.ts`:
+
+```ts
+{
+  name: 'Somewhere I actually went',
+  category: 'Coffee',          // groups it on the page
+  city: 'Tallinn',             // must match a name in cities.ts exactly
+  detail: 'Address, price, brand — whatever the specifics are',
+  note: 'First person, and why it earned a place on the list.',
+  since: 'May 2022',
+  url: null,                   // real link, or null. Never a placeholder.
+  affiliate: false,            // true adds rel="sponsored" + the disclosure
+  verified: true,              // false keeps it out of the build
+}
+```
+
+Setting `city` is what makes an entry appear on that city's own page as well as
+on its list — the same data read two ways.
+
+### Adding a whole new list
+
+Three steps, no framework work:
+
+1. Copy `src/data/grooming.ts` to e.g. `src/data/tech.ts`, edit the `ListMeta`.
+2. Add `src/pages/tech.astro` — four lines, copy `grooming.astro`.
+3. Add it to the `COLLECTIONS` array in `src/pages/things.astro` and to `LISTS`
+   in `src/components/Footer.astro`.
 
 ## Before this goes live
 
 See [`CONTENT-TODO.md`](CONTENT-TODO.md) for the full list. The three that
 matter most:
 
-1. **Connect the newsletter.** `NEWSLETTER.action` in `src/data/site.ts` is
-   empty, so every signup form currently falls back to a `mailto:` link. Paste
-   the Beehiiv form URL in and the forms start submitting properly.
-   (Beehiiv is this brand's platform — not MailerLite, not ConvertKit. See
-   `docs/email-infrastructure.md` in strandway-ventures.)
+1. **Fill the lists.** Cafés, tours and grooming are near-empty scaffolds by
+   design — they can only be written by the person who was there. One object
+   per entry.
 2. **Self-host the images.** `src/data/images.ts` still points at Manus's
    CloudFront CDN, which we do not control.
 3. **Set the GA4 ID** in `ANALYTICS.gaId` (`src/data/site.ts`) and
    `CONFIG.gaId` (`public/consent.js`), plus the Search Console verification
    token. Until then the site simply runs without analytics — it stays
    compliant either way, because `consent.js` is fail-closed.
-
----
 
 ## Provenance
 
@@ -165,6 +202,12 @@ The content and visual direction come from a Manus build
 against a TiDB database. That stack was a Tier 2 shape for what is a content
 site, so it was rebuilt here as Tier 1 static Astro and the database content was
 lifted into typed files under `src/data/`.
+
+That build framed the site as a three-pillar content brand with a weekly
+newsletter ("The Dispatch"). The newsletter has since been dropped and the site
+re-scoped as a personal catalogue — Places, Things, Notes. The Dispatch, its
+signup forms and its Beehiiv configuration are gone; `/dispatch` 301s to
+`/notes`, as do the old `/travel`, `/style` and `/the-journey` URLs.
 
 ⚠️ The Manus export's `.project-config.json` contained a live TiDB connection
 string, AWS session credentials, a JWT secret and API keys. That file is

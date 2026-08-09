@@ -25,12 +25,20 @@
   RewriteCond %{HTTP_HOST} ^www\.(.+)$ [NC]
   RewriteRule ^(.*)$ https://%1/$1 [R=301,L]
 
-  # ── Legacy URLs from the previous site ───────────────────────────────────
-  # The old build split Cities and Stay Logs into two nav items and called the
-  # third pillar "Philosophy". Those URLs stay alive as 301s.
-  RewriteRule ^cities/?$ /travel [R=301,L]
-  RewriteRule ^stay-logs/?$ /travel [R=301,L]
-  RewriteRule ^philosophy/?$ /the-journey [R=301,L]
+  # ── Legacy URLs ──────────────────────────────────────────────────────────
+  # Two generations of URLs to keep alive: the original site (Cities, Stay
+  # Logs, Philosophy) and the three-pillar build that replaced it (Travel,
+  # Style, The Journey, Dispatch) before this became a personal catalogue.
+  RewriteRule ^cities/?$ /places [R=301,L]
+  RewriteRule ^travel/?$ /places [R=301,L]
+  RewriteRule ^stay-logs/?$ /stays [R=301,L]
+  RewriteRule ^style/?$ /wardrobe [R=301,L]
+  RewriteRule ^philosophy/?$ /notes [R=301,L]
+  RewriteRule ^the-journey/?$ /notes [R=301,L]
+  RewriteRule ^the-journey/(.+)$ /notes/$1 [R=301,L]
+  # The newsletter is gone; its subscribers page has no successor, so point it
+  # at the writing rather than 404ing anyone arriving from an old link.
+  RewriteRule ^dispatch/?$ /notes [R=301,L]
 
   # ── Strip .html from requests so the canonical form is extensionless ─────
   # index.html is special-cased first, or it would land on /index rather than /.

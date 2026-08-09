@@ -19,7 +19,6 @@
     brand: 'CityboundNomad',
     gaId: '', // per-site GA4 Measurement ID, e.g. 'G-XXXXXXXXXX'
     crazyEggSrc: '',
-    mailerliteAccount: '', // unused — this brand's newsletter is Beehiiv
     privacyUrl: '/privacy-policy',
     cookiePolicyUrl: '/cookie-policy',
     cookieName: 'sw_consent_v1',

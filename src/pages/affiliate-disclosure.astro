@@ -1,6 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import { SITE, NEWSLETTER } from '../data/site';
+import { SITE, CONTACT } from '../data/site';
 ---
 
 <BaseLayout
@@ -31,12 +31,12 @@ import { SITE, NEWSLETTER } from '../data/site';
         <li>Nothing is recommended that has not actually been used, stayed in, or worn.</li>
         <li>A commission never buys a positive review. The pros and cons are what they are.</li>
         <li>Destinations are never sponsored. Where a trip was paid for by someone else, it is said so on the page.</li>
-        <li>The Dispatch newsletter does not carry sponsored messages.</li>
+        <li>Nothing is listed because it pays. The commission follows the recommendation, never the other way round.</li>
       </ul>
 
       <h2>Questions</h2>
       <p>
-        Email <a href={`mailto:${NEWSLETTER.fallbackMailto}`}>{NEWSLETTER.fallbackMailto}</a>.
+        Email <a href={`mailto:${CONTACT.email}`}>{CONTACT.email}</a>.
       </p>
     </div>
   </section>

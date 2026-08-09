@@ -1,0 +1,75 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Icon from '../components/Icon.astro';
+import { SITE } from '../data/site';
+import { IMAGES } from '../data/images';
+import { WARDROBE, WARDROBE_META } from '../data/wardrobe';
+import { GROOMING, GROOMING_META } from '../data/grooming';
+import { published } from '../data/flags';
+
+/*
+ * The Things hub. Each collection is one entry in this array — adding "Tech &
+ * everyday carry" or "Books" means a data file, a four-line page, and one row
+ * here.
+ */
+const COLLECTIONS = [
+  { meta: WARDROBE_META, count: published(WARDROBE).length },
+  { meta: GROOMING_META, count: published(GROOMING).length },
+];
+---
+
+<BaseLayout
+  title={`Things I Use | ${SITE.name}`}
+  description="The wardrobe that fits in one bag, the hair and skin routine, the gear. Nothing listed that isn't actually in use."
+>
+  <div class="page-head" style="padding-bottom:0; border-bottom:none">
+    <div
+      class="container split split--wide-gap split--end"
+      style="padding-bottom:4rem; border-bottom:1px solid var(--c-line)"
+    >
+      <div>
+        <p class="pillar-label mb-1">02 — Things</p>
+        <h1 class="display-xl mb-2">Things I use</h1>
+        <p class="body-lg" style="max-width:480px">
+          Everything I own that travels with me, listed honestly. If something is on this page it is
+          because it is in the bag right now and has earned the space — not because it photographs
+          well or pays a commission.
+        </p>
+      </div>
+      <div>
+        <img
+          src={IMAGES.style}
+          alt="An all-black travel outfit"
+          style="max-width:360px; height:420px; object-fit:cover; object-position:center 15%; margin-left:auto"
+          loading="lazy"
+          decoding="async"
+        />
+      </div>
+    </div>
+  </div>
+
+  <section class="section">
+    <div class="container">
+      <div class="cell-grid cell-grid--wide">
+        {
+          COLLECTIONS.map(({ meta, count }) => (
+            <a class="collection card-hover" href={`/${meta.slug}`}>
+              <p class="collection__count">
+                {count > 0 ? String(count).padStart(2, '0') : '—'}
+              </p>
+              <h2>{meta.title}</h2>
+              <p class="body-sm">{count > 0 ? meta.intro : meta.empty}</p>
+              <span class="card-arrow">
+                <Icon name="arrow-right" size={16} />
+              </span>
+            </a>
+          ))
+        }
+      </div>
+
+      <p class="body-sm mt-3">
+        More lists go here as they get written — tech and everyday carry next.
+      </p>
+    </div>
+  </section>
+</BaseLayout>
