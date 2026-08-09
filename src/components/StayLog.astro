@@ -1,0 +1,75 @@
+---
+import type { Stay } from '../data/stays';
+import Icon from './Icon.astro';
+
+interface Props {
+  stay: Stay;
+}
+
+const { stay } = Astro.props;
+---
+
+<article class="stay">
+  <header class="stay__head">
+    <div>
+      <h3 class="display-sm">{stay.name}</h3>
+      <p class="body-sm">
+        {stay.city}, {stay.country} · {stay.stayType} · {stay.pricePerNight}
+        {stay.stayDate && ` · ${stay.stayDate}`}
+      </p>
+    </div>
+    <p class="stay__rating">
+      <Icon name="star" size={14} color="var(--c-accent)" />
+      <strong>{stay.rating.toFixed(1)}</strong>
+      <span class="body-sm">/5</span>
+    </p>
+  </header>
+
+  <div class="stay__cols">
+    {
+      stay.pros.length > 0 && (
+        <div>
+          <p class="eyebrow" style="margin-bottom:0.5rem">
+            Pros
+          </p>
+          <ul class="pro-con">
+            {stay.pros.map((p) => (
+              <li>
+                <span class="pro-con__mark pro-con__mark--pro">+</span>
+                {p}
+              </li>
+            ))}
+          </ul>
+        </div>
+      )
+    }
+    {
+      stay.cons.length > 0 && (
+        <div>
+          <p class="eyebrow" style="margin-bottom:0.5rem">
+            Cons
+          </p>
+          <ul class="pro-con">
+            {stay.cons.map((c) => (
+              <li>
+                <span class="pro-con__mark pro-con__mark--con">−</span>
+                {c}
+              </li>
+            ))}
+          </ul>
+        </div>
+      )
+    }
+  </div>
+
+  <footer class="stay__verdict">
+    <p>“{stay.verdict}”</p>
+    {
+      stay.bookingUrl && (
+        <a class="link-cta" href={stay.bookingUrl} target="_blank" rel="noopener sponsored">
+          Book <Icon name="external-link" size={11} />
+        </a>
+      )
+    }
+  </footer>
+</article>

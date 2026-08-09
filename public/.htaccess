@@ -1,0 +1,84 @@
+# CityboundNomad — Apache config for Hostinger.
+#
+# Astro is built with `build.format: 'file'`, so pages land in dist/ as
+# travel.html, about.html, the-journey/tallinn-may-2022.html and so on. The
+# rewrite below serves those at extensionless URLs, which is what every internal
+# link and the canonical tags use.
+#
+# Upload the CONTENTS of dist/ to public_html — this file is included in the
+# build output, so it lands alongside index.html automatically.
+
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+
+  # ── Canonical host + HTTPS ───────────────────────────────────────────────
+  RewriteCond %{HTTPS} off
+  RewriteRule ^(.*)$ https://%{HTTP_HOST}/$1 [R=301,L]
+
+  RewriteCond %{HTTP_HOST} ^www\.(.+)$ [NC]
+  RewriteRule ^(.*)$ https://%1/$1 [R=301,L]
+
+  # ── Legacy URLs from the previous site ───────────────────────────────────
+  # The old build split Cities and Stay Logs into two nav items and called the
+  # third pillar "Philosophy". Those URLs stay alive as 301s.
+  RewriteRule ^cities/?$ /travel [R=301,L]
+  RewriteRule ^stay-logs/?$ /travel [R=301,L]
+  RewriteRule ^philosophy/?$ /the-journey [R=301,L]
+
+  # ── Strip .html from requests so the canonical form is extensionless ─────
+  RewriteCond %{THE_REQUEST} \s/+(.+?)\.html[\s?] [NC]
+  RewriteRule ^ /%1 [R=301,L]
+
+  # ── Trailing slash → no trailing slash (matches trailingSlash: 'never') ──
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteCond %{REQUEST_URI} ^(.+)/$
+  RewriteRule ^ %1 [R=301,L]
+
+  # ── Serve foo.html for /foo ──────────────────────────────────────────────
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteCond %{REQUEST_FILENAME}.html -f
+  RewriteRule ^(.*)$ $1.html [L]
+</IfModule>
+
+ErrorDocument 404 /404.html
+
+# ── Compression ────────────────────────────────────────────────────────────
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/css text/plain text/xml
+  AddOutputFilterByType DEFLATE application/javascript application/json
+  AddOutputFilterByType DEFLATE image/svg+xml
+</IfModule>
+
+# ── Caching ────────────────────────────────────────────────────────────────
+# Astro fingerprints its own assets, so those can be cached hard. HTML must not
+# be, or a deploy takes a day to show up.
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresByType text/html "access plus 0 seconds"
+  ExpiresByType text/css "access plus 1 year"
+  ExpiresByType application/javascript "access plus 1 year"
+  ExpiresByType image/webp "access plus 1 year"
+  ExpiresByType image/jpeg "access plus 1 year"
+  ExpiresByType image/png "access plus 1 year"
+  ExpiresByType image/svg+xml "access plus 1 year"
+  ExpiresByType font/woff2 "access plus 1 year"
+</IfModule>
+
+<IfModule mod_headers.c>
+  <FilesMatch "\.html$">
+    Header set Cache-Control "no-cache, must-revalidate"
+  </FilesMatch>
+  <FilesMatch "\.(css|js|webp|jpg|jpeg|png|svg|woff2)$">
+    Header set Cache-Control "public, max-age=31536000, immutable"
+  </FilesMatch>
+
+  Header set X-Content-Type-Options "nosniff"
+  Header set Referrer-Policy "strict-origin-when-cross-origin"
+  Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains"
+</IfModule>
+
+# Never serve the source map or dotfiles
+<FilesMatch "^\.">
+  Require all denied
+</FilesMatch>

@@ -1,0 +1,64 @@
+---
+import { NEWSLETTER } from '../data/site';
+import Icon from './Icon.astro';
+
+/*
+ * Newsletter signup. Per STRANDWAY-WEB-STANDARD §6 the site stays static and
+ * the capture lives off-site — here, Beehiiv (see docs/email-infrastructure.md).
+ *
+ * Until NEWSLETTER.action is filled in, the form degrades to a mailto: link so
+ * a visitor can still subscribe on day one. No fake endpoint is ever posted to.
+ */
+interface Props {
+  variant?: 'inline' | 'dark';
+  headline?: string;
+  subtext?: string;
+  source?: string;
+}
+
+const {
+  variant = 'inline',
+  headline = 'The CityboundNomad Dispatch',
+  subtext = "Weekly notes on cities, stays, style, and the honest side of building a life without a fixed address. One email per week.",
+  source = 'website',
+} = Astro.props;
+
+const hasEndpoint = NEWSLETTER.action.length > 0;
+const mailto = `mailto:${NEWSLETTER.fallbackMailto}?subject=${encodeURIComponent('Subscribe to the Dispatch')}&body=${encodeURIComponent("Add me to the Dispatch — I'd like the weekly notes.")}`;
+---
+
+<section class={`signup${variant === 'dark' ? ' signup--dark' : ''}`}>
+  <p class="eyebrow">The Dispatch</p>
+  <p class="signup__headline">{headline}</p>
+  <p class="signup__sub">{subtext}</p>
+
+  {
+    hasEndpoint ? (
+      <form class="subscribe-form" action={NEWSLETTER.action} method="post" target="_blank">
+        <label class="visually-hidden" for={`dispatch-email-${source}`}>
+          Your email address
+        </label>
+        <input
+          type="email"
+          id={`dispatch-email-${source}`}
+          name={NEWSLETTER.emailField}
+          placeholder="Your email address"
+          autocomplete="email"
+          required
+        />
+        <input type="hidden" name="source" value={source} />
+        <button type="submit">
+          <span class="visually-hidden">Subscribe</span>
+          <Icon name="arrow-right" size={15} />
+        </button>
+      </form>
+    ) : (
+      <a class="btn-primary" href={mailto}>
+        Subscribe by email
+        <Icon name="arrow-right" size={15} />
+      </a>
+    )
+  }
+
+  <p class="signup__note">No spam. No affiliate pitches. Just honest notes from the road.</p>
+</section>

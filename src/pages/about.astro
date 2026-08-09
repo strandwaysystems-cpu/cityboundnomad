@@ -1,0 +1,157 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import DispatchSignup from '../components/DispatchSignup.astro';
+import { SITE, PILLARS } from '../data/site';
+import { IMAGES } from '../data/images';
+import { CITIES, COUNTRY_COUNT } from '../data/cities';
+---
+
+<BaseLayout
+  title={`About Chandler | ${SITE.name}`}
+  description="A Canadian from Atlantic Canada. In May 2022 I booked a one-month Airbnb in Tallinn, Estonia — and discovered that solo travel wasn't just something I wanted to do. It was something I needed to do."
+>
+  <div class="page-head">
+    <div class="container">
+      <p class="eyebrow mb-1">About</p>
+      <h1 class="display-xl mb-2">Chandler</h1>
+      <p class="body-lg measure">
+        A Canadian from Atlantic Canada. In May 2022 I booked a one-month Airbnb in Tallinn, Estonia
+        — and discovered that solo travel wasn't just something I wanted to do. It was something I
+        needed to do.
+      </p>
+    </div>
+  </div>
+
+  <!-- ─── The story ────────────────────────────────────────────────────── -->
+  <section class="section">
+    <div class="container">
+      <div class="split split--wide-gap">
+        <div>
+          <p class="eyebrow mb-2">The Story</p>
+          <div class="stack">
+            <p class="body-lg">
+              It started in May 2022. I booked a month-long Airbnb on Narva Mantee in Tallinn,
+              Estonia — a long, straight road running east from the old town. I had always known I
+              wanted to travel, but that trip was when I realised it wasn't just a want. It was a
+              need.
+            </p>
+            <p class="body-lg">
+              I walked everywhere. I found the medieval old town, which is one of the best-preserved
+              in Europe and somehow still feels lived-in. I took day trips to Tartu and Pärnu. I took
+              the ferry to Helsinki and stood in the city feeling, for the first time, exactly what
+              I was chasing with the style side of this project. I went out, met strangers, ended up
+              at an apartment party at 7am, and walked home at 8am as the city was waking up. I met
+              people everywhere I went.
+            </p>
+            <p class="body-lg">
+              That trip gave me something I hadn't fully had before: confidence. The knowledge that
+              I could go somewhere completely alone and not just survive it but genuinely thrive. I
+              fell in love with the European approach to life — laidback but functional, rooted in
+              history, intentional in a way that's hard to find elsewhere.
+            </p>
+            <p class="body-lg">
+              What followed was Iceland in September 2022, a four-month run across twenty-one cities
+              in 2023, Iberia in 2024, and a return to Scandinavia in 2025 — {CITIES.length} cities
+              across {COUNTRY_COUNT} countries so far. CityboundNomad is the honest documentation of
+              all of it. The cities, the style, the freedom — they were always connected. Tallinn
+              just made it clear.
+            </p>
+          </div>
+        </div>
+
+        <div style="display:flex; flex-direction:column; gap:1rem">
+          <img
+            src={IMAGES.journey}
+            alt="Chandler in a European cafe"
+            style="width:100%; height:380px; object-fit:cover; object-position:center 30%"
+            loading="lazy"
+            decoding="async"
+          />
+          <img
+            src={IMAGES.travel}
+            alt="A European street scene"
+            style="width:100%; height:220px; object-fit:cover"
+            loading="lazy"
+            decoding="async"
+          />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="rule" />
+
+  <!-- ─── The framework ────────────────────────────────────────────────── -->
+  <section class="section">
+    <div class="container">
+      <p class="eyebrow mb-1">The Framework</p>
+      <h2 class="display-lg mb-2" style="max-width:500px">Why three pillars?</h2>
+      <p class="body-lg measure-wide mb-4">
+        Most travel blogs are just travel blogs. Most style blogs are just style blogs.
+        CityboundNomad is built on the observation that these things are connected — that the way
+        you travel informs how you dress, and the way you dress reflects how you think about
+        possessions and permanence.
+      </p>
+
+      <div class="cell-grid cell-grid--tight">
+        {
+          PILLARS.map((pillar) => (
+            <a class="pillar-card card-hover" href={pillar.href}>
+              <p class="pillar-card__num" style="font-size:3rem">
+                {pillar.num}
+              </p>
+              <p class="pillar-label mb-1">{pillar.label}</p>
+              <p class="body-sm">{pillar.short}</p>
+            </a>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <hr class="rule" />
+
+  <!-- ─── Transparency ─────────────────────────────────────────────────── -->
+  <section class="section">
+    <div class="container">
+      <div class="measure-wide">
+        <p class="eyebrow mb-1">Transparency</p>
+        <h2 class="display-lg mb-2">How this works</h2>
+        <div class="stack">
+          <p class="body-lg">
+            CityboundNomad is built to earn through affiliate links (accommodation, tours, and
+            clothing or gear brands), occasional brand partnerships, and eventually digital
+            products. Every affiliate link is disclosed and marked. Nothing gets linked that I
+            haven't actually used — see the <a href="/affiliate-disclosure" style="color:var(--c-accent)">affiliate disclosure</a>.
+          </p>
+          <p class="body-lg">
+            The rule for partnerships is simple: nothing that requires me to say something I don't
+            believe. The Dispatch does not carry sponsored messages. That's not a policy imposed on
+            me — it's a preference, and it's the reason the newsletter is worth subscribing to.
+          </p>
+          <p class="body-lg">
+            Sections of this site are deliberately empty. Where there is no stay review, no gear
+            review, or no essay, it's because the writing hasn't been done yet — not because there's
+            nothing to fill the space with. Filling it with something approximate would defeat the
+            point of the whole project.
+          </p>
+          <p class="body-lg">
+            CityboundNomad is an entity of Strandway Systems, based in Nova Scotia, Canada.
+          </p>
+        </div>
+
+        <p class="callout mt-3">
+          “Fewer readers who trust me beats more readers who don't.”
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <div class="container" style="padding-bottom:5rem">
+    <DispatchSignup
+      headline="Follow the journey"
+      subtext="The Dispatch is the best way to follow along. One email per week, every Friday."
+      source="about"
+    />
+  </div>
+</BaseLayout>

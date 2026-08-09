@@ -1,0 +1,53 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { SITE, NEWSLETTER } from '../data/site';
+---
+
+<BaseLayout
+  title={`Cookie Policy | ${SITE.name}`}
+  description={`Which cookies ${SITE.name} sets, when, and how to change your choice.`}
+>
+  <section class="legal">
+    <div class="container container--narrow">
+      <h1>Cookie Policy</h1>
+      <p class="body-sm">Last updated: {new Date().toISOString().slice(0, 10)}</p>
+
+      <h2>The short version</h2>
+      <p>
+        Nothing non-essential loads until you choose. If you decline, or never answer the banner, no
+        analytics or marketing scripts run at all — the consent manager is fail-closed, meaning the
+        absence of a decision is treated as a refusal.
+      </p>
+
+      <h2>Categories</h2>
+      <ul>
+        <li>
+          <strong>Strictly necessary</strong> — a single local storage entry recording your consent
+          choice so the banner does not reappear on every page. Always on; it is what makes the
+          rest of this policy enforceable.
+        </li>
+        <li>
+          <strong>Analytics</strong> — off by default. When enabled, aggregate analytics measure
+          which pages are read and which cities people care about. IP addresses are anonymised and
+          Google Signals is disabled, so no cross-device advertising profile is built.
+        </li>
+        <li>
+          <strong>Affiliate & newsletter</strong> — off by default. When enabled, affiliate
+          attribution and the newsletter signup embed may set cookies. Affiliate cookies are set by
+          the partner, not by this site, and only after you click through to them.
+        </li>
+      </ul>
+
+      <h2>Changing your mind</h2>
+      <p>
+        Clear this site's cookies and local storage in your browser settings and the consent banner
+        returns on the next page load, letting you make a different choice.
+      </p>
+
+      <h2>Questions</h2>
+      <p>
+        Email <a href={`mailto:${NEWSLETTER.fallbackMailto}`}>{NEWSLETTER.fallbackMailto}</a>.
+      </p>
+    </div>
+  </section>
+</BaseLayout>

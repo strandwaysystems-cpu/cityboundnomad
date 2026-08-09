@@ -1,0 +1,43 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { SITE, NEWSLETTER } from '../data/site';
+---
+
+<BaseLayout
+  title={`Affiliate Disclosure | ${SITE.name}`}
+  description={`How ${SITE.name} uses affiliate links, and the rules it holds itself to.`}
+>
+  <section class="legal">
+    <div class="container container--narrow">
+      <h1>Affiliate Disclosure</h1>
+      <p class="body-sm">Last updated: {new Date().toISOString().slice(0, 10)}</p>
+
+      <h2>What an affiliate link is</h2>
+      <p>
+        Some links to accommodation, tours, clothing and gear are affiliate links. If you book or
+        buy through one, this site may earn a commission. It never changes the price you pay.
+      </p>
+
+      <h2>How they are marked</h2>
+      <p>
+        Every affiliate link on this site opens in a new tab and carries a
+        <code>sponsored</code> attribute, which is the machine-readable way of declaring the
+        commercial relationship. Where a stay log or gear note contains one, it is stated on the
+        page as well.
+      </p>
+
+      <h2>The rules</h2>
+      <ul>
+        <li>Nothing is recommended that has not actually been used, stayed in, or worn.</li>
+        <li>A commission never buys a positive review. The pros and cons are what they are.</li>
+        <li>Destinations are never sponsored. Where a trip was paid for by someone else, it is said so on the page.</li>
+        <li>The Dispatch newsletter does not carry sponsored messages.</li>
+      </ul>
+
+      <h2>Questions</h2>
+      <p>
+        Email <a href={`mailto:${NEWSLETTER.fallbackMailto}`}>{NEWSLETTER.fallbackMailto}</a>.
+      </p>
+    </div>
+  </section>
+</BaseLayout>

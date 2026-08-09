@@ -1,0 +1,106 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import DispatchSignup from '../components/DispatchSignup.astro';
+import EmptyState from '../components/EmptyState.astro';
+import { SITE } from '../data/site';
+import { DISPATCH_FACTS, WHAT_TO_EXPECT, ISSUES } from '../data/dispatch';
+import { published } from '../data/flags';
+
+const issues = published(ISSUES);
+---
+
+<BaseLayout
+  title={`The Dispatch — Weekly Notes From the Road | ${SITE.name}`}
+  description="One email per week, every Friday. City observations, stay reviews, style notes, and reflections on the minimalist travel life. No sponsored content."
+>
+  <div class="page-head page-head--dark">
+    <div class="container">
+      <p class="eyebrow" style="color:var(--c-accent)">The Dispatch</p>
+      <h1 class="display-xl mb-2" style="color:var(--c-on-dark); margin-top:1rem">
+        Notes from the road,<br /><em>delivered weekly.</em>
+      </h1>
+      <p class="body-lg mb-4" style="color:var(--c-on-dark-soft); max-width:520px">
+        The most personal thing I write — shorter than a blog post, more honest than social media.
+        City observations, stay reviews, style notes, and reflections on the minimalist travel life.
+      </p>
+
+      <dl class="stats">
+        {
+          DISPATCH_FACTS.map((fact) => (
+            <div>
+              <dd class="stat__value">{fact.value}</dd>
+              <dt class="stat__label">{fact.label}</dt>
+            </div>
+          ))
+        }
+      </dl>
+    </div>
+  </div>
+
+  <!-- ─── Signup ───────────────────────────────────────────────────────── -->
+  <section class="section">
+    <div class="container" style="max-width:720px">
+      <DispatchSignup
+        headline="Join the Dispatch"
+        subtext="One email per week. Every Friday. No affiliate pitches, no sponsored content, unsubscribe any time."
+        source="dispatch"
+      />
+    </div>
+  </section>
+
+  <hr class="rule" />
+
+  <!-- ─── What to expect ───────────────────────────────────────────────── -->
+  <section class="section">
+    <div class="container">
+      <p class="eyebrow mb-3">What to expect</p>
+      <div class="cell-grid cell-grid--tight">
+        {
+          WHAT_TO_EXPECT.map((item) => (
+            <div style="padding:2rem">
+              <h2 class="display-sm mb-1">{item.title}</h2>
+              <p class="body-sm">{item.body}</p>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <hr class="rule" />
+
+  <!-- ─── Issues ───────────────────────────────────────────────────────── -->
+  <section class="section">
+    <div class="container">
+      <p class="eyebrow mb-3">Issues</p>
+      {
+        issues.length > 0 ? (
+          <div class="cell-grid cell-grid--stack">
+            {issues.map((issue) => (
+              <article class="entry">
+                <div class="entry__meta">
+                  <span class="entry__type" style="color:var(--c-accent)">
+                    #{String(issue.number).padStart(3, '0')}
+                  </span>
+                  <span class="body-sm">{issue.date}</span>
+                </div>
+                <h2>{issue.title}</h2>
+                <p class="body-sm">{issue.preview}</p>
+                <ul class="tag-row mt-2">
+                  {issue.tags.map((tag) => (
+                    <li class="tag">{tag}</li>
+                  ))}
+                </ul>
+              </article>
+            ))}
+          </div>
+        ) : (
+          <EmptyState
+            title="Issue #001 hasn't gone out yet"
+            body="The archive fills up from here. Subscribe and the first issue lands in your inbox the Friday it ships — there is no back catalogue to catch up on."
+          />
+        )
+      }
+    </div>
+  </section>
+</BaseLayout>

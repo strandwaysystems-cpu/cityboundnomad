@@ -1,0 +1,152 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import DispatchSignup from '../components/DispatchSignup.astro';
+import EmptyState from '../components/EmptyState.astro';
+import Icon from '../components/Icon.astro';
+import { SITE } from '../data/site';
+import { IMAGES } from '../data/images';
+import { MILESTONES, ESSAYS, ESSAY_TYPE_LABELS } from '../data/journey';
+import { published } from '../data/flags';
+
+const essays = published(ESSAYS);
+---
+
+<BaseLayout
+  title={`The Journey — Lifestyle Freedom | ${SITE.name}`}
+  description="It started with a one-month Airbnb on Narva Mantee, Tallinn, in May 2022. The honest documentation of what came after — the systems, the mistakes, and the ongoing work of building a life without a fixed address."
+>
+  <div class="page-head">
+    <div class="container">
+      <div class="split split--wide-gap split--end">
+        <div>
+          <p class="pillar-label mb-1">03 — Lifestyle Freedom</p>
+          <h1 class="display-xl mb-2">The Journey</h1>
+          <p class="body-lg" style="max-width:480px">
+            It started with a one-month Airbnb on Narva Mantee, Tallinn, in May 2022. This is the
+            honest documentation of what came after — the systems, the mistakes, and the ongoing
+            work of building a life without a fixed address.
+          </p>
+        </div>
+        <div>
+          <img
+            src={IMAGES.journey}
+            alt="Chandler in a European city"
+            style="max-width:380px; height:380px; object-fit:cover; object-position:center 30%; margin-left:auto"
+            loading="lazy"
+            decoding="async"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─── Brand statement ──────────────────────────────────────────────── -->
+  <section class="section section--dark">
+    <div class="container">
+      <div class="split split--wide-gap" style="align-items:center">
+        <blockquote class="pullquote">
+          “I met people everywhere I went and fell in love with the European style, the laidback but
+          functional lifestyle, and being in historic places.”
+        </blockquote>
+        <div>
+          <p style="font-size:0.9375rem; color:var(--c-on-dark-soft); line-height:1.7; margin-bottom:1.5rem">
+            This pillar is where the brand earns trust. Not through aspirational content — through
+            honest documentation. The numbers, the mistakes, the systems that work, and the ones
+            that don't.
+          </p>
+          <p style="font-size:0.9375rem; color:var(--c-on-dark-soft); line-height:1.7">
+            Nothing here is published before it is true. Where a section is empty, it is empty
+            because the writing hasn't been done yet — not because there's nothing to say.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── Essays ───────────────────────────────────────────────────────── -->
+  <section class="section">
+    <div class="container">
+      <p class="eyebrow mb-3">Essays</p>
+      {
+        essays.length > 0 ? (
+          <div class="cell-grid cell-grid--wide">
+            {essays.map((essay) => {
+              const hasBody = essay.body.length > 0;
+              const Tag = hasBody ? 'a' : 'div';
+              return (
+                <Tag
+                  class={`entry${hasBody ? ' card-hover' : ''}`}
+                  href={hasBody ? `/the-journey/${essay.slug}` : undefined}
+                  style="text-decoration:none; color:inherit; display:block"
+                >
+                  <div class="entry__meta">
+                    <span class="entry__type" style="color:var(--c-accent)">
+                      {ESSAY_TYPE_LABELS[essay.type]}
+                    </span>
+                    <span class="body-sm">
+                      {essay.date} · {essay.readTime}
+                    </span>
+                  </div>
+                  <h3>{essay.title}</h3>
+                  <p class="body-sm">{essay.excerpt}</p>
+                  {hasBody && (
+                    <p class="link-cta mt-2">
+                      Read the essay <Icon name="arrow-right" size={12} />
+                    </p>
+                  )}
+                </Tag>
+              );
+            })}
+          </div>
+        ) : (
+          <EmptyState
+            title="No essays published yet"
+            body="The long-form pieces are written slowly and only when there is something honest to say. The Dispatch is where the shorter, more frequent version lives."
+          />
+        )
+      }
+    </div>
+  </section>
+
+  <hr class="rule" />
+
+  <!-- ─── Timeline ─────────────────────────────────────────────────────── -->
+  <section class="section">
+    <div class="container">
+      <div class="split">
+        <div>
+          <p class="eyebrow mb-1">The Timeline</p>
+          <h2 class="display-lg mb-2">How it actually went.</h2>
+          <p class="body-lg">
+            No overnight success story. A month in Tallinn, then Iceland, then a four-month run
+            across Europe, then two more trips. Each one changed what the next one looked like.
+          </p>
+        </div>
+        <div>
+          <ol class="timeline">
+            {
+              MILESTONES.map((m) => (
+                <li>
+                  <p class="timeline__date">{m.date}</p>
+                  <p class="body-lg" style="color:var(--c-ink)">
+                    {m.label}
+                  </p>
+                </li>
+              ))
+            }
+          </ol>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section style="padding-bottom:5rem">
+    <div class="container" style="max-width:640px">
+      <DispatchSignup
+        headline="Follow the journey"
+        subtext="The Dispatch is where the ongoing version of this lives — one honest note per week."
+        source="the-journey"
+      />
+    </div>
+  </section>
+</BaseLayout>
