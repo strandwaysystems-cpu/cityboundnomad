@@ -91,8 +91,14 @@ flag instead, so the grid stays even.
 Copenhagen, Chania (all Unsplash).
 
 **Photographs wanted** for the 21 cities with none — the whole 2023 run, plus
-Lisbon, Lagos, Sevilla, Gothenburg and Jönköping. Each city now has its own page
-with room for a wide hero image.
+Lisbon, Lagos, Sevilla, Gothenburg and Jönköping.
+
+The fastest way to fix all of this at once is the photo importer: export the
+camera roll out of Apple Photos with location data intact and run
+`npm run photos`. It sorts the shots into cities by their GPS and puts a gallery
+on each city page. See "Photos from Apple Photos" in the README — including the
+export checkbox that Apple hides, and what the importer does about the privacy
+side.
 
 ---
 

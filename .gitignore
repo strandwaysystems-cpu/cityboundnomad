@@ -9,3 +9,9 @@ dist/
 .env
 .env.*
 .project-config.json
+
+# Raw photo exports fed to tools/import-photos.mjs. The originals stay in Apple
+# Photos; only the converted, EXIF-stripped .webp files under
+# public/images/places/ belong in the repo.
+/photo-export/
+/*-export/

@@ -1143,6 +1143,27 @@ ol {
   flex-shrink: 0;
 }
 
+/* ─── Photo grid (imported camera-roll shots on a city page) ──────────────── */
+
+.photo-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 1.5rem;
+}
+
+.photo-grid img {
+  width: 100%;
+  height: auto;
+  background: var(--c-bg-alt);
+}
+
+.photo-grid figcaption {
+  margin-top: 0.5rem;
+  font-size: 0.75rem;
+  letter-spacing: 0.06em;
+  color: var(--c-ink-faint);
+}
+
 /* Flag before a city name in a display heading */
 .city-flag {
   font-size: 0.4em;

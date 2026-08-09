@@ -180,6 +180,55 @@ Three steps, no framework work:
 3. Add it to the `COLLECTIONS` array in `src/pages/things.astro` and to `LISTS`
    in `src/components/Footer.astro`.
 
+## Photos from Apple Photos
+
+`tools/import-photos.mjs` turns a folder of exported photos into site content:
+it reads the GPS the camera wrote into each file, works out which city it was
+taken in, converts it to a web-sized `.webp`, and writes `src/data/photos.ts`
+so the city pages show them.
+
+```bash
+npm run photos -- ~/Desktop/cbn-export --dry-run   # see what matches where
+npm run photos -- ~/Desktop/cbn-export             # write the images + data
+```
+
+It reads `.heic` straight off an iPhone — no converting first.
+
+### Exporting with the location intact
+
+This is the step that goes wrong. **Apple strips location on export unless you
+tell it not to.**
+
+> Photos on Mac → select → File → Export → Export N Photos…
+> → tick **Location Information** → Subfolder Format: None
+
+*Export Unmodified Original* always keeps the location and is the safest
+option. On iPhone: select → Share → **Options** at the top of the sheet →
+Location **on** → Save to Files (or AirDrop to a Mac).
+
+If the importer reports photos with no location, that checkbox is why.
+
+### Privacy
+
+Photo GPS is precise enough to identify a house, so the importer:
+
+- **never writes coordinates into the repo** — only the matched city name;
+- **strips all EXIF** from the `.webp` files it produces, GPS included;
+- **skips any photo it cannot place** in one of your listed cities rather than
+  guessing, which is what keeps photos taken at home out of the build.
+
+Everything skipped is listed in the summary, so nothing disappears silently.
+
+### Matching
+
+Photos are matched to the nearest city in `cities.ts` within 60km, using the
+approximate coordinates in `COORDS` at the top of the importer. Matching on
+position rather than Apple's place names is what tells Lagos in Portugal from
+Lagos in Nigeria. Add a city to `cities.ts` and its coordinates to `COORDS`
+together — the script warns if the two drift apart.
+
+---
+
 ## Before this goes live
 
 See [`CONTENT-TODO.md`](CONTENT-TODO.md) for the full list. The three that

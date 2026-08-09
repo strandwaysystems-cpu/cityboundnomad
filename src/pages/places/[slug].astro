@@ -9,6 +9,7 @@ import { CAFES } from '../../data/cafes';
 import { TOURS } from '../../data/tours';
 import { STAYS } from '../../data/stays';
 import { byCity } from '../../data/lists';
+import { photosFor } from '../../data/photos';
 import { published } from '../../data/flags';
 
 /*
@@ -39,7 +40,10 @@ const cost =
     ? `€${city.costPerDayMin}–€${city.costPerDayMax}`
     : null;
 
-const hasAnything = cafes.length + tours.length + stays.length > 0;
+/* Photos imported from the camera roll, matched to this city by their GPS. */
+const photos = photosFor(city.name);
+
+const hasAnything = cafes.length + tours.length + stays.length + photos.length > 0;
 
 const jsonLd = [
   {
@@ -115,6 +119,31 @@ const jsonLd = [
           decoding="async"
         />
       </div>
+    )
+  }
+
+  {
+    photos.length > 0 && (
+      <section class="section">
+        <div class="container">
+          <p class="eyebrow mb-2">From the camera roll</p>
+          <div class="photo-grid">
+            {photos.map((photo) => (
+              <figure>
+                <img
+                  src={photo.src}
+                  alt={photo.alt}
+                  width={photo.width}
+                  height={photo.height}
+                  loading="lazy"
+                  decoding="async"
+                />
+                {photo.taken && <figcaption class="body-sm">{photo.taken}</figcaption>}
+              </figure>
+            ))}
+          </div>
+        </div>
+      </section>
     )
   }
 
