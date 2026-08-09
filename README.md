@@ -36,6 +36,28 @@ server beyond uploading them.
 If you prefer Hostinger's Git deployment, point it at this repo with build
 command `npm run build` and public directory `dist`.
 
+**If the site returns a 500 the moment it's uploaded**, the cause is almost
+certainly the single `Options -Indexes` line in `.htaccess`, which needs
+`AllowOverride Options`. Delete that line and re-test — nothing else in the file
+depends on it.
+
+### After uploading, spot-check these
+
+They exercise every rewrite rule in the file:
+
+| URL | Expected |
+|---|---|
+| `/` | 200, homepage |
+| `/travel` | 200 |
+| `/travel.html` | 301 → `/travel` |
+| `/the-journey` | 200 — the one that breaks if the rewrite rules are edited carelessly, because a `the-journey/` directory exists alongside `the-journey.html` |
+| `/the-journey/tallinn-may-2022` | 200 |
+| `/cities`, `/stay-logs` | 301 → `/travel` |
+| `/philosophy` | 301 → `/the-journey` |
+| `/nope` | 404, styled 404 page |
+| `http://cityboundnomad.com` | 301 → `https://` |
+| `https://www.cityboundnomad.com` | 301 → non-`www` |
+
 > **Do not** enable a Node/SSR runtime. The site is deliberately static so it
 > can move between Hostinger and Cloudflare Pages without changes.
 

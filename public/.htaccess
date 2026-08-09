@@ -26,22 +26,36 @@
   RewriteRule ^philosophy/?$ /the-journey [R=301,L]
 
   # ── Strip .html from requests so the canonical form is extensionless ─────
+  # index.html is special-cased first, or it would land on /index rather than /.
+  RewriteCond %{THE_REQUEST} \s/+index\.html[\s?] [NC]
+  RewriteRule ^ / [R=301,L]
+
   RewriteCond %{THE_REQUEST} \s/+(.+?)\.html[\s?] [NC]
   RewriteRule ^ /%1 [R=301,L]
 
   # ── Trailing slash → no trailing slash (matches trailingSlash: 'never') ──
-  RewriteCond %{REQUEST_FILENAME} !-d
+  # No !-d guard here on purpose: every page is a .html file, so a directory
+  # URL is never the thing we want to serve. See the note below.
   RewriteCond %{REQUEST_URI} ^(.+)/$
   RewriteRule ^ %1 [R=301,L]
 
   # ── Serve foo.html for /foo ──────────────────────────────────────────────
+  # Deliberately NOT guarded by !-d. `dist/` contains both `the-journey.html`
+  # and a `the-journey/` directory (the essay pages live inside it), so a !-d
+  # guard would skip this rule for /the-journey, hand the request to mod_dir,
+  # and 404 — the directory has no index.html. Matching on "foo.html exists"
+  # alone makes the file win, which is what we want in every such case.
   RewriteCond %{REQUEST_FILENAME} !-f
-  RewriteCond %{REQUEST_FILENAME} !-d
   RewriteCond %{REQUEST_FILENAME}.html -f
   RewriteRule ^(.*)$ $1.html [L]
 </IfModule>
 
 ErrorDocument 404 /404.html
+
+# No directory listings — /_astro/ and /the-journey/ have no index page.
+# If Hostinger ever returns a 500 immediately after upload, this is the only
+# line here that depends on AllowOverride Options; remove it and re-test.
+Options -Indexes
 
 # ── Compression ────────────────────────────────────────────────────────────
 <IfModule mod_deflate.c>
