@@ -1,0 +1,20 @@
+---
+/*
+ * Shown where a section's content exists as a plan but not yet as writing.
+ * Deliberately plain and honest rather than a fake "loading" shimmer — the
+ * whole brand premise is that nothing gets published before it is true.
+ */
+interface Props {
+  title: string;
+  body: string;
+}
+
+const { title, body } = Astro.props;
+---
+
+<div
+  style="padding:3.5rem 2rem; border:1px solid var(--c-line); text-align:center; background:var(--c-bg)"
+>
+  <p class="display-md" style="margin-bottom:0.75rem">{title}</p>
+  <p class="body-lg" style="max-width:38rem; margin-inline:auto">{body}</p>
+</div>

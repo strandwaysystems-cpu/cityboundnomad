@@ -1,0 +1,68 @@
+---
+import { SITE, NAV } from '../data/site';
+import Icon from './Icon.astro';
+
+/*
+ * Fixed editorial header. The active link is resolved at build time from the
+ * page's own path rather than at runtime, so it is correct before hydration
+ * (there is none) and correct with JS disabled.
+ */
+const path = Astro.url.pathname.replace(/\.html$/, '').replace(/\/$/, '') || '/';
+const isActive = (href: string) => (href === '/' ? path === '/' : path.startsWith(href));
+---
+
+<header class="site-header" data-site-header>
+  <div class="container">
+    <nav aria-label="Primary">
+      <a href="/" class="wordmark">{SITE.name}</a>
+
+      <ul class="nav-list">
+        {
+          NAV.map((link) => (
+            <li>
+              <a
+                href={link.href}
+                class="nav-link"
+                aria-current={isActive(link.href) ? 'page' : undefined}
+              >
+                {link.label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+
+      <button
+        class="nav-toggle"
+        type="button"
+        aria-expanded="false"
+        aria-controls="nav-mobile"
+        data-nav-toggle
+      >
+        <span class="visually-hidden">Toggle menu</span>
+        <span data-nav-icon="open"><Icon name="menu" size={20} /></span>
+        <span data-nav-icon="close" hidden><Icon name="x" size={20} /></span>
+      </button>
+    </nav>
+  </div>
+
+  <div class="nav-mobile" id="nav-mobile" data-nav-mobile>
+    <div class="container">
+      <ul>
+        {
+          NAV.map((link) => (
+            <li>
+              <a
+                href={link.href}
+                class="nav-link"
+                aria-current={isActive(link.href) ? 'page' : undefined}
+              >
+                {link.label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </div>
+</header>

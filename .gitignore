@@ -1,0 +1,11 @@
+node_modules/
+dist/
+.astro/
+.DS_Store
+*.log
+
+# Never commit environment files — the Manus export this site was ported from
+# shipped live database and API credentials in .project-config.json.
+.env
+.env.*
+.project-config.json

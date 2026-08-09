@@ -1,0 +1,33 @@
+# Fails the build if any placeholder affiliate ID is committed.
+# Required on every Strandway repo — see STRANDWAY-WEB-STANDARD.md §7.
+name: affiliate-id-guard
+
+on:
+  push:
+    branches: [main, master, 'claude/**']
+  pull_request:
+    branches: [main, master]
+
+jobs:
+  scan-for-placeholders:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Scan for placeholder affiliate IDs
+        run: |
+          PATTERNS='YOUR_AID|AFFILIATE_ID_HERE|YOUR_AFFILIATE_ID|REPLACE_ME|TODO_AFFILIATE|XXXX-XXXX|your-affiliate-id|INSERT_ID|BOOKING_AFFILIATE_URL|TOURS_AFFILIATE_URL|CAR_RENTAL_AFFILIATE_URL|FLIGHTS_AFFILIATE_URL|YOUR_BOOKING_ACCOUNT|YOUR_VIATOR_PID|YOUR_GYG_PARTNER_ID'
+          echo "Scanning for placeholder affiliate IDs..."
+          MATCHES=$(grep -rIn -E "$PATTERNS" . \
+            --include='*.html' --include='*.htm' \
+            --include='*.js' --include='*.jsx' --include='*.ts' --include='*.tsx' \
+            --include='*.astro' --include='*.md' --include='*.json' \
+            --exclude-dir=node_modules --exclude-dir=dist --exclude-dir=.git \
+            --exclude-dir=.github || true)
+          if [ -n "$MATCHES" ]; then
+            echo "::error::Placeholder affiliate ID(s) found. Replace with real IDs before deploy."
+            echo "$MATCHES"
+            exit 1
+          fi
+          echo "Clean — no placeholder affiliate IDs found."

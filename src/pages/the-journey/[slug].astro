@@ -1,0 +1,73 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import DispatchSignup from '../../components/DispatchSignup.astro';
+import Icon from '../../components/Icon.astro';
+import { SITE } from '../../data/site';
+import { ESSAYS, ESSAY_TYPE_LABELS, type Essay } from '../../data/journey';
+import { published } from '../../data/flags';
+
+/* Only essays that actually have a body get a page — a route that renders a
+   title over an empty article is worse than no route. */
+export function getStaticPaths() {
+  return published(ESSAYS)
+    .filter((essay) => essay.body.length > 0)
+    .map((essay) => ({ params: { slug: essay.slug }, props: { essay } }));
+}
+
+interface Props {
+  essay: Essay;
+}
+
+const { essay } = Astro.props;
+
+const jsonLd = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Article',
+    headline: essay.title,
+    description: essay.excerpt,
+    author: { '@type': 'Person', name: SITE.author },
+    publisher: { '@type': 'Organization', name: SITE.name },
+    mainEntityOfPage: `${SITE.url}/the-journey/${essay.slug}`,
+  },
+];
+---
+
+<BaseLayout
+  title={`${essay.title} | ${SITE.name}`}
+  description={essay.excerpt}
+  ogType="article"
+  jsonLd={jsonLd}
+>
+  <article>
+    <div class="page-head">
+      <div class="container container--narrow">
+        <p class="pillar-label mb-1">{ESSAY_TYPE_LABELS[essay.type]}</p>
+        <h1 class="display-lg mb-2">{essay.title}</h1>
+        <p class="body-sm">{essay.date} · {essay.readTime} read</p>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="container container--narrow">
+        <div class="prose">
+          {essay.body.map((paragraph) => <p>{paragraph}</p>)}
+        </div>
+
+        <p class="mt-4">
+          <a class="link-cta" href="/the-journey">
+            <Icon name="arrow-right" size={12} /> All of The Journey
+          </a>
+        </p>
+      </div>
+    </div>
+
+    <div class="container container--narrow" style="padding-bottom:5rem">
+      <DispatchSignup
+        headline="Notes from the road"
+        subtext="One email per week, every Friday. The shorter, more frequent version of essays like this one."
+        source="essay"
+      />
+    </div>
+  </article>
+</BaseLayout>

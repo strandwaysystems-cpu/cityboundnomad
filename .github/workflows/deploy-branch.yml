@@ -1,0 +1,65 @@
+# Publishes the built site to the `deploy` branch.
+#
+# Hostinger's Git integration on shared hosting clones a repo and serves it
+# as-is — it does not run `npm install` or a build command. Pointing it at this
+# repo directly would put the Astro *source* in public_html, with no index.html
+# at the root and nothing rendering.
+#
+# So this workflow builds the site and force-pushes the contents of dist/ to a
+# `deploy` branch that contains nothing but the finished static files. Hostinger
+# is pointed at THAT branch, and every push to main lands on the live site.
+#
+# The branch is a build artifact, not history — it is replaced wholesale each
+# time, which is why the push is forced.
+name: publish-deploy-branch
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: deploy-branch
+  cancel-in-progress: true
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build
+        run: npm run build
+
+      - name: Verify .htaccess made it into the build
+        run: test -f dist/.htaccess || { echo "::error::dist/.htaccess is missing — extensionless URLs will 404 on Apache"; exit 1; }
+
+      - name: Force-push dist/ to the deploy branch
+        run: |
+          cd dist
+          # A fresh repo inside dist/ — the parent .gitignore (which ignores
+          # dist/) does not apply here, and `git add -A` picks up .htaccess.
+          git init -q
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git checkout -q -b deploy
+          git add -A
+          git commit -q -m "Build ${GITHUB_SHA::7} from ${GITHUB_REF_NAME}"
+          git push -q -f \
+            "https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" deploy
+          echo "Published $(git ls-files | wc -l) files to the deploy branch"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

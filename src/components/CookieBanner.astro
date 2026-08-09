@@ -1,0 +1,21 @@
+---
+/*
+ * Consent banner markup. All behaviour lives in public/consent.js, which is
+ * fail-closed: nothing non-essential loads until a choice is recorded.
+ * See docs/analytics-privacy-standard.md in strandway-ventures.
+ */
+---
+
+<div class="cookie-banner" id="cookie-banner" role="dialog" aria-live="polite" aria-label="Cookie consent">
+  <div class="container cookie-banner__inner">
+    <p>
+      This site uses cookies for analytics so I can see which cities people actually read about.
+      Nothing loads until you choose. See the <a href="/cookie-policy">cookie policy</a> and
+      <a href="/privacy-policy">privacy policy</a>.
+    </p>
+    <div class="cookie-banner__actions">
+      <button type="button" class="btn-ghost" data-consent="decline">Decline</button>
+      <button type="button" class="btn-primary" data-consent="accept">Accept</button>
+    </div>
+  </div>
+</div>

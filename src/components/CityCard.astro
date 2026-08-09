@@ -1,0 +1,46 @@
+---
+import type { City } from '../data/cities';
+import Icon from './Icon.astro';
+
+interface Props {
+  city: City;
+}
+
+const { city } = Astro.props;
+
+const cost =
+  city.costPerDayMin && city.costPerDayMax
+    ? `€${city.costPerDayMin}–€${city.costPerDayMax}/day`
+    : null;
+---
+
+<article class="card-hover">
+  {
+    city.image ? (
+      <div class="city-card__media zoom-frame">
+        <img src={city.image} alt={`${city.name}, ${city.country}`} loading="lazy" decoding="async" />
+        {cost && <p class="city-card__cost">{cost}</p>}
+      </div>
+    ) : (
+      <div class="city-card__media city-card__media--empty">
+        <span aria-hidden="true">{city.flag}</span>
+        {cost && <p class="city-card__cost">{cost}</p>}
+      </div>
+    )
+  }
+  <div class="city-card__body">
+    <div class="city-card__title">
+      <span aria-hidden="true" style="font-size:1.25rem">{city.flag}</span>
+      <h3>{city.name}</h3>
+      <span class="body-sm">{city.country}</span>
+    </div>
+    <p class="body-sm" style="margin-bottom:1rem">{city.description}</p>
+    <ul class="tag-row">
+      {city.tags.map((tag) => <li class="tag">{tag}</li>)}
+    </ul>
+    <div class="card-foot">
+      <span class="body-sm">{city.returnedOn?.length ? 'Returned on a later trip' : ''}</span>
+      <Icon name="map-pin" size={14} color="var(--c-accent)" />
+    </div>
+  </div>
+</article>

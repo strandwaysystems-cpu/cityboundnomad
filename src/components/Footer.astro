@@ -1,0 +1,66 @@
+---
+import { SITE, SOCIAL, NAV, LEGAL_NAV } from '../data/site';
+
+const year = new Date().getFullYear();
+---
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <h2>{SITE.name}</h2>
+        <p class="body-sm" style="color: oklch(0.6 0.008 65); line-height: 1.7;">
+          A minimalist travel journal by {SITE.author}. Cities, style, and freedom — from Atlantic
+          Canada to Europe's cobblestone streets.
+        </p>
+        <p class="footer-note">{SITE.parentEntity}</p>
+      </div>
+
+      <div>
+        <span class="eyebrow">Navigate</span>
+        <ul class="footer-links">
+          {
+            NAV.map((link) => (
+              <li>
+                <a href={link.href} class="footer-link">
+                  {link.label}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+
+      <div>
+        <span class="eyebrow">Connect</span>
+        <p style="font-size: 0.875rem; color: oklch(0.6 0.008 65); line-height: 1.7; margin-bottom: 1.25rem;">
+          Follow the journey or join the Dispatch for weekly notes on cities, stays, and the
+          minimalist travel life.
+        </p>
+        <ul class="footer-links">
+          <li>
+            <a
+              href={SOCIAL.instagram}
+              class="footer-link"
+              target="_blank"
+              rel="noopener noreferrer">Instagram</a
+            >
+          </li>
+          <li>
+            <a href={SOCIAL.tiktok} class="footer-link" target="_blank" rel="noopener noreferrer"
+              >TikTok</a
+            >
+          </li>
+          <li><a href="/dispatch" class="footer-link">Subscribe to the Dispatch</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <p>© {year} {SITE.name}. All rights reserved.</p>
+      <div class="footer-legal">
+        {LEGAL_NAV.map((link) => <a href={link.href}>{link.label}</a>)}
+      </div>
+    </div>
+  </div>
+</footer>
