@@ -17,6 +17,10 @@
  * coast note is assembled from what he has already written on the Reykjavik
  * city page and the Hi Loft review, so it is his own account rather than
  * anything filled in around him.
+ *
+ * Note that Golden Circle is published as a negative recommendation. That is
+ * the point of the list: a tour that was not worth it is worth saying so about,
+ * and an affiliate feed structurally cannot.
  */
 
 import type { Entry, ListMeta } from './lists';
@@ -45,28 +49,24 @@ export const TOURS: Entry[] = [
     verified: true,
   },
 
-  /*
-   * Held back — Chandler named these but hasn't written them up yet. Each
-   * needs a line on why the day was worth it, plus operator and cost.
-   */
   {
     name: 'Golden Circle',
     category: 'Day trips',
     city: 'Reykjavik',
-    note: '',
+    note: "Overrated, with the exception of Gullfoss. If renting a car is an option, do that instead and set your own schedule — the stops are worth what you decide to give them, not what a coach timetable decides.",
     since: 'September 2022',
     url: null,
     affiliate: false,
-    verified: false,
+    verified: true,
   },
   {
     name: 'Sky Lagoon',
     category: 'Outdoors',
     city: 'Reykjavik',
-    note: '',
+    note: 'An easily accessible alternative to the Blue Lagoon — and good enough that I felt fine about skipping the Blue Lagoon altogether.',
     since: 'September 2022',
     url: null,
     affiliate: false,
-    verified: false,
+    verified: true,
   },
 ];

@@ -63,6 +63,15 @@ export const CAFES: Entry[] = [
     verified: true,
   },
   {
+    name: 'Mokka Kaffi',
+    category: 'Coffee',
+    city: 'Reykjavik',
+    note: 'Just a good place to have a coffee.',
+    since: 'September 2022',
+    url: null,
+    verified: true,
+  },
+  {
     name: 'The Dubliner',
     category: 'Bars',
     city: 'Reykjavik',
@@ -112,17 +121,4 @@ export const CAFES: Entry[] = [
     verified: true,
   },
 
-  /*
-   * Held back — named but not yet written up. One line on why it earned a
-   * place and it publishes; the `note` is the whole point of the entry.
-   */
-  {
-    name: 'Mokka Kaffi',
-    category: 'Coffee',
-    city: 'Reykjavik',
-    note: '',
-    since: 'September 2022',
-    url: null,
-    verified: false,
-  },
 ];

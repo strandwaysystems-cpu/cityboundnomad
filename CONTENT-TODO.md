@@ -13,8 +13,8 @@ object and filling it in; see "Adding an entry" in the README for the shape.
 
 | List | File | State |
 |---|---|---|
-| Cafés & bars | `cafes.ts` | **8 published** — Butterfly Lounge in Tallinn, plus seven in Reykjavik. The other 26 cities are blank. |
-| Tours | `tours.ts` | **1 published** — the Reykjavik south-coast day trip. Golden Circle and Sky Lagoon held back. No operator or price on any of the three. |
+| Cafés & bars | `cafes.ts` | **9 published** — Butterfly Lounge in Tallinn, plus eight in Reykjavik. The other 26 cities are blank. |
+| Tours | `tours.ts` | **3 published** — all out of Reykjavik: south coast, Golden Circle, Sky Lagoon. Still no operator or price on any of them. |
 | Hair & skin | `grooming.ts` | **Empty.** |
 | Stays | `stays.ts` | **1 published** — Hi Loft Hostel, Reykjavik. Four others held back (below). |
 | Wardrobe | `wardrobe.ts` | **10 items, none confirmed** (below). |
@@ -47,15 +47,17 @@ Held back behind `verified: false`, rendered by nothing. Set an item's
 |---|---|---|
 | 4 stay reviews — Generator Copenhagen, Reykjavik Downtown Hostel, Old Town Apartment (Tallinn), Pärnu Beach Apartment | `stays.ts` | Invented ratings and pros/cons, and bare `booking.com` / `airbnb.com` links with no affiliate ID. |
 | The 10-item wardrobe | `wardrobe.ts` | Brands, prices and quantities were never confirmed — including a €350 sneaker and a €280 jacket. |
-| Mokka Kaffi | `cafes.ts` | Named by Chandler, but no reason behind it yet. One line publishes it. |
-| Golden Circle, Sky Lagoon | `tours.ts` | Named, but not written up — and no operator or price. |
 | 4 notes | `journey.ts` | Titles and excerpts with no body behind them. |
 
 **Published as-is** (all real): the 28 cities, the trip timeline, the Tallinn
 May 2022 origin note, the Hi Loft Hostel review, the Butterfly Lounge, the About
-page story, and the September 2022 Reykjavik round — Kaffitár, BakaBaka, The
-Dubliner, Jungle Cocktail Bar, the Hi Loft Hostel bar, Islenski Barinn, Kafe
-Loki, and the south coast day trip.
+page story, and the whole September 2022 Reykjavik round — Kaffitár, BakaBaka,
+Mokka Kaffi, The Dubliner, Jungle Cocktail Bar, the Hi Loft Hostel bar,
+Islenski Barinn and Kafe Loki, plus all three tours: the south coast, the
+Golden Circle and Sky Lagoon.
+
+Iceland is now complete apart from operators and prices on the three tours,
+which is a booking-email job rather than a memory one.
 
 > The Reykjavik entries are the model for the remaining 26 cities: each one
 > publishes only once there is a first-person reason attached to it. A name on
