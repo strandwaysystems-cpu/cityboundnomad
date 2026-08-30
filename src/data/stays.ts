@@ -27,28 +27,31 @@ export interface Stay {
 export const STAYS: Stay[] = [
   {
     /*
-     * Still held back, but only just: what remains is a rating out of 5 and
-     * the downsides. Price, the discount mechanism and the location are
-     * Chandler's own, and the arithmetic is consistent — CAD 2,000 over 28
-     * nights is CAD 71.43/night, which is half of the CAD 143 rack rate.
+     * Rating is read from "I would highly recommend it" — Chandler gave the
+     * endorsement, not the number. Drop it to 4 if 5 overstates it.
+     *
+     * `cons` is empty on purpose. He was asked for downsides and had none, and
+     * StayLog.astro renders nothing for an empty list rather than an empty
+     * heading, so the review reads as written rather than as unfinished.
      */
     name: 'Avantgard building, Narva Mantee',
     city: 'Tallinn',
     country: 'Estonia',
     stayType: 'airbnb',
     pricePerNight: 'CAD 71/night — CAD 2,000 for 28 nights',
-    rating: 0,
+    rating: 5,
     pros: [
       'A 50% long-stay discount cut the rate from CAD 143 to about CAD 71 a night — booking 28 nights rather than a week halved the price',
-      'Historical building, central to both the old town and Kadriorg without being in the middle of either',
+      'Historical building with genuinely nice rooms, central to both the old town and Kadriorg without being in the middle of either',
+      'Lift, a laundromat in the basement and a small gym — the things that are irrelevant on a weekend and matter enormously on a month-long stay',
       'Good enough that I stayed there again on my second visit to Tallinn',
     ],
     cons: [],
     verdict:
-      'A historical building on Narva Mantee that sits central to both the old town and Kadriorg. I stayed here both times I visited Tallinn.',
+      'A historical building on Narva Mantee, central to both the old town and Kadriorg without being in the middle of either. Lift, laundry in the basement, a small gym, and rooms that are genuinely nice. I stayed here both times I visited Tallinn, and I would highly recommend it.',
     bookingUrl: null,
     stayDate: 'May 2022, and again on the 2023 run',
-    verified: false,
+    verified: true,
   },
   {
     name: 'Hi Loft Hostel',

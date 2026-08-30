@@ -16,7 +16,7 @@ object and filling it in; see "Adding an entry" in the README for the shape.
 | Cafés & bars | `cafes.ts` | **10 published** — Butterfly Lounge and Kohvipaus in Tallinn, plus eight in Reykjavik. The other 26 cities are blank. |
 | Tours | `tours.ts` | **3 published** — all out of Reykjavik: south coast, Golden Circle, Sky Lagoon. Still no operator or price on any of them. |
 | Hair & skin | `grooming.ts` | **Empty.** |
-| Stays | `stays.ts` | **1 published** — Hi Loft Hostel, Reykjavik. Five held back (below). |
+| Stays | `stays.ts` | **2 published** — Hi Loft Hostel (Reykjavik) and the Avantgard building (Tallinn). Four held back (below). |
 | Wardrobe | `wardrobe.ts` | **10 items, none confirmed** (below). |
 
 Nothing was invented to fill these. A café list for cities someone hasn't sat in
@@ -47,7 +47,6 @@ Held back behind `verified: false`, rendered by nothing. Set an item's
 |---|---|---|
 | 4 stay reviews — Generator Copenhagen, Reykjavik Downtown Hostel, Old Town Apartment (Tallinn), Pärnu Beach Apartment | `stays.ts` | Invented ratings and pros/cons, and bare `booking.com` / `airbnb.com` links with no affiliate ID. |
 | The 10-item wardrobe | `wardrobe.ts` | Brands, prices and quantities were never confirmed — including a €350 sneaker and a €280 jacket. |
-| Avantgard building, Tallinn | `stays.ts` | Real, and from Chandler — but a stay review needs a price, a rating and pros/cons before it can render. |
 | 4 notes | `journey.ts` | Titles and excerpts with no body behind them. |
 
 **Published as-is** (all real): the 28 cities, the trip timeline, the Tallinn
