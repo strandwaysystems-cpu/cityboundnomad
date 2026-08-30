@@ -27,6 +27,39 @@ export interface Stay {
 export const STAYS: Stay[] = [
   {
     /*
+     * Sofia, 2023 run. Chandler supplied the booking link and nothing else
+     * yet, so this is a placeholder for a review rather than a review: it
+     * needs the price, how long he was there, a rating, and pros and cons.
+     *
+     * The listing page cannot be used to fill any of that in. It is the host's
+     * marketing copy, which is precisely the research layer this site exists
+     * without — and it is unreachable from CI anyway.
+     *
+     * Three things to settle before this can publish:
+     *   1. The URL is an airbnb.com/l/ short link and has not been resolved.
+     *      Prefer the canonical airbnb.com/rooms/<id> form; short links rot.
+     *   2. Airbnb share links often carry the sharer's referral code. If this
+     *      one does, it earns something, which makes it `affiliate: true` and
+     *      puts the disclosure on the entry. That has to be checked, not
+     *      assumed either way.
+     *   3. A bare airbnb.com link with no affiliate ID is the documented
+     *      reason the other four stays are held back. Same bar applies here.
+     */
+    name: 'Sofia apartment',
+    city: 'Sofia',
+    country: 'Bulgaria',
+    stayType: 'airbnb',
+    pricePerNight: '',
+    rating: 0,
+    pros: [],
+    cons: [],
+    verdict: '',
+    bookingUrl: 'https://www.airbnb.com/l/azG81Cvv',
+    stayDate: '2023',
+    verified: false,
+  },
+  {
+    /*
      * Rating is read from "I would highly recommend it" — Chandler gave the
      * endorsement, not the number. Drop it to 4 if 5 overstates it.
      *
