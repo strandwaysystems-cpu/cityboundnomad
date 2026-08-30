@@ -27,19 +27,22 @@ export interface Stay {
 export const STAYS: Stay[] = [
   {
     /*
-     * Held back pending the numbers a stay review needs — what it cost, a
-     * rating, and the pros and cons. Everything below is Chandler's own: the
-     * building, where it sits, and that he stayed there on both Tallinn trips.
-     * That last detail is the review, really; it just needs the specifics
-     * around it before it can render.
+     * Still held back, but only just: what remains is a rating out of 5 and
+     * the downsides. Price, the discount mechanism and the location are
+     * Chandler's own, and the arithmetic is consistent — CAD 2,000 over 28
+     * nights is CAD 71.43/night, which is half of the CAD 143 rack rate.
      */
     name: 'Avantgard building, Narva Mantee',
     city: 'Tallinn',
     country: 'Estonia',
     stayType: 'airbnb',
-    pricePerNight: '',
+    pricePerNight: 'CAD 71/night — CAD 2,000 for 28 nights',
     rating: 0,
-    pros: [],
+    pros: [
+      'A 50% long-stay discount cut the rate from CAD 143 to about CAD 71 a night — booking 28 nights rather than a week halved the price',
+      'Historical building, central to both the old town and Kadriorg without being in the middle of either',
+      'Good enough that I stayed there again on my second visit to Tallinn',
+    ],
     cons: [],
     verdict:
       'A historical building on Narva Mantee that sits central to both the old town and Kadriorg. I stayed here both times I visited Tallinn.',
