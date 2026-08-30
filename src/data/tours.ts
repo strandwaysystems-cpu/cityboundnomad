@@ -11,9 +11,12 @@
  * partner ID earns nothing anyway. Set `affiliate: true` alongside a real URL
  * and the entry renders with rel="sponsored" and the disclosure note.
  *
- * The Iceland south-coast day trips out of Reykjavik are the obvious first
- * entries — the Hi Loft staff recommended the operators — but the specifics
- * (which operator, which route, what it cost) need to come from Chandler.
+ * The three Iceland entries came from Chandler. None of them carries an
+ * operator or a price yet — those are the specifics that make a tour entry
+ * useful to someone deciding, and they still need to come from him. The south
+ * coast note is assembled from what he has already written on the Reykjavik
+ * city page and the Hi Loft review, so it is his own account rather than
+ * anything filled in around him.
  */
 
 import type { Entry, ListMeta } from './lists';
@@ -28,4 +31,42 @@ export const TOURS_META: ListMeta = {
   order: ['Day trips', 'Walking tours', 'Food & drink', 'Outdoors'],
 };
 
-export const TOURS: Entry[] = [];
+export const TOURS: Entry[] = [
+  /* ── Iceland, September 2022 ───────────────────────────────────────────── */
+  {
+    /* TODO: which operator, and what it cost. */
+    name: 'South Coast day trip',
+    category: 'Day trips',
+    city: 'Reykjavik',
+    note: "Seljalandsfoss, Skógafoss and the black sand beaches, in one long day out of Reykjavik — the kind of scenery that makes you feel like you're on a different planet. The Hi Loft staff pointed me at the operators that were worth the money.",
+    since: 'September 2022',
+    url: null,
+    affiliate: false,
+    verified: true,
+  },
+
+  /*
+   * Held back — Chandler named these but hasn't written them up yet. Each
+   * needs a line on why the day was worth it, plus operator and cost.
+   */
+  {
+    name: 'Golden Circle',
+    category: 'Day trips',
+    city: 'Reykjavik',
+    note: '',
+    since: 'September 2022',
+    url: null,
+    affiliate: false,
+    verified: false,
+  },
+  {
+    name: 'Sky Lagoon',
+    category: 'Outdoors',
+    city: 'Reykjavik',
+    note: '',
+    since: 'September 2022',
+    url: null,
+    affiliate: false,
+    verified: false,
+  },
+];

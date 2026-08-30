@@ -6,7 +6,13 @@
  * plausible cafés for cities he's visited would be the exact thing this site
  * exists not to do.
  *
- * The one entry below is real — it comes out of the Tallinn origin story.
+ * Tallinn comes out of the origin story. Reykjavik came from Chandler directly
+ * — September 2022, the trip where he started keeping records properly.
+ *
+ * Where he gave a name but not yet a reason, the entry sits here with
+ * `verified: false` and an empty `note`. It renders nothing until there is a
+ * line behind it, deliberately: a name on its own is a directory listing, and a
+ * directory listing is what this list exists instead of.
  *
  * To add one, copy the object and fill it in. `city` must match a city name in
  * src/data/cities.ts exactly, which is what makes it show up on that city's
@@ -26,6 +32,7 @@ export const CAFES_META: ListMeta = {
 };
 
 export const CAFES: Entry[] = [
+  /* ── Tallinn, May 2022 ─────────────────────────────────────────────────── */
   {
     name: 'Butterfly Lounge',
     category: 'Bars',
@@ -34,5 +41,77 @@ export const CAFES: Entry[] = [
     since: 'May 2022',
     url: null,
     verified: true,
+  },
+
+  /* ── Reykjavik, September 2022 ─────────────────────────────────────────── */
+  {
+    name: 'Kaffitár',
+    category: 'Coffee',
+    city: 'Reykjavik',
+    note: 'The quick-coffee stop.',
+    since: 'September 2022',
+    url: null,
+    verified: true,
+  },
+  {
+    name: 'The Dubliner',
+    category: 'Bars',
+    city: 'Reykjavik',
+    note: 'Good local vibe, and the right room if you are travelling as a younger backpacker.',
+    since: 'September 2022',
+    url: null,
+    verified: true,
+  },
+  {
+    name: 'Jungle Cocktail Bar',
+    category: 'Bars',
+    city: 'Reykjavik',
+    note: 'Where to go when you want something a little fancier.',
+    since: 'September 2022',
+    url: null,
+    verified: true,
+  },
+  {
+    name: 'Islenski Barinn',
+    category: 'Food',
+    city: 'Reykjavik',
+    note: 'Good for a proper local Icelandic evening meal.',
+    since: 'September 2022',
+    url: null,
+    verified: true,
+  },
+
+  /*
+   * Held back — Chandler named these but hasn't said why yet. One line each
+   * and they publish; the `note` is the whole point of the entry.
+   */
+  {
+    name: 'Mokka Kaffi',
+    category: 'Coffee',
+    city: 'Reykjavik',
+    note: '',
+    since: 'September 2022',
+    url: null,
+    verified: false,
+  },
+  {
+    /* Category is a guess pending confirmation — coffee, or a sit-down meal? */
+    name: 'Kafe Loki',
+    category: 'Food',
+    city: 'Reykjavik',
+    note: '',
+    since: 'September 2022',
+    url: null,
+    verified: false,
+  },
+  {
+    /* Category unconfirmed — bakery, café or somewhere to eat? */
+    name: 'BakaBaka',
+    category: 'Food',
+    city: 'Reykjavik',
+    note: '',
+    since: 'September 2022',
+    url: null,
+    verified: false,
   },
 ];
