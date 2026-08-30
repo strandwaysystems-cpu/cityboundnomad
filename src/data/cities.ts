@@ -18,6 +18,15 @@ export interface City {
   country: string;
   flag: string;
   description: string;
+  /*
+   * ⚠️ Unverified. Every costPerDay range below came from the Manus seed and
+   * has never been checked against what Chandler actually spent. Tallinn is
+   * the one case where we now have a real number to test against, and it does
+   * not hold: 35–55/day cannot absorb ~€53/night of accommodation on its own,
+   * and elsewhere on the site the range reads as total daily spend (Reykjavik
+   * is 80–130/day against a €45/night hostel). Treat all 28 as placeholders
+   * until Chandler confirms them.
+   */
   costPerDayMin: number;
   costPerDayMax: number;
   tags: string[];
@@ -79,7 +88,7 @@ export const CITIES: City[] = [
     country: 'Estonia',
     flag: '🇪🇪',
     description:
-      'Where it all started. In May 2022 I booked a month-long Airbnb on Narva Mantee and discovered that solo travel was my passion. Medieval walls, a functioning digital-nomad visa, €35/night apartments, and a nightlife scene centred around places like the Butterfly Lounge — where you end up at apartment parties at 7am. I met more interesting people here in four weeks than I had in years.',
+      'Where it all started. In May 2022 I booked a month-long Airbnb on Narva Mantee and discovered that solo travel was my passion. Medieval walls, a functioning digital-nomad visa, a historical building on Narva Mantee at about €53 a night once the long-stay discount landed, and a nightlife scene centred around places like the Butterfly Lounge — where you end up at apartment parties at 7am. I met more interesting people here in four weeks than I had in years.',
     costPerDayMin: 35,
     costPerDayMax: 55,
     tags: ['Origin Story', 'Budget', 'Digital Nomad', 'Nightlife', 'Medieval'],

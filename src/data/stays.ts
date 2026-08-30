@@ -38,10 +38,10 @@ export const STAYS: Stay[] = [
     city: 'Tallinn',
     country: 'Estonia',
     stayType: 'airbnb',
-    pricePerNight: 'CAD 71/night — CAD 2,000 for 28 nights',
+    pricePerNight: 'CAD 71/night — CAD 2,000 for 28 nights, about €53/night',
     rating: 5,
     pros: [
-      'A 50% long-stay discount cut the rate from CAD 143 to about CAD 71 a night — booking 28 nights rather than a week halved the price',
+      'A 50% long-stay discount cut the rate from CAD 143 to about CAD 71 a night — roughly €105 down to €53 — so booking 28 nights rather than a week halved the price',
       'Historical building with genuinely nice rooms, central to both the old town and Kadriorg without being in the middle of either',
       'Lift, a laundromat in the basement and a small gym — the things that are irrelevant on a weekend and matter enormously on a month-long stay',
       'Good enough that I stayed there again on my second visit to Tallinn',
