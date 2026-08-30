@@ -107,7 +107,9 @@ Lisbon, Lagos, Sevilla, Gothenburg and Jönköping.
 
 The fastest way to fix all of this at once is the photo importer: export the
 camera roll out of Apple Photos with location data intact and run
-`npm run photos`. It sorts the shots into cities by their GPS and puts a gallery
+`npm run photos`. **Video counts** — `.mov`, `.mp4` and `.m4v` are imported
+alongside stills, which matters because much of the 2023 run was filmed rather
+than photographed. Clips need ffmpeg installed; stills do not. It sorts the shots into cities by their GPS and puts a gallery
 on each city page. See "Photos from Apple Photos" in the README — including the
 export checkbox that Apple hides, and what the importer does about the privacy
 side.

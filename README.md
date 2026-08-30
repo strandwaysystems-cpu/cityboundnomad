@@ -182,10 +182,10 @@ Three steps, no framework work:
 
 ## Photos from Apple Photos
 
-`tools/import-photos.mjs` turns a folder of exported photos into site content:
-it reads the GPS the camera wrote into each file, works out which city it was
-taken in, converts it to a web-sized `.webp`, and writes `src/data/photos.ts`
-so the city pages show them.
+`tools/import-photos.mjs` turns a folder of exported photos **and video** into
+site content: it reads the GPS the camera wrote into each file, works out which
+city it was taken in, converts it to a web-sized `.webp`, and writes
+`src/data/photos.ts` so the city pages show them.
 
 ```bash
 npm run photos -- ~/Desktop/cbn-export --dry-run   # see what matches where
@@ -193,6 +193,27 @@ npm run photos -- ~/Desktop/cbn-export             # write the images + data
 ```
 
 It reads `.heic` straight off an iPhone — no converting first.
+
+### Video
+
+`.mov`, `.mp4` and `.m4v` are imported the same way. An iPhone clip carries the
+same location and capture date a photo does — it just keeps them in the
+QuickTime container rather than in EXIF — so a trip you filmed instead of
+photographed still becomes city images. A still is taken a second into each clip
+(video usually opens on a black or half-exposed frame) and is treated as a
+photograph from that point on, including the EXIF stripping.
+
+This is the one part that needs a tool the repo does not ship:
+
+```bash
+brew install ffmpeg        # macOS
+sudo apt install ffmpeg    # Debian/Ubuntu
+```
+
+Only clips need it. A folder of stills imports with nothing extra installed, and
+`--dry-run` reports what matches either way. If video is present and ffmpeg is
+not, the script says so and writes nothing rather than importing half the
+folder.
 
 ### Exporting with the location intact
 
