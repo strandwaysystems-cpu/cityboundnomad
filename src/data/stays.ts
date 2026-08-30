@@ -26,6 +26,28 @@ export interface Stay {
 
 export const STAYS: Stay[] = [
   {
+    /*
+     * Held back pending the numbers a stay review needs — what it cost, a
+     * rating, and the pros and cons. Everything below is Chandler's own: the
+     * building, where it sits, and that he stayed there on both Tallinn trips.
+     * That last detail is the review, really; it just needs the specifics
+     * around it before it can render.
+     */
+    name: 'Avantgard building, Narva Mantee',
+    city: 'Tallinn',
+    country: 'Estonia',
+    stayType: 'airbnb',
+    pricePerNight: '',
+    rating: 0,
+    pros: [],
+    cons: [],
+    verdict:
+      'A historical building on Narva Mantee that sits central to both the old town and Kadriorg. I stayed here both times I visited Tallinn.',
+    bookingUrl: null,
+    stayDate: 'May 2022, and again on the 2023 run',
+    verified: false,
+  },
+  {
     name: 'Hi Loft Hostel',
     city: 'Reykjavik',
     country: 'Iceland',

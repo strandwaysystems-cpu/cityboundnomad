@@ -37,7 +37,17 @@ export const CAFES: Entry[] = [
     name: 'Butterfly Lounge',
     category: 'Bars',
     city: 'Tallinn',
-    note: "Became the regular stop during the month on Narva Mantee. It's where I met the group of people that ended the night at someone's apartment at 7am — the night that made the whole trip make sense.",
+    note: "Became the regular stop during the month on Narva Mantee. It's where I met the group of people that ended the night at someone's apartment at 7am — the night that made the whole trip make sense. Looking back I leaned on it far too heavily that month, though: it turned into the default rather than one option among several.",
+    since: 'May 2022',
+    url: null,
+    verified: true,
+  },
+
+  {
+    name: 'Kohvipaus',
+    category: 'Coffee',
+    city: 'Tallinn',
+    note: 'The other regular during the month on Narva Mantee — somewhere I went often enough that it counted.',
     since: 'May 2022',
     url: null,
     verified: true,
