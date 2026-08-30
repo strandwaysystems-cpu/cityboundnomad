@@ -9,10 +9,10 @@
  * Tallinn comes out of the origin story. Reykjavik came from Chandler directly
  * — September 2022, the trip where he started keeping records properly.
  *
- * Where he gave a name but not yet a reason, the entry sits here with
- * `verified: false` and an empty `note`. It renders nothing until there is a
- * line behind it, deliberately: a name on its own is a directory listing, and a
- * directory listing is what this list exists instead of.
+ * An entry with a name but no reason behind it sits at `verified: false` with
+ * an empty `note` and renders nothing, deliberately: a name on its own is a
+ * directory listing, and a directory listing is what this list exists instead
+ * of. The `note` is the entry.
  *
  * To add one, copy the object and fill it in. `city` must match a city name in
  * src/data/cities.ts exactly, which is what makes it show up on that city's
@@ -54,6 +54,15 @@ export const CAFES: Entry[] = [
     verified: true,
   },
   {
+    name: 'BakaBaka',
+    category: 'Coffee',
+    city: 'Reykjavik',
+    note: 'More of a pastry café than a coffee stop.',
+    since: 'September 2022',
+    url: null,
+    verified: true,
+  },
+  {
     name: 'The Dubliner',
     category: 'Bars',
     city: 'Reykjavik',
@@ -72,6 +81,19 @@ export const CAFES: Entry[] = [
     verified: true,
   },
   {
+    /*
+     * The same building as the Hi Loft Hostel stay review in stays.ts — this
+     * entry is the bar, which is a different recommendation from the bed.
+     */
+    name: 'Hi Loft Hostel Bar',
+    category: 'Bars',
+    city: 'Reykjavik',
+    note: "A good place to start an evening, and the happy hour matters in a city this expensive. You don't have to be staying there — anyone can walk in. I did stay at the hostel as well; that review is on the stays list.",
+    since: 'September 2022',
+    url: null,
+    verified: true,
+  },
+  {
     name: 'Islenski Barinn',
     category: 'Food',
     city: 'Reykjavik',
@@ -80,34 +102,23 @@ export const CAFES: Entry[] = [
     url: null,
     verified: true,
   },
+  {
+    name: 'Kafe Loki',
+    category: 'Food',
+    city: 'Reykjavik',
+    note: 'Midday Icelandic dishes done well — the plokkfiskur is the one to order. Where I ended up the day after a heavy night.',
+    since: 'September 2022',
+    url: null,
+    verified: true,
+  },
 
   /*
-   * Held back — Chandler named these but hasn't said why yet. One line each
-   * and they publish; the `note` is the whole point of the entry.
+   * Held back — named but not yet written up. One line on why it earned a
+   * place and it publishes; the `note` is the whole point of the entry.
    */
   {
     name: 'Mokka Kaffi',
     category: 'Coffee',
-    city: 'Reykjavik',
-    note: '',
-    since: 'September 2022',
-    url: null,
-    verified: false,
-  },
-  {
-    /* Category is a guess pending confirmation — coffee, or a sit-down meal? */
-    name: 'Kafe Loki',
-    category: 'Food',
-    city: 'Reykjavik',
-    note: '',
-    since: 'September 2022',
-    url: null,
-    verified: false,
-  },
-  {
-    /* Category unconfirmed — bakery, café or somewhere to eat? */
-    name: 'BakaBaka',
-    category: 'Food',
     city: 'Reykjavik',
     note: '',
     since: 'September 2022',
