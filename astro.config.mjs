@@ -10,7 +10,9 @@ export default defineConfig({
   site: 'https://cityboundnomad.com',
   trailingSlash: 'never',
   build: { format: 'file' },
-  integrations: [sitemap()],
+  // /links is the link-in-bio page: noindex, and kept out of the sitemap so it
+  // doesn't compete with the homepage for the brand's own name.
+  integrations: [sitemap({ filter: (page) => !page.endsWith('/links') })],
   markdown: {
     gfm: true,
     smartypants: true,

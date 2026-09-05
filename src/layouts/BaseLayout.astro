@@ -12,6 +12,13 @@ interface Props {
   ogType?: string;
   noindex?: boolean;
   jsonLd?: Record<string, unknown>[];
+  /**
+   * Drops the site header and footer, leaving only the head and the slot.
+   * For /links, which is a full-screen hallway page rather than part of the
+   * site's navigation. The consent banner still renders — that obligation
+   * doesn't lapse just because the chrome does.
+   */
+  bare?: boolean;
 }
 
 const {
@@ -21,6 +28,7 @@ const {
   ogType = 'website',
   noindex = false,
   jsonLd = [],
+  bare = false,
 } = Astro.props;
 
 const cleanPath = Astro.url.pathname
@@ -123,11 +131,11 @@ const allJsonLd = [personSchema, webSchema, ...jsonLd];
 
   <body>
     <a class="skip-link" href="#main">Skip to content</a>
-    <Header />
+    {!bare && <Header />}
     <main id="main">
       <slot />
     </main>
-    <Footer />
+    {!bare && <Footer />}
     <CookieBanner />
     <script src="/script.js" defer></script>
   </body>

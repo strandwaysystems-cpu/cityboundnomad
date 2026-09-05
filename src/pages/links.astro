@@ -1,0 +1,84 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Icon from '../components/Icon.astro';
+import { SITE, LEGAL_NAV } from '../data/site';
+import { IMAGES } from '../data/images';
+import { BIO, BIO_GROUPS } from '../data/links';
+import { CITIES, COUNTRY_COUNT } from '../data/cities';
+
+/*
+ * The link-in-bio page. Built for a thumb on a phone: one column, big targets,
+ * everything above two scrolls. `bare` drops the site header and footer, since
+ * anyone landing here came from a bio link and wants a menu, not navigation.
+ *
+ * noindex, and excluded from the sitemap in astro.config.mjs — it duplicates
+ * the homepage's job for search engines and would only compete with it.
+ */
+---
+
+<BaseLayout
+  title={`${SITE.name} — Links`}
+  description={BIO.strapline}
+  noindex
+  bare
+>
+  <div class="bio">
+    <img class="bio__bg" src={IMAGES.hero} alt="" aria-hidden="true" />
+    <div class="bio__scrim"></div>
+
+    <div class="bio__inner">
+      <header class="bio__head">
+        <a href="/" class="bio__wordmark">{SITE.name}</a>
+        <p class="bio__handle">{BIO.handle}</p>
+        <p class="bio__strap">{BIO.strapline}</p>
+        <p class="bio__count">
+          {CITIES.length} cities · {COUNTRY_COUNT} countries · since May 2022
+        </p>
+      </header>
+
+      {
+        BIO_GROUPS.map((group) => (
+          <section class="bio__group">
+            <h2 class="bio__heading">{group.heading}</h2>
+            {group.note && <p class="bio__note">{group.note}</p>}
+
+            <ul class="bio__list">
+              {group.links.map((link) => (
+                <li>
+                  <a
+                    class="bio-link"
+                    href={link.href}
+                    target={link.external ? '_blank' : undefined}
+                    rel={
+                      link.affiliate
+                        ? 'noopener sponsored'
+                        : link.external
+                          ? 'noopener noreferrer'
+                          : undefined
+                    }
+                  >
+                    <span class="bio-link__text">
+                      <span class="bio-link__label">
+                        {link.label}
+                        {link.affiliate && <span class="bio-link__tag">ad</span>}
+                      </span>
+                      {link.sublabel && <span class="bio-link__sub">{link.sublabel}</span>}
+                    </span>
+                    <Icon name={link.external ? 'external-link' : 'arrow-right'} size={15} />
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </section>
+        ))
+      }
+
+      <footer class="bio__foot">
+        <a href="/">cityboundnomad.com</a>
+        <span class="bio__legal">
+          {LEGAL_NAV.map((link) => <a href={link.href}>{link.label}</a>)}
+        </span>
+      </footer>
+    </div>
+  </div>
+</BaseLayout>
