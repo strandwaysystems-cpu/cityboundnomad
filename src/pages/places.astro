@@ -68,9 +68,10 @@ const jsonLd = [
       <div class="cell-grid cell-grid--trio">
         {
           SUBLISTS.map(({ meta, count, href }) => (
-            <a class="collection card-hover fade-in" href={href}>
-              <p class="collection__count">{count}</p>
-              <h2>{meta.title}</h2>
+            <a class="collection card-hover" href={href}>
+              <h2>
+                {meta.title} <span class="collection__count">{count}</span>
+              </h2>
               <p class="body-sm">{count > 0 ? meta.intro : meta.empty}</p>
               <span class="card-arrow">
                 <Icon name="arrow-right" size={16} />
@@ -96,7 +97,7 @@ const jsonLd = [
               </h2>
               <p class="body-lg measure-wide">{trip.blurb}</p>
             </div>
-            <div class="cell-grid cell-grid--wide">
+            <div class="cell-grid cell-grid--flow">
               {cities.map((city) => (
                 <CityCard city={city} href={`/places/${citySlug(city.name)}`} />
               ))}

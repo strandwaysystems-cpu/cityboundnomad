@@ -4,15 +4,19 @@ import Icon from './Icon.astro';
 
 interface Props {
   stay: Stay;
+  /** 2 under a page H1, 3 when nested under a section heading. */
+  level?: 2 | 3;
 }
 
-const { stay } = Astro.props;
+const { stay, level = 2 } = Astro.props;
+const Name = `h${level}` as 'h2' | 'h3';
+const ColTitle = `h${level + 1}` as 'h3' | 'h4';
 ---
 
-<article class="stay fade-in">
+<article class="stay">
   <header class="stay__head">
     <div>
-      <h3 class="display-sm">{stay.name}</h3>
+      <Name class="display-sm">{stay.name}</Name>
       <p class="body-sm">
         {stay.city}, {stay.country} · {stay.stayType}
         <br />
@@ -31,7 +35,7 @@ const { stay } = Astro.props;
     {
       stay.pros.length > 0 && (
         <div>
-          <h4 class="stay__col-title">Pros</h4>
+          <ColTitle class="stay__col-title">Pros</ColTitle>
           <ul class="pro-con">
             {stay.pros.map((p) => (
               <li>
@@ -46,7 +50,7 @@ const { stay } = Astro.props;
     {
       stay.cons.length > 0 && (
         <div>
-          <h4 class="stay__col-title">Cons</h4>
+          <ColTitle class="stay__col-title">Cons</ColTitle>
           <ul class="pro-con">
             {stay.cons.map((c) => (
               <li>

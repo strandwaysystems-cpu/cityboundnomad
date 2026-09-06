@@ -64,16 +64,16 @@ const essays = published(ESSAYS);
   <!-- ─── Essays ───────────────────────────────────────────────────────── -->
   <section class="section">
     <div class="container">
-      <p class="eyebrow mb-3">Writing</p>
+      <h2 class="display-sm mb-3">Writing</h2>
       {
         essays.length > 0 ? (
-          <div class="cell-grid cell-grid--wide">
+          <div class="cell-grid cell-grid--flow">
             {essays.map((essay) => {
               const hasBody = essay.body.length > 0;
               const Tag = hasBody ? 'a' : 'div';
               return (
                 <Tag
-                  class={`entry fade-in${hasBody ? ' card-hover' : ''}`}
+                  class={`entry${hasBody ? ' card-hover' : ''}`}
                   href={hasBody ? `/notes/${essay.slug}` : undefined}
                   style="text-decoration:none; color:inherit; display:block"
                 >
@@ -113,7 +113,6 @@ const essays = published(ESSAYS);
     <div class="container">
       <div class="split">
         <div>
-          <p class="eyebrow mb-1">The Timeline</p>
           <h2 class="display-lg mb-2">How it actually went.</h2>
           <p class="body-lg">
             No overnight success story. A month in Tallinn, then Iceland, then a four-month run

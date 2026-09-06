@@ -5,8 +5,10 @@
  * holds the curves and durations, this file only decides *when* things run.
  *
  *   1. Header scroll edge, and the mobile nav (open, and every way out of it).
- *   2. Scroll reveals, staggered per batch.
- *   3. GA4 click events, which no-op entirely until consent is granted.
+ *   2. GA4 click events, which no-op entirely until consent is granted.
+ *
+ * There is no reveal machinery here. The site's one entrance is the hero's, it
+ * is authored in CSS, it runs on load, and it never hides content.
  */
 (function () {
   'use strict';
@@ -74,61 +76,7 @@
     else if (wide.addListener) wide.addListener(onWide);
   }
 
-  /* ── 2. Scroll reveals ───────────────────────────────────────────────── */
-  /* The inline head script decides whether the effect runs at all and marks the
-     document with .has-scroll-fx. If it isn't there, the elements are already
-     visible and there is nothing to do. */
-  var faders = document.querySelectorAll('.fade-in');
-
-  if (document.documentElement.classList.contains('has-scroll-fx') && faders.length) {
-    // 60ms between items reads as a cascade; a longer gap reads as a queue.
-    // Capped at four steps so a wide grid never keeps its last card waiting.
-    var STEP = 60;
-    var MAX_STEPS = 4;
-
-    var reveal = function (el, step) {
-      if (step) el.style.setProperty('--stagger', step + 'ms');
-      el.classList.add('is-visible');
-    };
-
-    var observer = new IntersectionObserver(
-      function (entries) {
-        // Entries arrive in an arbitrary order; stagger has to follow the order
-        // things sit on the page or the cascade runs sideways.
-        var showing = entries
-          .filter(function (entry) {
-            return entry.isIntersecting;
-          })
-          .sort(function (a, b) {
-            return a.boundingClientRect.top - b.boundingClientRect.top;
-          });
-
-        showing.forEach(function (entry, i) {
-          reveal(entry.target, Math.min(i, MAX_STEPS) * STEP);
-          observer.unobserve(entry.target);
-        });
-      },
-      // A generous bottom margin so a section is already fading in as it comes
-      // up, rather than popping once it is a fifth of the way onto the screen.
-      { threshold: 0, rootMargin: '0px 0px -10% 0px' }
-    );
-
-    Array.prototype.forEach.call(faders, function (el) {
-      observer.observe(el);
-    });
-
-    // Safety net: anything still hidden after the page settles gets revealed
-    // regardless. An animation is never worth losing content over.
-    window.addEventListener('load', function () {
-      setTimeout(function () {
-        Array.prototype.forEach.call(document.querySelectorAll('.fade-in'), function (el) {
-          reveal(el, 0);
-        });
-      }, 2500);
-    });
-  }
-
-  /* ── 3. Click tracking ───────────────────────────────────────────────── */
+  /* ── 2. Click tracking ───────────────────────────────────────────────── */
   document.addEventListener('click', function (e) {
     if (typeof window.gtag !== 'function') return;
 

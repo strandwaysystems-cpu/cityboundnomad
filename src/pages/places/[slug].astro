@@ -64,14 +64,8 @@ const jsonLd = [
 >
   <div class="page-head">
     <div class="container">
-      <p class="pillar-label mb-1">
-        {trip.period}, {trip.label}
-      </p>
       <h1 class="display-xl mb-2">
-        {/* Emoji ignore font-size inheritance badly at display sizes — a flag
-            set at 5.5rem dwarfs the city name, so it is scaled down and
-            optically aligned rather than sitting on the cap height. */}
-        <span aria-hidden="true" class="city-flag">{city.flag}</span>{city.name}
+        {city.name}
       </h1>
       <p class="body-lg measure-wide">{city.description}</p>
 
@@ -90,7 +84,7 @@ const jsonLd = [
         }
         <div>
           <dd class="stat__value">{trip.period}</dd>
-          <dt class="stat__label">First visited</dt>
+          <dt class="stat__label">{trip.label}</dt>
         </div>
         {
           returns.length > 0 && (
@@ -155,7 +149,7 @@ const jsonLd = [
             <h2 class="display-sm mb-2">Where I stayed</h2>
             <div class="cell-grid cell-grid--stack">
               {stays.map((stay) => (
-                <StayLog stay={stay} />
+                <StayLog stay={stay} level={3} />
               ))}
             </div>
           </div>
@@ -166,7 +160,7 @@ const jsonLd = [
         cafes.length > 0 && (
           <div class="mb-4">
             <h2 class="display-sm mb-2">Cafés & bars</h2>
-            <EntryList entries={cafes} showCity={false} />
+            <EntryList entries={cafes} showCity={false} level={3} />
           </div>
         )
       }
@@ -175,7 +169,7 @@ const jsonLd = [
         tours.length > 0 && (
           <div class="mb-4">
             <h2 class="display-sm mb-2">Tours</h2>
-            <EntryList entries={tours} showCity={false} />
+            <EntryList entries={tours} showCity={false} level={3} />
           </div>
         )
       }

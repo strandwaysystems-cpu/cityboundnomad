@@ -31,7 +31,6 @@ const COUNTS = [
     <div class="hero__scrim"></div>
 
     <div class="container hero__body">
-      <p class="eyebrow hero__eyebrow">{SITE.tagline}</p>
       <h1 class="display-xl">This is the stuff, and these are the places.</h1>
       <p class="hero__lede">
         A running catalogue of somewhere I've actually been and something I've actually used.
@@ -47,8 +46,7 @@ const COUNTS = [
   <!-- ─── What's here ──────────────────────────────────────────────────── -->
   <section class="section--lead">
     <div class="container">
-      <div class="fade-in">
-        <p class="eyebrow mb-1">What this is</p>
+      <div>
         <h2 class="display-lg mb-1">Everything here, I did or I own.</h2>
         <p class="body-lg measure mb-4">
           That's the whole rule. If a café is on this site I sat in it, if a tour is listed I went
@@ -61,7 +59,7 @@ const COUNTS = [
       <div class="cell-grid cell-grid--trio">
         {
           SECTIONS.map((section, i) => (
-            <a class="pillar-card card-hover fade-in" href={section.href}>
+            <a class="pillar-card card-hover" href={section.href}>
               <div class="pillar-card__head">
                 <Icon name={SECTION_ICONS[i]} size={14} color="var(--c-accent)" />
                 <h3 class="pillar-card__name">{section.label}</h3>
@@ -86,7 +84,7 @@ const COUNTS = [
       <dl class="stats">
         {
           COUNTS.map((c) => (
-            <div class="fade-in">
+            <div>
               <dd class="stat__value">{c.value}</dd>
               <dt class="stat__label">{c.label}</dt>
             </div>
@@ -102,7 +100,7 @@ const COUNTS = [
   <section class="section">
     <div class="container">
       <div style="display:grid; gap:3rem">
-        <div class="fade-in">
+        <div>
           <h2 class="display-lg mb-1">From Reykjavik to Chania.</h2>
           <p class="body-lg measure mb-3">
             {CITIES.length} cities across {COUNTRY_COUNT} countries, grouped by the trip they belong
@@ -114,7 +112,7 @@ const COUNTS = [
         <div class="cell-grid cell-grid--cards">
           {
             featuredCities.map((city) => (
-              <a class="tile card-hover fade-in" href={`/places/${citySlug(city.name)}`}>
+              <a class="tile card-hover" href={`/places/${citySlug(city.name)}`}>
                 {city.image && (
                   <div class="zoom-frame">
                     <img
@@ -145,7 +143,7 @@ const COUNTS = [
   <section class="section">
     <div class="container">
       <div class="cell-grid cell-grid--wide">
-        <a class="feature-card card-hover fade-in" href="/things">
+        <a class="feature-card card-hover" href="/things">
           <div class="zoom-frame" style="height:260px">
             <img src={IMAGES.style} alt="An all-black travel outfit" loading="lazy" decoding="async" />
           </div>
@@ -159,7 +157,7 @@ const COUNTS = [
           <span class="card-arrow"><Icon name="arrow-right" size={16} /></span>
         </a>
 
-        <a class="feature-card card-hover fade-in" href="/notes">
+        <a class="feature-card card-hover" href="/notes">
           <div class="zoom-frame" style="height:260px">
             <img src={IMAGES.journey} alt="Chandler in a European cafe" loading="lazy" decoding="async" />
           </div>
@@ -179,11 +177,11 @@ const COUNTS = [
   <!-- ─── Quote ────────────────────────────────────────────────────────── -->
   <section class="section section--dark">
     <div class="container">
-      <blockquote class="pullquote fade-in">
+      <blockquote class="pullquote">
         “It's funny how it feels like you did nothing the past year… until you look back at your
         camera roll.”
       </blockquote>
-      <p class="pullquote__attr fade-in">Chandler, December 2022</p>
+      <p class="pullquote__attr">Chandler, December 2022</p>
     </div>
   </section>
 </BaseLayout>

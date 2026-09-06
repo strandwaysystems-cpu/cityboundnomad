@@ -9,20 +9,23 @@ import Icon from './Icon.astro';
  * data file and a page, nothing more.
  */
 interface Props {
+  /** 2 under a page H1, 3 when nested under a section heading. */
+  level?: 2 | 3;
   entries: Entry[];
   order?: string[];
   /** Show the city on each row. Off on per-city pages, where it's redundant. */
   showCity?: boolean;
 }
 
-const { entries, order, showCity = true } = Astro.props;
+const { entries, order, showCity = true, level = 2 } = Astro.props;
+const GroupTitle = `h${level}` as 'h2' | 'h3';
 const groups = groupByCategory(entries, order);
 ---
 
 {
   groups.map((group) => (
     <section class="entry-group">
-      <h3 class="entry-group__title">{group.category}</h3>
+      <GroupTitle class="entry-group__title">{group.category}</GroupTitle>
       <ul>
         {group.entries.map((entry) => (
           <li class="entry-row">

@@ -22,14 +22,33 @@
  * Re-skinning the site should mean editing the token blocks below and nothing else.
  */
 
+/* ─── Display face ────────────────────────────────────────────────────────── */
+
+/* Schibsted Grotesk, self-hosted. A Norwegian editorial grotesk, which is the
+   right voice for a catalogue of Scandinavian cities, and a real face rather
+   than the platform sans: impeccable treats a system display face on an
+   own-world page as a failure, not a fallback. Subset to latin + latin-ext so
+   Estonian, Lithuanian, Swedish and Portuguese place names all set correctly.
+   Self-hosted rather than served from Google, so the page still makes no
+   third-party request before consent. Body and UI text stay on the system
+   stack, where apple-design §15 is right that the platform face already ships
+   optical sizing and legibility tuning worth more than a second webfont. */
+@font-face {
+  font-family: 'Schibsted Grotesk';
+  src: url('/fonts/schibsted-grotesk-var.woff2') format('woff2-variations');
+  font-weight: 400 900;
+  font-style: normal;
+  font-display: swap;
+}
+
 /* ─── Tokens ──────────────────────────────────────────────────────────────── */
 
 :root {
   color-scheme: light dark;
 
   /* Ground & ink */
-  --c-bg: oklch(0.992 0.002 95);
-  --c-bg-alt: oklch(0.965 0.003 95);
+  --c-bg: oklch(0.994 0.0008 260);
+  --c-bg-alt: oklch(0.968 0.0015 260);
   --c-bg-raised: oklch(1 0 0);
   --c-ink: oklch(0.19 0.006 260);
   --c-ink-soft: oklch(0.44 0.008 260);
@@ -51,7 +70,7 @@
   --c-dark: oklch(0.17 0.006 260);
   --c-dark-2: oklch(0.22 0.006 260);
   --c-dark-line: oklch(1 0 0 / 0.12);
-  --c-on-dark: oklch(0.97 0.002 95);
+  --c-on-dark: oklch(0.97 0.001 260);
   --c-on-dark-soft: oklch(0.74 0.006 260);
   --c-on-dark-faint: oklch(0.6 0.006 260);
 
@@ -60,7 +79,7 @@
   /* Type — the platform's own face, per apple-design §15 */
   --font-body:
     -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, 'Helvetica Neue', Arial, sans-serif;
-  --font-display: var(--font-body);
+  --font-display: 'Schibsted Grotesk', var(--font-body);
   --font-mono: ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, monospace;
 
   /* Motion — the three sanctioned curves. Built-in CSS easings are too weak. */
@@ -96,7 +115,7 @@
     0 1px 2px oklch(0.19 0.006 260 / 0.04), 0 14px 34px -10px oklch(0.19 0.006 260 / 0.14);
 
   /* Translucent chrome (apple-design §12) */
-  --material-bg: oklch(0.992 0.002 95 / 0.72);
+  --material-bg: oklch(0.994 0.0008 260 / 0.72);
   --material-blur: blur(20px) saturate(180%);
 
   --shell-max: 1140px;
@@ -107,7 +126,7 @@
     --c-bg: oklch(0.165 0.005 260);
     --c-bg-alt: oklch(0.21 0.006 260);
     --c-bg-raised: oklch(0.205 0.006 260);
-    --c-ink: oklch(0.96 0.002 95);
+    --c-ink: oklch(0.96 0.001 260);
     --c-ink-soft: oklch(0.76 0.006 260);
     --c-ink-muted: oklch(0.64 0.008 260);
     --c-ink-faint: oklch(0.52 0.008 260);
@@ -125,7 +144,7 @@
     --c-dark: oklch(0.225 0.006 260);
     --c-dark-2: oklch(0.27 0.006 260);
     --c-dark-line: oklch(1 0 0 / 0.12);
-    --c-on-dark: oklch(0.96 0.002 95);
+    --c-on-dark: oklch(0.96 0.001 260);
     --c-on-dark-soft: oklch(0.76 0.006 260);
     --c-on-dark-faint: oklch(0.6 0.008 260);
 
@@ -198,6 +217,87 @@ picture,
 svg {
   display: block;
   max-width: 100%;
+}
+
+/* ─── Browser surfaces ────────────────────────────────────────────────────── */
+
+/* The parts nobody draws still belong to the design. Selection, the caret, the
+   scrollbar, the underline and the numerals all ship defaults that come from
+   the browser rather than from this palette, and leaving them is the cheapest
+   tell that a page was assembled rather than built. */
+
+::selection {
+  background: var(--c-accent-wash);
+  color: var(--c-ink);
+}
+
+.section--dark ::selection,
+.page-head--dark ::selection,
+.site-footer ::selection,
+.bio ::selection,
+.hero ::selection {
+  background: oklch(1 0 0 / 0.22);
+  color: var(--c-on-dark);
+}
+
+html {
+  caret-color: var(--c-accent);
+  scrollbar-color: var(--c-line-strong) transparent;
+  scrollbar-width: thin;
+}
+
+::-webkit-scrollbar {
+  width: 11px;
+  height: 11px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--c-line-strong);
+  border: 3px solid var(--c-bg);
+  border-radius: var(--r-full);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--c-ink-faint);
+  }
+}
+
+/* Underlines sit off the baseline and skip descenders rather than striking
+   through them, and they are drawn at a hairline rather than the default. */
+a:not([class]),
+.prose a,
+.legal a,
+.cookie-banner a {
+  text-decoration-line: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.18em;
+  text-decoration-color: color-mix(in oklch, currentColor 35%, transparent);
+  transition: text-decoration-color var(--dur-hover) ease;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  a:not([class]):hover,
+  .prose a:hover,
+  .legal a:hover,
+  .cookie-banner a:hover {
+    text-decoration-color: currentColor;
+  }
+}
+
+/* Figures compare down a column, so the digits have to line up. */
+.stat__value,
+.stay__rating strong,
+.collection__count,
+.city-card__cost,
+.entry-row__since,
+.timeline__date {
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: 'tnum' 1;
 }
 
 h1,
@@ -362,20 +462,16 @@ ol {
   color: var(--c-ink-muted);
 }
 
-/* Section markers. Sentence case, not shouted: the old uppercase-and-tracked
-   treatment made every label compete with the heading under it. */
-.pillar-label {
+/* Heads a list or a column that carries no heading of its own. Set quietly,
+   because it orients rather than announces. */
+.footer-heading {
+  display: block;
+  font-family: var(--font-body);
   font-size: 0.8125rem;
   font-weight: 500;
-  letter-spacing: 0.004em;
-  color: var(--c-accent);
-}
-
-.eyebrow {
-  font-size: 0.8125rem;
-  font-weight: 500;
-  letter-spacing: 0.004em;
-  color: var(--c-ink-muted);
+  letter-spacing: 0.002em;
+  color: var(--c-on-dark-faint);
+  margin-bottom: 1rem;
 }
 
 .rule {
@@ -510,43 +606,43 @@ ol {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 300ms var(--ease-out);
 }
 
-@media (hover: hover) and (pointer: fine) {
-  .card-hover:hover .zoom-frame img,
-  .tile:hover .zoom-frame img {
-    transform: scale(1.03);
+/* ─── The one authored moment ─────────────────────────────────────────────── */
+
+/* Every section fading in on scroll was the same entrance applied everywhere,
+   which is the opposite of an authored moment, and it left real content sitting
+   at opacity 0 waiting for an observer. There is one entrance now, on the hero,
+   and it runs on load rather than on scroll.
+   It settles from a state that is already legible: the text never starts
+   hidden, it arrives slightly low and out of focus and resolves. The blur is
+   deliberate rather than decorative, it is what makes the settle read as one
+   object resolving instead of two states crossfading, and it is cheap here
+   because it runs once on three elements. */
+@keyframes hero-settle {
+  from {
+    opacity: 0.5;
+    transform: translateY(12px);
+    filter: blur(8px);
   }
 }
 
-/* ─── Scroll reveal ───────────────────────────────────────────────────────── */
-
-/* Progressive enhancement, and deliberately so: content is visible by default
-   and only starts hidden once the inline head script has confirmed this browser
-   can both animate and observe it. A blocked or slow script.js can never leave
-   a section permanently invisible.
-   The reveal is the one transition allowed past 300ms — it is explanatory
-   rather than interactive, and nobody is waiting on it to respond. */
-.has-scroll-fx .fade-in {
-  opacity: 0;
-  transform: translateY(12px);
-  transition:
-    opacity var(--dur-reveal) var(--ease-out),
-    transform var(--dur-reveal) var(--ease-out);
+.hero h1,
+.hero__lede,
+.hero .btn-primary {
+  animation: hero-settle 700ms var(--ease-out) backwards;
 }
 
-.has-scroll-fx .fade-in.is-visible {
-  opacity: 1;
-  transform: none;
+.hero h1 {
+  animation-delay: 40ms;
 }
 
-/* Stagger. The delay is set per element by script.js as --stagger, on the
-   element itself — never as a variable on the parent, which would recalculate
-   styles for every child on each change. Kept short: 30–80ms reads as a
-   cascade, more reads as a queue. */
-.has-scroll-fx .fade-in {
-  transition-delay: var(--stagger, 0ms);
+.hero__lede {
+  animation-delay: 110ms;
+}
+
+.hero .btn-primary {
+  animation-delay: 180ms;
 }
 
 /* ─── Section rhythm ──────────────────────────────────────────────────────── */
@@ -565,13 +661,8 @@ ol {
 }
 
 .section--dark .body-lg,
-.section--dark .body-sm,
-.section--dark .eyebrow {
+.section--dark .body-sm {
   color: var(--c-on-dark-soft);
-}
-
-.section--dark .pillar-label {
-  color: var(--c-accent-bright);
 }
 
 .page-head {
@@ -588,13 +679,8 @@ ol {
 }
 
 .page-head--dark .body-lg,
-.page-head--dark .body-sm,
-.page-head--dark .eyebrow {
+.page-head--dark .body-sm {
   color: var(--c-on-dark-soft);
-}
-
-.page-head--dark .pillar-label {
-  color: var(--c-accent-bright);
 }
 
 .measure {
@@ -632,6 +718,12 @@ ol {
 
 .cell-grid--wide {
   grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr));
+}
+
+/* For grids whose item count is content-driven and often 1. auto-fit would
+   stretch a lone card across the full row; auto-fill holds the track. */
+.cell-grid--flow {
+  grid-template-columns: repeat(auto-fill, minmax(min(320px, 100%), 1fr));
 }
 
 /* A trio composed rather than repeated: the first cell takes the taller left
@@ -923,11 +1015,6 @@ ol {
   padding-bottom: 3.5rem;
 }
 
-.hero__eyebrow {
-  color: oklch(0.88 0.004 95);
-  margin-bottom: 0.875rem;
-}
-
 .hero h1 {
   color: oklch(0.99 0.002 95);
   max-width: 780px;
@@ -1087,10 +1174,18 @@ ol {
   border-bottom: 1px solid var(--c-line);
 }
 
+/* A photograph that does not exist yet is stood in for typographically rather
+   than with a flag emoji blown up to 36px. An emoji is not an illustration, and
+   at that size it reads as a missing asset. */
 .city-card__media--empty span {
-  font-size: 2.25rem;
-  opacity: 0.5;
-  filter: grayscale(0.4);
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: 600;
+  letter-spacing: -0.028em;
+  color: var(--c-ink-faint);
+  padding-inline: 1.25rem;
+  text-align: center;
+  text-wrap: balance;
 }
 
 .city-card__cost {
@@ -1111,6 +1206,13 @@ ol {
 
 .city-card__body {
   padding: 1.25rem;
+}
+
+/* A measure for every column of running text, not just .prose. Left alone,
+   a city description sets 145 characters wide on a desktop page head. */
+.page-head .body-lg,
+.section .body-lg {
+  max-width: 68ch;
 }
 
 .city-card__title {
@@ -1249,6 +1351,7 @@ ol {
 
 .stay__verdict p {
   font-family: var(--font-body);
+  max-width: 72ch;
   font-size: 0.9375rem;
   font-style: normal;
   color: var(--c-ink-soft);
@@ -1326,6 +1429,8 @@ ol {
   line-height: 1.75;
   letter-spacing: -0.003em;
   color: var(--c-ink-soft);
+  /* A reading measure, which this had none of */
+  max-width: 68ch;
 }
 
 .prose p + p {
@@ -1369,7 +1474,7 @@ ol {
   border-radius: var(--r-lg);
   background: var(--c-bg-alt);
   border: 1px solid var(--c-line-soft);
-  border-left: 2px solid var(--c-accent);
+  border-left: 1px solid var(--c-accent);
   font-family: var(--font-body);
   font-size: 1rem;
   font-style: normal;
@@ -1430,7 +1535,7 @@ ol {
   line-height: 1.65;
   color: var(--c-ink-soft);
   margin-top: 0.375rem;
-  max-width: 44rem;
+  max-width: 68ch;
 }
 
 .entry-row__aside {
@@ -1457,15 +1562,15 @@ ol {
   color: inherit;
 }
 
+/* Trails the collection's name. A real count, so it earns its place, but it is
+   a detail of the heading rather than a label stacked above it. */
 .collection__count {
-  font-family: var(--font-display);
-  font-size: 0.8125rem;
-  font-weight: 600;
+  font-family: var(--font-body);
+  font-size: 0.875rem;
+  font-weight: 500;
   font-variant-numeric: tabular-nums;
-  letter-spacing: 0.02em;
+  letter-spacing: 0.002em;
   color: var(--c-ink-faint);
-  line-height: 1;
-  margin-bottom: 1.5rem;
   user-select: none;
 }
 
@@ -1532,12 +1637,6 @@ ol {
   font-size: 0.8125rem;
   letter-spacing: 0.002em;
   color: var(--c-ink-faint);
-}
-
-.city-flag {
-  font-size: 0.45em;
-  vertical-align: 0.32em;
-  margin-right: 0.4em;
 }
 
 /* ─── Link-in-bio page (/links) ───────────────────────────────────────────── */
@@ -1627,7 +1726,7 @@ ol {
 }
 
 .bio__heading {
-  font-family: var(--font-body);
+  font-family: var(--font-display);
   font-size: 0.8125rem;
   font-weight: 500;
   letter-spacing: 0.002em;
@@ -1707,7 +1806,7 @@ ol {
   padding: 0.0625rem 0.375rem;
   border-radius: var(--r-full);
   font-family: var(--font-body);
-  font-size: 0.625rem;
+  font-size: 0.6875rem;
   font-weight: 600;
   letter-spacing: 0.04em;
   text-transform: uppercase;
@@ -1767,12 +1866,6 @@ ol {
   letter-spacing: -0.018em;
   color: var(--c-on-dark);
   margin-bottom: 0.5rem;
-}
-
-.site-footer .eyebrow {
-  color: var(--c-on-dark-faint);
-  margin-bottom: 1rem;
-  display: block;
 }
 
 .footer-grid {
@@ -1975,12 +2068,16 @@ ol {
    state — colour, opacity, a surface arriving — is kept, and everything that
    moves through space is dropped. */
 @media (prefers-reduced-motion: reduce) {
-  .has-scroll-fx .fade-in,
-  .has-scroll-fx .fade-in.is-visible {
-    opacity: 1;
-    transform: none;
-    transition: none;
-    transition-delay: 0ms;
+  @keyframes hero-settle {
+    from {
+      opacity: 0.5;
+    }
+  }
+
+  .hero h1,
+  .hero__lede,
+  .hero .btn-primary {
+    animation-duration: 300ms;
   }
 
   .card-hover,
@@ -2006,14 +2103,11 @@ ol {
     transform: none;
   }
 
-  .zoom-frame img,
   .card-arrow,
   .link-cta svg {
     transition: none;
   }
 
-  .card-hover:hover .zoom-frame img,
-  .tile:hover .zoom-frame img,
   .card-hover:hover .card-arrow,
   .collection:hover .card-arrow,
   .pillar-card:hover .card-arrow,

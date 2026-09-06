@@ -182,84 +182,38 @@ Three steps, no framework work:
 
 ## The design system
 
-Everything visual lives in `src/styles/global.css`. It is built on
-[Emil Kowalski's design-engineering skills](https://github.com/emilkowalski/skills)
-(`emil-design-eng`, `animate`, `apple-design`), and the rules below are the ones
-worth knowing before you change anything in it.
+Everything visual is authored in two files:
 
-**Colour is signal.** Surfaces are neutral; the single green accent marks
-affordances — links, active nav, list markers — and nothing else. Primary
-buttons are ink, not accent. Every value is a token in `:root`, with a dark
-counterpart under `prefers-color-scheme: dark`, so light and dark are one design
-rather than two. There is also a `prefers-reduced-transparency` block that makes
-the translucent chrome solid, and a `prefers-contrast: more` block that
-strengthens the hairlines.
+- **[`DESIGN.md`](DESIGN.md)** is the source of truth and the file to read
+  first. It carries the tokens as machine-readable frontmatter, then the prose
+  system: colours, typography, elevation, components, and the do / do-not list.
+  It is written in the shape AI coding agents expect, so pointing a tool at
+  this repo is enough for it to build in the site's own language rather than
+  its defaults.
+- **`src/styles/global.css`** implements it. Tokens live in `:root`; DESIGN.md
+  mirrors them. Change one, change the other.
 
-**Type is sized *and* tracked.** Tracking runs from `-0.035em` on `.display-xl`
-to roughly `0` on body and slightly positive on the small sizes — a single
-`letter-spacing` across a scale is wrong at one end of it. The face is the
-platform's own, so there is no webfont, no `preconnect`, and no third-party
-request on a site that otherwise loads nothing before consent.
+The system is a merge of four rule sources, each owning a different layer, with
+a stated rule for settling conflicts between them. DESIGN.md §1 has the layer
+map and the four conflicts that actually came up.
 
-**Motion is decided, not decorated.** Before adding any:
+### Checking it
 
-- Ask whether it should animate. Something seen tens of times a day gets a
-  near-imperceptible effect or none.
-- Name the exact properties. `transition: all` is never correct.
-- Use one of the three curves in `:root` — `--ease-out` for entering and
-  exiting, `--ease-in-out` for on-screen movement, `--ease-drawer` for sheets.
-  Never `ease-in`: it delays the moment the user is watching most closely.
-- Use the duration tokens. UI stays under 300ms; the scroll reveal at 440ms is
-  the one exception, because it explains rather than responds.
-- Animate `transform` and `opacity` only — they skip layout and paint.
-- Never enter from `scale(0)`. Start at `0.95`–`0.98` with `opacity: 0`.
-- Exits are faster than entrances.
-- Ship the `prefers-reduced-motion` and `(hover: hover) and (pointer: fine)`
-  variants *with* the animation, not afterwards. Reduced motion means gentler,
-  not absent: colour and opacity stay, travel goes.
+```
+npm run build
+npm run design:check
+```
 
-**Scroll reveals are progressive enhancement.** Content is visible by default;
-the inline head script in `BaseLayout` only adds `.has-scroll-fx` once it has
-confirmed the browser can both animate and observe. `public/script.js` staggers
-each batch by 60ms in document order, capped at four steps, and a 2.5s safety
-net reveals anything still hidden. A blocked or slow `script.js` can never leave
-a section invisible.
+`design:check` serves `dist/`, drives Chromium over 14 routes in both colour
+schemes at two viewports, and reports every finding with the rule that caught
+it and the source that rule came from. It is the machine-decidable half of the
+system: em-dashes, kickers above headings, reading measure, tracking floor,
+heading-outline jumps, nested cards, contrast-adjacent geometry, hidden
+content, `transition: all`, `ease-in` on a UI element, horizontal overflow.
 
-Add `fade-in` to an element to opt it into the reveal. Put it on the cards in a
-grid rather than on the grid itself — that is what makes the row cascade instead
-of arriving as one slab.
-
-### House rules that are checked, not just intended
-
-A second pass applied [tasteskill](https://www.tasteskill.dev/) on top of the
-motion system. The design read it was built against:
-
-> A redesign (preserve) of a personal catalogue, for readers and for search,
-> with a calm editorial language, leaning on native CSS and system type.
-> Dials: variance 5, motion 5, density 3.
-
-Four of its rules are mechanical, so they are worth re-checking whenever you add
-a page. Each one is a grep against `dist/` after a build:
-
-- **No em-dashes or en-dashes in anything a reader sees.** Headlines, body, meta
-  titles, labels, alt text. Use a comma, a colon, a period, parentheses, or a
-  plain hyphen for ranges. This is the rule most easily reintroduced by accident.
-- **At most `ceil(sections / 3)` eyebrows per page.** An eyebrow is the small
-  label above a section headline. If a label sits above nothing, it is a heading:
-  make it one. If it sits above a headline that already says the same thing, cut
-  it.
-- **No section numbering.** `01 - Places` and friends. Name the topic instead.
-  Real counts are fine; enumeration for decoration is not.
-- **One middle dot per line, maximum.** Break metadata onto two lines rather than
-  chaining `a · b · c · d`.
-
-Two more that are structural rather than greppable:
-
-- **Headlines read in one run.** No `<br>`-split, half-italicised headline. If a
-  headline needs three lines on desktop, the font scale is wrong, not the copy.
-- **One radius scale, one rule for it** (documented at the tokens). Pills are
-  `--r-full`, controls are `--r-md`, every surface is `--r-lg`. A card is a card
-  whether it is a city tile or a stay log.
+A finding is a failure, not a warning. If a rule is wrong for this site, change
+it in DESIGN.md and `tools/design-check.mjs` on purpose, rather than letting
+the check go yellow.
 
 ## Photos from Apple Photos
 

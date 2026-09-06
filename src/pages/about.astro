@@ -81,7 +81,6 @@ import { CITIES, COUNTRY_COUNT } from '../data/cities';
   <!-- ─── What the site is ─────────────────────────────────────────────── -->
   <section class="section">
     <div class="container">
-      <p class="eyebrow mb-1">What this site is</p>
       <h2 class="display-lg mb-2" style="max-width:600px">
         A catalogue, not a travel blog.
       </h2>
@@ -95,7 +94,7 @@ import { CITIES, COUNTRY_COUNT } from '../data/cities';
       <div class="cell-grid cell-grid--trio">
         {
           SECTIONS.map((section) => (
-            <a class="pillar-card card-hover fade-in" href={section.href}>
+            <a class="pillar-card card-hover" href={section.href}>
               <h3 class="pillar-card__name mb-1">{section.label}</h3>
               <p class="serif-lead mb-1">{section.tagline}</p>
               <p class="body-sm">{section.description}</p>
@@ -115,7 +114,6 @@ import { CITIES, COUNTRY_COUNT } from '../data/cities';
   <section class="section">
     <div class="container">
       <div class="measure-wide">
-        <p class="eyebrow mb-1">Transparency</p>
         <h2 class="display-lg mb-2">How this works</h2>
         <div class="stack">
           <p class="body-lg">
