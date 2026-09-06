@@ -229,6 +229,38 @@ Add `fade-in` to an element to opt it into the reveal. Put it on the cards in a
 grid rather than on the grid itself — that is what makes the row cascade instead
 of arriving as one slab.
 
+### House rules that are checked, not just intended
+
+A second pass applied [tasteskill](https://www.tasteskill.dev/) on top of the
+motion system. The design read it was built against:
+
+> A redesign (preserve) of a personal catalogue, for readers and for search,
+> with a calm editorial language, leaning on native CSS and system type.
+> Dials: variance 5, motion 5, density 3.
+
+Four of its rules are mechanical, so they are worth re-checking whenever you add
+a page. Each one is a grep against `dist/` after a build:
+
+- **No em-dashes or en-dashes in anything a reader sees.** Headlines, body, meta
+  titles, labels, alt text. Use a comma, a colon, a period, parentheses, or a
+  plain hyphen for ranges. This is the rule most easily reintroduced by accident.
+- **At most `ceil(sections / 3)` eyebrows per page.** An eyebrow is the small
+  label above a section headline. If a label sits above nothing, it is a heading:
+  make it one. If it sits above a headline that already says the same thing, cut
+  it.
+- **No section numbering.** `01 - Places` and friends. Name the topic instead.
+  Real counts are fine; enumeration for decoration is not.
+- **One middle dot per line, maximum.** Break metadata onto two lines rather than
+  chaining `a · b · c · d`.
+
+Two more that are structural rather than greppable:
+
+- **Headlines read in one run.** No `<br>`-split, half-italicised headline. If a
+  headline needs three lines on desktop, the font scale is wrong, not the copy.
+- **One radius scale, one rule for it** (documented at the tokens). Pills are
+  `--r-full`, controls are `--r-md`, every surface is `--r-lg`. A card is a card
+  whether it is a city tile or a stay log.
+
 ## Photos from Apple Photos
 
 `tools/import-photos.mjs` turns a folder of exported photos into site content:

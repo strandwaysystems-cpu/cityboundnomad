@@ -62,7 +62,7 @@ export const BIO_GROUPS: BioGroup[] = [
       },
       {
         label: 'About me',
-        sublabel: 'Chandler — Atlantic Canada, then Europe',
+        sublabel: 'Chandler, Atlantic Canada, then Europe',
         href: '/about',
       },
     ],

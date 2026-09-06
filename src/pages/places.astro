@@ -20,7 +20,7 @@ const SUBLISTS = [
     meta: {
       title: 'Stays',
       intro: 'Hostels, apartments and hotels I actually slept in, with what they cost.',
-      empty: 'Being rewritten — every review here has to come from a night actually spent there.',
+      empty: 'Being rewritten. Every review here has to come from a night actually spent there.',
     },
     count: stays.length,
     href: '/stays',
@@ -48,13 +48,12 @@ const jsonLd = [
 ---
 
 <BaseLayout
-  title={`Places — ${CITIES.length} Cities, First Hand | ${SITE.name}`}
-  description={`Every city I've been to — ${CITIES.length} of them across ${COUNTRY_COUNT} countries — what they cost, where I slept, and what was worth the time.`}
+  title={`Places: ${CITIES.length} Cities, First Hand | ${SITE.name}`}
+  description={`Every city I've been to. ${CITIES.length} of them across ${COUNTRY_COUNT} countries: what they cost, where I slept, and what was worth the time.`}
   jsonLd={jsonLd}
 >
   <div class="page-head">
     <div class="container">
-      <p class="pillar-label mb-1">01 — Places</p>
       <h1 class="display-xl mb-2">Places I've been.</h1>
       <p class="body-lg measure-wide">
         {CITIES.length} cities across {COUNTRY_COUNT} countries, grouped by the trip they belong to.
@@ -66,11 +65,11 @@ const jsonLd = [
   <!-- ─── The sub-lists ────────────────────────────────────────────────── -->
   <section class="section">
     <div class="container">
-      <div class="cell-grid cell-grid--3">
+      <div class="cell-grid cell-grid--trio">
         {
           SUBLISTS.map(({ meta, count, href }) => (
             <a class="collection card-hover fade-in" href={href}>
-              <p class="collection__count">{count > 0 ? String(count).padStart(2, '0') : '—'}</p>
+              <p class="collection__count">{count}</p>
               <h2>{meta.title}</h2>
               <p class="body-sm">{count > 0 ? meta.intro : meta.empty}</p>
               <span class="card-arrow">
@@ -92,8 +91,9 @@ const jsonLd = [
         citiesByTrip.map(({ trip, cities }, i) => (
           <div style={i > 0 ? 'margin-top:4.5rem' : ''}>
             <div class="mb-3">
-              <p class="pillar-label mb-1">{trip.period}</p>
-              <h2 class="display-md mb-1">{trip.label}</h2>
+              <h2 class="display-md mb-1">
+                {trip.label} <span class="trip-period">{trip.period}</span>
+              </h2>
               <p class="body-lg measure-wide">{trip.blurb}</p>
             </div>
             <div class="cell-grid cell-grid--wide">

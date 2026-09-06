@@ -3,7 +3,7 @@ import ListPage from '../layouts/ListPage.astro';
 import { WARDROBE, WARDROBE_META, WARDROBE_PRINCIPLES } from '../data/wardrobe';
 ---
 
-<ListPage meta={WARDROBE_META} entries={WARDROBE} eyebrow="Things" showCity={false}>
+<ListPage meta={WARDROBE_META} entries={WARDROBE} showCity={false}>
   <div slot="before" class="mb-4">
     <p class="eyebrow mb-3">How it gets decided</p>
     <div class="cell-grid cell-grid--tight">

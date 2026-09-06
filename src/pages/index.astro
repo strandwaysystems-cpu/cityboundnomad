@@ -32,7 +32,7 @@ const COUNTS = [
 
     <div class="container hero__body">
       <p class="eyebrow hero__eyebrow">{SITE.tagline}</p>
-      <h1 class="display-xl">This is the stuff,<br /><em>and these are the places.</em></h1>
+      <h1 class="display-xl">This is the stuff, and these are the places.</h1>
       <p class="hero__lede">
         A running catalogue of somewhere I've actually been and something I've actually used.
         No research, no round-ups, nothing recommended second-hand.
@@ -49,23 +49,22 @@ const COUNTS = [
     <div class="container">
       <div class="fade-in">
         <p class="eyebrow mb-1">What this is</p>
-        <h2 class="display-lg mb-1">Everything here,<br /><em>I did or I own.</em></h2>
+        <h2 class="display-lg mb-1">Everything here, I did or I own.</h2>
         <p class="body-lg measure mb-4">
           That's the whole rule. If a café is on this site I sat in it, if a tour is listed I went
           on it, and if something is in the wardrobe it's in my bag right now. It fills up slowly
-          and some of it is still empty — which is the honest state for something I haven't written
+          and some of it is still empty, which is the honest state for something I haven't written
           down yet.
         </p>
       </div>
 
-      <div class="cell-grid cell-grid--3">
+      <div class="cell-grid cell-grid--trio">
         {
           SECTIONS.map((section, i) => (
             <a class="pillar-card card-hover fade-in" href={section.href}>
-              <p class="pillar-card__num">{section.num}</p>
               <div class="pillar-card__head">
                 <Icon name={SECTION_ICONS[i]} size={14} color="var(--c-accent)" />
-                <span class="pillar-label">{section.label}</span>
+                <h3 class="pillar-card__name">{section.label}</h3>
               </div>
               <p class="serif-lead mb-1">{section.tagline}</p>
               <p class="body-sm mb-2">{section.description}</p>
@@ -104,11 +103,10 @@ const COUNTS = [
     <div class="container">
       <div style="display:grid; gap:3rem">
         <div class="fade-in">
-          <p class="pillar-label mb-1">01 — Places</p>
-          <h2 class="display-lg mb-1">From Reykjavik<br /><em>to Chania.</em></h2>
+          <h2 class="display-lg mb-1">From Reykjavik to Chania.</h2>
           <p class="body-lg measure mb-3">
             {CITIES.length} cities across {COUNTRY_COUNT} countries, grouped by the trip they belong
-            to. Each has its own page — what it cost, where I slept, what was worth the day.
+            to. Each has its own page: what it cost, where I slept, what was worth the day.
           </p>
           <a class="btn-ghost" href="/places">All places</a>
         </div>
@@ -130,7 +128,7 @@ const COUNTS = [
                 <div class="tile__body">
                   <p class="tile__name">{city.name}</p>
                   <p class="body-sm">
-                    {city.country} · €{city.costPerDayMin}–€{city.costPerDayMax}/day
+                    {city.country} · €{city.costPerDayMin}-€{city.costPerDayMax}/day
                   </p>
                 </div>
               </a>
@@ -152,8 +150,7 @@ const COUNTS = [
             <img src={IMAGES.style} alt="An all-black travel outfit" loading="lazy" decoding="async" />
           </div>
           <div class="feature-card__body">
-            <p class="pillar-label mb-1">02 — Things</p>
-            <h3 class="display-md mb-1">All black, one bag,<br /><em>no compromises.</em></h3>
+            <h3 class="display-md mb-1">All black, one bag, no compromises.</h3>
             <p class="body-sm">
               The wardrobe that fits in 26 litres, the hair and skin routine, the gear. Listed
               honestly, replaced rarely.
@@ -167,8 +164,7 @@ const COUNTS = [
             <img src={IMAGES.journey} alt="Chandler in a European cafe" loading="lazy" decoding="async" />
           </div>
           <div class="feature-card__body">
-            <p class="pillar-label mb-1">03 — Notes</p>
-            <h3 class="display-md mb-1">Why I do it<br /><em>this way.</em></h3>
+            <h3 class="display-md mb-1">Why I do it this way.</h3>
             <p class="body-sm">
               It started with a one-month Airbnb in Tallinn in May 2022. The origin story, the
               timeline, and the thinking behind travelling light and staying longer.
@@ -187,7 +183,7 @@ const COUNTS = [
         “It's funny how it feels like you did nothing the past year… until you look back at your
         camera roll.”
       </blockquote>
-      <p class="pullquote__attr fade-in">— Chandler, December 2022</p>
+      <p class="pullquote__attr fade-in">Chandler, December 2022</p>
     </div>
   </section>
 </BaseLayout>

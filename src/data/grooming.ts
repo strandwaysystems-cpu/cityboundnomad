@@ -25,7 +25,7 @@ export const GROOMING_META: ListMeta = {
   slug: 'grooming',
   title: 'Hair & Skin',
   intro:
-    'The routine, such as it is. Travel-sized, minimal, and the same in every city — which is the only reason it holds up.',
+    'The routine, such as it is. Travel-sized, minimal, and the same in every city, which is the only reason it holds up.',
   empty:
     'Not written up yet. It is a short list, which is rather the point, but it should be an accurate one before it goes here.',
   order: ['Hair', 'Skin', 'Body', 'Fragrance'],

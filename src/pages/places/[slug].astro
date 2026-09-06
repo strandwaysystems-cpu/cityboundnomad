@@ -37,7 +37,7 @@ const returns = (city.returnedOn ?? []).map((id) => TRIPS.find((t) => t.id === i
 
 const cost =
   city.costPerDayMin && city.costPerDayMax
-    ? `€${city.costPerDayMin}–€${city.costPerDayMax}`
+    ? `€${city.costPerDayMin}-€${city.costPerDayMax}`
     : null;
 
 /* Photos imported from the camera roll, matched to this city by their GPS. */
@@ -65,7 +65,7 @@ const jsonLd = [
   <div class="page-head">
     <div class="container">
       <p class="pillar-label mb-1">
-        {trip.period} — {trip.label}
+        {trip.period}, {trip.label}
       </p>
       <h1 class="display-xl mb-2">
         {/* Emoji ignore font-size inheritance badly at display sizes — a flag
@@ -126,7 +126,7 @@ const jsonLd = [
     photos.length > 0 && (
       <section class="section">
         <div class="container">
-          <p class="eyebrow mb-2">From the camera roll</p>
+          <h2 class="display-sm mb-2">Photos</h2>
           <div class="photo-grid">
             {photos.map((photo) => (
               <figure>
@@ -152,7 +152,7 @@ const jsonLd = [
       {
         stays.length > 0 && (
           <div class="mb-4">
-            <p class="eyebrow mb-2">Where I stayed</p>
+            <h2 class="display-sm mb-2">Where I stayed</h2>
             <div class="cell-grid cell-grid--stack">
               {stays.map((stay) => (
                 <StayLog stay={stay} />
@@ -165,7 +165,7 @@ const jsonLd = [
       {
         cafes.length > 0 && (
           <div class="mb-4">
-            <p class="eyebrow mb-2">Cafés & bars</p>
+            <h2 class="display-sm mb-2">Cafés & bars</h2>
             <EntryList entries={cafes} showCity={false} />
           </div>
         )
@@ -174,7 +174,7 @@ const jsonLd = [
       {
         tours.length > 0 && (
           <div class="mb-4">
-            <p class="eyebrow mb-2">Tours</p>
+            <h2 class="display-sm mb-2">Tours</h2>
             <EntryList entries={tours} showCity={false} />
           </div>
         )
@@ -186,7 +186,7 @@ const jsonLd = [
             <p class="display-md mb-1">Nothing written up yet</p>
             <p class="body-lg measure-wide">
               I've been here, but the cafés, stays and tours from this trip aren't written down
-              yet. They go up as I get to them — the camera roll is doing a lot of the remembering.
+              yet. They go up as I get to them. The camera roll is doing a lot of the remembering.
             </p>
           </div>
         )

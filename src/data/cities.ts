@@ -56,13 +56,13 @@ export const TRIPS: Trip[] = [
     label: 'The four-month run',
     period: '2023',
     blurb:
-      'Twenty-one cities from London to Stockholm — down through Central Europe and the Balkans, out to Crete and the Cyclades, then north through the Baltics and Finland into the Arctic.',
+      'Twenty-one cities from London to Stockholm, down through Central Europe and the Balkans, out to Crete and the Cyclades, then north through the Baltics and Finland into the Arctic.',
   },
   {
     id: '2024-iberia',
     label: 'Iberia',
     period: '2024',
-    blurb: 'Lisbon, Lagos and Sevilla — the first trip with company.',
+    blurb: 'Lisbon, Lagos and Sevilla, the first trip with company.',
   },
   {
     id: '2025-scandinavia',
@@ -79,7 +79,7 @@ export const CITIES: City[] = [
     country: 'Estonia',
     flag: '🇪🇪',
     description:
-      'Where it all started. In May 2022 I booked a month-long Airbnb on Narva Mantee and discovered that solo travel was my passion. Medieval walls, a functioning digital-nomad visa, €35/night apartments, and a nightlife scene centred around places like the Butterfly Lounge — where you end up at apartment parties at 7am. I met more interesting people here in four weeks than I had in years.',
+      'Where it all started. In May 2022 I booked a month-long Airbnb on Narva Mantee and discovered that solo travel was my passion. Medieval walls, a functioning digital-nomad visa, €35/night apartments, and a nightlife scene centred around places like the Butterfly Lounge, where you end up at apartment parties at 7am. I met more interesting people here in four weeks than I had in years.',
     costPerDayMin: 35,
     costPerDayMax: 55,
     tags: ['Origin Story', 'Budget', 'Digital Nomad', 'Nightlife', 'Medieval'],
@@ -92,7 +92,7 @@ export const CITIES: City[] = [
     country: 'Estonia',
     flag: '🇪🇪',
     description:
-      "Estonia's second city and its intellectual heart. A university town with a completely different energy to Tallinn — quieter, more local, easier to slow down in. Worth a day trip or a long weekend from the capital.",
+      "Estonia's second city and its intellectual heart. A university town with a completely different energy to Tallinn: quieter, more local, easier to slow down in. Worth a day trip or a long weekend from the capital.",
     costPerDayMin: 25,
     costPerDayMax: 40,
     tags: ['University Town', 'Day Trip', 'Quiet', 'Local'],
@@ -105,7 +105,7 @@ export const CITIES: City[] = [
     country: 'Estonia',
     flag: '🇪🇪',
     description:
-      "Estonia's summer capital and a welcome change of pace from Tallinn. Beach town, spa culture, and a completely different energy — Estonians come here to decompress. The beach is genuinely good, the town is small enough to walk everywhere, and it's an easy day trip or overnight from the capital.",
+      "Estonia's summer capital and a welcome change of pace from Tallinn. Beach town, spa culture, and a completely different energy. Estonians come here to decompress. The beach is genuinely good, the town is small enough to walk everywhere, and it's an easy day trip or overnight from the capital.",
     costPerDayMin: 30,
     costPerDayMax: 45,
     tags: ['Beach', 'Summer', 'Relaxed', 'Day Trip'],
@@ -133,7 +133,7 @@ export const CITIES: City[] = [
     country: 'Iceland',
     flag: '🇮🇸',
     description:
-      "The people are crazy and the landscape is crazy — that's the honest summary of Iceland. I based myself at the Hi Loft Hostel in Reykjavik every night and did day trips to the south coast: Seljalandsfoss, Skógafoss, black sand beaches, and the kind of scenery that makes you feel like you're on a different planet. The city itself punches well above its size for nightlife — Reykjavik goes hard on weekends. Expensive, yes. Worth it, absolutely.",
+      "The people are crazy and the landscape is crazy. That's the honest summary of Iceland. I based myself at the Hi Loft Hostel in Reykjavik every night and did day trips to the south coast: Seljalandsfoss, Skógafoss, black sand beaches, and the kind of scenery that makes you feel like you're on a different planet. The city itself punches well above its size for nightlife. Reykjavik goes hard on weekends. Expensive, yes. Worth it, absolutely.",
     costPerDayMin: 80,
     costPerDayMax: 130,
     tags: ['Adventure', 'Nightlife', 'Nature', 'Day Trips', 'Hostel'],
@@ -147,7 +147,7 @@ export const CITIES: City[] = [
     country: 'United Kingdom',
     flag: '🇬🇧',
     description:
-      "The gateway city. Expensive by European standards — you feel it immediately — but London has an energy that's hard to replicate. The sheer scale of it means you can spend a week and still feel like you've barely scratched the surface. Good starting point for a long European run because it eases you in with English before you hit the continent.",
+      "The gateway city. Expensive by European standards (you feel it immediately), but London has an energy that's hard to replicate. The sheer scale of it means you can spend a week and still feel like you've barely scratched the surface. Good starting point for a long European run because it eases you in with English before you hit the continent.",
     costPerDayMin: 80,
     costPerDayMax: 140,
     tags: ['Gateway', 'Culture', 'Nightlife', 'Expensive'],
@@ -159,7 +159,7 @@ export const CITIES: City[] = [
     country: 'Czech Republic',
     flag: '🇨🇿',
     description:
-      'One of the most visually striking cities in Europe — the old town looks like it was designed for a film set. Extremely affordable for a capital city, good nightlife, and the kind of place where you can walk for hours without running out of things to look at. Gets crowded in summer but still worth it.',
+      'One of the most visually striking cities in Europe. The old town looks like it was designed for a film set. Extremely affordable for a capital city, good nightlife, and the kind of place where you can walk for hours without running out of things to look at. Gets crowded in summer but still worth it.',
     costPerDayMin: 35,
     costPerDayMax: 65,
     tags: ['Architecture', 'Affordable', 'Nightlife', 'History'],
@@ -171,7 +171,7 @@ export const CITIES: City[] = [
     country: 'Hungary',
     flag: '🇭🇺',
     description:
-      'Budapest surprised me. Split by the Danube into Buda and Pest, it has a completely different feel on each side. The ruin bars are genuinely unique — bars built inside abandoned buildings with mismatched furniture and courtyard vibes. Thermal baths, affordable food, and a nightlife scene that goes until morning. One of the best value cities on the continent.',
+      'Budapest surprised me. Split by the Danube into Buda and Pest, it has a completely different feel on each side. The ruin bars are genuinely unique: bars built inside abandoned buildings with mismatched furniture and courtyard vibes. Thermal baths, affordable food, and a nightlife scene that goes until morning. One of the best value cities on the continent.',
     costPerDayMin: 30,
     costPerDayMax: 60,
     tags: ['Ruin Bars', 'Thermal Baths', 'Affordable', 'Nightlife'],
@@ -183,7 +183,7 @@ export const CITIES: City[] = [
     country: 'Serbia',
     flag: '🇷🇸',
     description:
-      "Belgrade is raw in the best way. It doesn't try to be polished for tourists — it just is what it is. The fortress above the river is worth the walk, the food is excellent and cheap, and the nightlife on the river boats (splavovi) is unlike anything else in Europe. People are direct and warm once you're in. Underrated.",
+      "Belgrade is raw in the best way. It doesn't try to be polished for tourists. It just is what it is. The fortress above the river is worth the walk, the food is excellent and cheap, and the nightlife on the river boats (splavovi) is unlike anything else in Europe. People are direct and warm once you're in. Underrated.",
     costPerDayMin: 25,
     costPerDayMax: 50,
     tags: ['Underrated', 'Nightlife', 'Affordable', 'Balkans'],
@@ -195,7 +195,7 @@ export const CITIES: City[] = [
     country: 'Bulgaria',
     flag: '🇧🇬',
     description:
-      'Sofia is one of the cheapest capitals in Europe and it shows in the best way — you can eat well, drink well, and stay somewhere decent without watching your budget constantly. The Alexander Nevsky Cathedral is genuinely impressive. The city has a young, creative energy that\'s growing. Good base for day trips into the mountains.',
+      'Sofia is one of the cheapest capitals in Europe and it shows in the best way: you can eat well, drink well, and stay somewhere decent without watching your budget constantly. The Alexander Nevsky Cathedral is genuinely impressive. The city has a young, creative energy that\'s growing. Good base for day trips into the mountains.',
     costPerDayMin: 20,
     costPerDayMax: 45,
     tags: ['Budget', 'Balkans', 'Culture', 'Mountains'],
@@ -207,7 +207,7 @@ export const CITIES: City[] = [
     country: 'Greece',
     flag: '🇬🇷',
     description:
-      'The gateway to Crete. Heraklion itself is more of a functional city than a destination — most people pass through on the way to the rest of the island. But the Minoan ruins at Knossos just outside the city are genuinely worth half a day. Good food, good weather, and a useful base before heading west toward Chania.',
+      'The gateway to Crete. Heraklion itself is more of a functional city than a destination. Most people pass through on the way to the rest of the island. But the Minoan ruins at Knossos just outside the city are genuinely worth half a day. Good food, good weather, and a useful base before heading west toward Chania.',
     costPerDayMin: 40,
     costPerDayMax: 75,
     tags: ['Crete', 'History', 'Gateway', 'Greek Islands'],
@@ -219,7 +219,7 @@ export const CITIES: City[] = [
     country: 'Greece',
     flag: '🇬🇷',
     description:
-      "Chania is the kind of place that makes you want to slow down. The Venetian harbour at sunset is one of the best views I've seen anywhere in Europe. The old town is full of narrow streets, good tavernas, and a relaxed pace that feels earned. Crete in general has a different energy from the smaller Greek islands — more substantial, more local.",
+      "Chania is the kind of place that makes you want to slow down. The Venetian harbour at sunset is one of the best views I've seen anywhere in Europe. The old town is full of narrow streets, good tavernas, and a relaxed pace that feels earned. Crete in general has a different energy from the smaller Greek islands: more substantial, more local.",
     costPerDayMin: 45,
     costPerDayMax: 85,
     tags: ['Venetian Harbour', 'Crete', 'Relaxed', 'Scenic'],
@@ -231,7 +231,7 @@ export const CITIES: City[] = [
     country: 'Greece',
     flag: '🇬🇷',
     description:
-      "Ios has a reputation as a party island and it earns it — but it's more than that. The village (Chora) on the hill is genuinely beautiful, the beaches are excellent, and the nightlife is concentrated enough that you don't have to go far. Small enough to feel like you know the island after a few days. Best experienced in shoulder season if you want a mix of both worlds.",
+      "Ios has a reputation as a party island and it earns it, but it's more than that. The village (Chora) on the hill is genuinely beautiful, the beaches are excellent, and the nightlife is concentrated enough that you don't have to go far. Small enough to feel like you know the island after a few days. Best experienced in shoulder season if you want a mix of both worlds.",
     costPerDayMin: 50,
     costPerDayMax: 100,
     tags: ['Greek Islands', 'Beaches', 'Nightlife', 'Cyclades'],
@@ -243,7 +243,7 @@ export const CITIES: City[] = [
     country: 'Greece',
     flag: '🇬🇷',
     description:
-      'Athens is a city that rewards patience. The Acropolis is as impressive as advertised — see it at sunrise if you can. Beyond the obvious, the neighbourhoods of Monastiraki, Psirri, and Exarcheia each have their own character. The food scene is excellent and the city has a creative energy that\'s easy to miss if you only do the tourist circuit.',
+      'Athens is a city that rewards patience. The Acropolis is as impressive as advertised. See it at sunrise if you can. Beyond the obvious, the neighbourhoods of Monastiraki, Psirri, and Exarcheia each have their own character. The food scene is excellent and the city has a creative energy that\'s easy to miss if you only do the tourist circuit.',
     costPerDayMin: 45,
     costPerDayMax: 85,
     tags: ['History', 'Culture', 'Food', 'Acropolis'],
@@ -267,7 +267,7 @@ export const CITIES: City[] = [
     country: 'Lithuania',
     flag: '🇱🇹',
     description:
-      'Klaipeda sits on the Baltic coast and has a distinctly different feel from the rest of Lithuania — more Germanic in its architecture, more maritime in its character. The Curonian Spit is a UNESCO-listed sand dune peninsula just across the ferry and worth a day trip. Small city, easy to navigate, good for a couple of days.',
+      'Klaipeda sits on the Baltic coast and has a distinctly different feel from the rest of Lithuania: more Germanic in its architecture, more maritime in its character. The Curonian Spit is a UNESCO-listed sand dune peninsula just across the ferry and worth a day trip. Small city, easy to navigate, good for a couple of days.',
     costPerDayMin: 25,
     costPerDayMax: 50,
     tags: ['Coastal', 'Baltics', 'Curonian Spit', 'Maritime'],
@@ -279,7 +279,7 @@ export const CITIES: City[] = [
     country: 'Lithuania',
     flag: '🇱🇹',
     description:
-      "Vilnius has one of the best-preserved baroque old towns in Europe and it's genuinely beautiful. The city has invested heavily in its creative scene — there's a neighbourhood called Užupis that declared itself an independent republic, which tells you something about the spirit of the place. Good coffee, good food, affordable, and easy to navigate on foot.",
+      "Vilnius has one of the best-preserved baroque old towns in Europe and it's genuinely beautiful. The city has invested heavily in its creative scene. There's a neighbourhood called Užupis that declared itself an independent republic, which tells you something about the spirit of the place. Good coffee, good food, affordable, and easy to navigate on foot.",
     costPerDayMin: 30,
     costPerDayMax: 60,
     tags: ['Baroque', 'Baltics', 'Creative', 'Walkable'],
@@ -291,7 +291,7 @@ export const CITIES: City[] = [
     country: 'Latvia',
     flag: '🇱🇻',
     description:
-      "Riga is the largest of the Baltic capitals and it shows — more cosmopolitan, more varied, more going on. The Art Nouveau architecture in the city centre is exceptional and largely overlooked by people who don't know to look for it. The central market in the old zeppelin hangars is worth a morning. Good nightlife, good food, and a city that feels like it's growing into itself.",
+      "Riga is the largest of the Baltic capitals and it shows: more cosmopolitan, more varied, more going on. The Art Nouveau architecture in the city centre is exceptional and largely overlooked by people who don't know to look for it. The central market in the old zeppelin hangars is worth a morning. Good nightlife, good food, and a city that feels like it's growing into itself.",
     costPerDayMin: 30,
     costPerDayMax: 65,
     tags: ['Art Nouveau', 'Baltics', 'Architecture', 'Nightlife'],
@@ -303,7 +303,7 @@ export const CITIES: City[] = [
     country: 'Finland',
     flag: '🇫🇮',
     description:
-      "Tampere is Finland's second city and it has a warmth that Finns aren't always given credit for. Built between two lakes, the city has a clean industrial character — old factory buildings converted into restaurants, galleries, and market halls. More relaxed than Helsinki, easier to get a feel for everyday Finnish life. Worth a couple of days on the way north.",
+      "Tampere is Finland's second city and it has a warmth that Finns aren't always given credit for. Built between two lakes, the city has a clean industrial character: old factory buildings converted into restaurants, galleries, and market halls. More relaxed than Helsinki, easier to get a feel for everyday Finnish life. Worth a couple of days on the way north.",
     costPerDayMin: 55,
     costPerDayMax: 95,
     tags: ['Finland', 'Lakes', 'Industrial Heritage', 'Relaxed'],
@@ -315,7 +315,7 @@ export const CITIES: City[] = [
     country: 'Finland',
     flag: '🇫🇮',
     description:
-      'Oulu is far enough north that you start to feel the shift in light and pace. It\'s a university city with a younger energy than you might expect this far up. The market square by the river is the social centre of the city. A good stop on the way toward the Arctic — the kind of place that makes you understand why Finns are so attached to their country.',
+      'Oulu is far enough north that you start to feel the shift in light and pace. It\'s a university city with a younger energy than you might expect this far up. The market square by the river is the social centre of the city. A good stop on the way toward the Arctic, the kind of place that makes you understand why Finns are so attached to their country.',
     costPerDayMin: 50,
     costPerDayMax: 90,
     tags: ['Finland', 'North', 'University City', 'Arctic Gateway'],
@@ -327,7 +327,7 @@ export const CITIES: City[] = [
     country: 'Sweden',
     flag: '🇸🇪',
     description:
-      'Luleå sits on the Gulf of Bothnia in northern Sweden and has a frontier quality to it — a city that exists because of industry and has built a life around that. The archipelago outside the city is stunning and largely undiscovered. In winter it\'s one of the best places in Europe to experience the Arctic properly. A city that rewards curiosity.',
+      'Luleå sits on the Gulf of Bothnia in northern Sweden and has a frontier quality to it, a city that exists because of industry and has built a life around that. The archipelago outside the city is stunning and largely undiscovered. In winter it\'s one of the best places in Europe to experience the Arctic properly. A city that rewards curiosity.',
     costPerDayMin: 55,
     costPerDayMax: 95,
     tags: ['Northern Sweden', 'Arctic', 'Archipelago', 'Frontier'],
@@ -339,7 +339,7 @@ export const CITIES: City[] = [
     country: 'Sweden',
     flag: '🇸🇪',
     description:
-      'Stockholm is where the Scandinavian aesthetic you see everywhere online actually lives. Built across fourteen islands, the city has a natural elegance that doesn\'t feel forced. Gamla Stan (the old town) is beautiful without being a theme park. The design culture is embedded in everything — how the city looks, how people dress, how spaces are organised. Expensive, but it earns it.',
+      'Stockholm is where the Scandinavian aesthetic you see everywhere online actually lives. Built across fourteen islands, the city has a natural elegance that doesn\'t feel forced. Gamla Stan (the old town) is beautiful without being a theme park. The design culture is embedded in everything: how the city looks, how people dress, how spaces are organised. Expensive, but it earns it.',
     costPerDayMin: 70,
     costPerDayMax: 130,
     tags: ['Scandinavia', 'Design', 'Islands', 'Style'],
@@ -354,7 +354,7 @@ export const CITIES: City[] = [
     country: 'Portugal',
     flag: '🇵🇹',
     description:
-      "Lisbon is one of those cities that gets under your skin. Built across seven hills with trams that look like they belong in a different century, it has a melancholy beauty — the Portuguese call it saudade, a kind of nostalgic longing that's baked into the culture. The food is exceptional and cheap by Western European standards. Alfama at night, pastéis de nata in the morning. Went with a friend and it was the right city for it.",
+      "Lisbon is one of those cities that gets under your skin. Built across seven hills with trams that look like they belong in a different century, it has a melancholy beauty. The Portuguese call it saudade, a kind of nostalgic longing that's baked into the culture. The food is exceptional and cheap by Western European standards. Alfama at night, pastéis de nata in the morning. Went with a friend and it was the right city for it.",
     costPerDayMin: 45,
     costPerDayMax: 85,
     tags: ['Trams', 'Food', 'Culture', 'Nightlife', 'Atlantic'],
@@ -366,7 +366,7 @@ export const CITIES: City[] = [
     country: 'Portugal',
     flag: '🇵🇹',
     description:
-      "Lagos is the Algarve at its best — dramatic limestone cliffs, sea caves, and beaches that look like they were designed to be photographed. It's a small town that fills up in summer but retains its character. The old town is compact and walkable. A completely different pace from Lisbon — slower, more physical, more about being outside. Good place to decompress mid-trip.",
+      "Lagos is the Algarve at its best: dramatic limestone cliffs, sea caves, and beaches that look like they were designed to be photographed. It's a small town that fills up in summer but retains its character. The old town is compact and walkable. A completely different pace from Lisbon: slower, more physical, more about being outside. Good place to decompress mid-trip.",
     costPerDayMin: 40,
     costPerDayMax: 75,
     tags: ['Beaches', 'Cliffs', 'Algarve', 'Relaxed', 'Atlantic'],
@@ -378,7 +378,7 @@ export const CITIES: City[] = [
     country: 'Spain',
     flag: '🇪🇸',
     description:
-      "Sevilla operates on its own time — dinner at 10pm, streets alive at midnight, and a heat in summer that forces you to adapt. The architecture is extraordinary: the cathedral, the Alcázar, the narrow streets of the Santa Cruz quarter. Flamenco here isn't a tourist show, it's a living thing. One of the most atmospheric cities in Europe. Going with a friend made it better — Sevilla is a city for sharing.",
+      "Sevilla operates on its own time: dinner at 10pm, streets alive at midnight, and a heat in summer that forces you to adapt. The architecture is extraordinary: the cathedral, the Alcázar, the narrow streets of the Santa Cruz quarter. Flamenco here isn't a tourist show, it's a living thing. One of the most atmospheric cities in Europe. Going with a friend made it better. Sevilla is a city for sharing.",
     costPerDayMin: 45,
     costPerDayMax: 80,
     tags: ['Architecture', 'Flamenco', 'Food', 'History', 'Andalusia'],
@@ -404,7 +404,7 @@ export const CITIES: City[] = [
     country: 'Sweden',
     flag: '🇸🇪',
     description:
-      "Gothenburg is Sweden's second city and it has a different character from Stockholm — more working-class roots, more direct, more relaxed about itself. The canal district and the Haga neighbourhood have a charm that doesn't feel manufactured. Good food scene, good coffee culture, and a city that's easy to navigate. A natural stop between Copenhagen and Stockholm on the west coast route.",
+      "Gothenburg is Sweden's second city and it has a different character from Stockholm: more working-class roots, more direct, more relaxed about itself. The canal district and the Haga neighbourhood have a charm that doesn't feel manufactured. Good food scene, good coffee culture, and a city that's easy to navigate. A natural stop between Copenhagen and Stockholm on the west coast route.",
     costPerDayMin: 65,
     costPerDayMax: 110,
     tags: ['Scandinavia', 'Canals', 'Relaxed', 'Food', 'West Coast'],
@@ -416,7 +416,7 @@ export const CITIES: City[] = [
     country: 'Sweden',
     flag: '🇸🇪',
     description:
-      "Jönköping sits at the southern tip of Lake Vättern — Sweden's second largest lake — and the setting is genuinely beautiful. It's a mid-sized Swedish city with a strong local identity and a lakeside quality of life that's hard to find in bigger cities. Less visited than Gothenburg or Stockholm, which is part of the appeal. A good reminder that the best parts of Scandinavia aren't always the capitals.",
+      "Jönköping sits at the southern tip of Lake Vättern (Sweden's second largest lake), and the setting is genuinely beautiful. It's a mid-sized Swedish city with a strong local identity and a lakeside quality of life that's hard to find in bigger cities. Less visited than Gothenburg or Stockholm, which is part of the appeal. A good reminder that the best parts of Scandinavia aren't always the capitals.",
     costPerDayMin: 55,
     costPerDayMax: 90,
     tags: ['Lake Vättern', 'Sweden', 'Underrated', 'Lakeside'],

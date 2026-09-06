@@ -8,15 +8,14 @@ import { CITIES, COUNTRY_COUNT } from '../data/cities';
 
 <BaseLayout
   title={`About Chandler | ${SITE.name}`}
-  description="A Canadian from Atlantic Canada. In May 2022 I booked a one-month Airbnb in Tallinn, Estonia — and discovered that solo travel wasn't just something I wanted to do. It was something I needed to do."
+  description="A Canadian from Atlantic Canada. In May 2022 I booked a one-month Airbnb in Tallinn, Estonia, and discovered that solo travel wasn't just something I wanted to do. It was something I needed to do."
 >
   <div class="page-head">
     <div class="container">
-      <p class="eyebrow mb-1">About</p>
       <h1 class="display-xl mb-2">Chandler</h1>
       <p class="body-lg measure">
         A Canadian from Atlantic Canada. In May 2022 I booked a one-month Airbnb in Tallinn, Estonia
-        — and discovered that solo travel wasn't just something I wanted to do. It was something I
+        and discovered that solo travel wasn't just something I wanted to do. It was something I
         needed to do.
       </p>
     </div>
@@ -27,11 +26,11 @@ import { CITIES, COUNTRY_COUNT } from '../data/cities';
     <div class="container">
       <div class="split split--wide-gap">
         <div>
-          <p class="eyebrow mb-2">The Story</p>
+          <h2 class="display-sm mb-2">The Story</h2>
           <div class="stack">
             <p class="body-lg">
               It started in May 2022. I booked a month-long Airbnb on Narva Mantee in Tallinn,
-              Estonia — a long, straight road running east from the old town. I had always known I
+              Estonia, a long, straight road running east from the old town. I had always known I
               wanted to travel, but that trip was when I realised it wasn't just a want. It was a
               need.
             </p>
@@ -46,12 +45,12 @@ import { CITIES, COUNTRY_COUNT } from '../data/cities';
             <p class="body-lg">
               That trip gave me something I hadn't fully had before: confidence. The knowledge that
               I could go somewhere completely alone and not just survive it but genuinely thrive. I
-              fell in love with the European approach to life — laidback but functional, rooted in
+              fell in love with the European approach to life: laidback but functional, rooted in
               history, intentional in a way that's hard to find elsewhere.
             </p>
             <p class="body-lg">
               What followed was Iceland in September 2022, a four-month run across twenty-one cities
-              in 2023, Iberia in 2024, and a return to Scandinavia in 2025 — {CITIES.length} cities
+              in 2023, Iberia in 2024, and a return to Scandinavia in 2025. {CITIES.length} cities
               across {COUNTRY_COUNT} countries so far.
             </p>
           </div>
@@ -88,17 +87,17 @@ import { CITIES, COUNTRY_COUNT } from '../data/cities';
       </h2>
       <p class="body-lg measure-wide mb-4">
         This isn't a guide and it isn't researched. It's a record of what I've actually done and
-        what I actually use — the cities I've walked, the cafés I kept going back to, the tours that
+        what I actually use: the cities I've walked, the cafés I kept going back to, the tours that
         were worth the day, and everything that fits in the bag. If I haven't been there or don't
         own it, it isn't here.
       </p>
 
-      <div class="cell-grid cell-grid--tight">
+      <div class="cell-grid cell-grid--trio">
         {
           SECTIONS.map((section) => (
             <a class="pillar-card card-hover fade-in" href={section.href}>
-              <p class="pillar-card__num">{section.num}</p>
-              <p class="pillar-label mb-1">{section.label}</p>
+              <h3 class="pillar-card__name mb-1">{section.label}</h3>
+              <p class="serif-lead mb-1">{section.tagline}</p>
               <p class="body-sm">{section.description}</p>
               <span class="card-arrow">
                 <Icon name="arrow-right" size={16} />
@@ -120,14 +119,14 @@ import { CITIES, COUNTRY_COUNT } from '../data/cities';
         <h2 class="display-lg mb-2">How this works</h2>
         <div class="stack">
           <p class="body-lg">
-            Some links on this site earn a commission — tour bookings, accommodation, and the
+            Some links on this site earn a commission: tour bookings, accommodation, and the
             occasional piece of gear. They're marked wherever they appear, they never change the
             price you pay, and they have no say in what gets listed. Nothing is on here that I
             haven't stayed in, gone on, or worn. See the <a href="/affiliate-disclosure" style="color:var(--c-accent)">affiliate disclosure</a>.
           </p>
           <p class="body-lg">
             Sections of this site are deliberately empty. Where there is no café, no tour, or no
-            product listed, it's because I haven't written it down yet — not because there's nothing
+            product listed, it's because I haven't written it down yet, not because there's nothing
             to fill the space with. Filling it with something approximate would defeat the point of
             the whole thing.
           </p>

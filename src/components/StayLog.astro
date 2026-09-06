@@ -14,7 +14,9 @@ const { stay } = Astro.props;
     <div>
       <h3 class="display-sm">{stay.name}</h3>
       <p class="body-sm">
-        {stay.city}, {stay.country} · {stay.stayType} · {stay.pricePerNight}
+        {stay.city}, {stay.country} · {stay.stayType}
+        <br />
+        {stay.pricePerNight}
         {stay.stayDate && ` · ${stay.stayDate}`}
       </p>
     </div>
@@ -29,9 +31,7 @@ const { stay } = Astro.props;
     {
       stay.pros.length > 0 && (
         <div>
-          <p class="eyebrow" style="margin-bottom:0.5rem">
-            Pros
-          </p>
+          <h4 class="stay__col-title">Pros</h4>
           <ul class="pro-con">
             {stay.pros.map((p) => (
               <li>
@@ -46,9 +46,7 @@ const { stay } = Astro.props;
     {
       stay.cons.length > 0 && (
         <div>
-          <p class="eyebrow" style="margin-bottom:0.5rem">
-            Cons
-          </p>
+          <h4 class="stay__col-title">Cons</h4>
           <ul class="pro-con">
             {stay.cons.map((c) => (
               <li>

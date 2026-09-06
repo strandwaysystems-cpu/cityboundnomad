@@ -30,7 +30,7 @@ export const CAFES: Entry[] = [
     name: 'Butterfly Lounge',
     category: 'Bars',
     city: 'Tallinn',
-    note: "Became the regular stop during the month on Narva Mantee. It's where I met the group of people that ended the night at someone's apartment at 7am — the night that made the whole trip make sense.",
+    note: "Became the regular stop during the month on Narva Mantee. It's where I met the group of people that ended the night at someone's apartment at 7am, the night that made the whole trip make sense.",
     since: 'May 2022',
     url: null,
     verified: true,

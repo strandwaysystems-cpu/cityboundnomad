@@ -14,7 +14,7 @@ const { city, href, meta } = Astro.props;
 
 const cost =
   city.costPerDayMin && city.costPerDayMax
-    ? `€${city.costPerDayMin}–€${city.costPerDayMax}/day`
+    ? `€${city.costPerDayMin}-€${city.costPerDayMax}/day`
     : null;
 
 const Tag = href ? 'a' : 'article';

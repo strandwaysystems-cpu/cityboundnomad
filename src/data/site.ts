@@ -7,10 +7,10 @@ export const SITE = {
   name: 'CityboundNomad',
   domain: 'cityboundnomad.com',
   url: 'https://cityboundnomad.com',
-  title: "CityboundNomad — Places I've Been, Things I Use",
+  title: "CityboundNomad: Places I've Been, Things I Use",
   tagline: 'A personal catalogue by Chandler',
   description:
-    "A Canadian documenting European cities first-hand — the places I've been, the cafés and tours worth the time, what's in the bag, and why I travel this way. Everything here is from experience, not research.",
+    "A Canadian documenting European cities first-hand: the places I've been, the cafés and tours worth the time, what's in the bag, and why I travel this way. Everything here is from experience, not research.",
   author: 'Chandler',
   parentEntity: 'An entity of Strandway Systems',
   locale: 'en',
@@ -59,7 +59,6 @@ export const LEGAL_NAV = [
  */
 export const SECTIONS = [
   {
-    num: '01',
     label: 'Places',
     href: '/places',
     tagline: "Every city I've been to, and what I did there.",
@@ -67,7 +66,6 @@ export const SECTIONS = [
       'Cities, what they cost, where I slept, the cafés I kept going back to, and the tours that were worth the day. Grouped by the trip they belong to.',
   },
   {
-    num: '02',
     label: 'Things',
     href: '/things',
     tagline: 'What I own, what I use, what I travel with.',
@@ -75,7 +73,6 @@ export const SECTIONS = [
       "The wardrobe that fits in one bag, the hair and skin routine, the gear. Nothing listed that isn't actually in use.",
   },
   {
-    num: '03',
     label: 'Notes',
     href: '/notes',
     tagline: 'Why I do it this way.',

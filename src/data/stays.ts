@@ -34,7 +34,7 @@ export const STAYS: Stay[] = [
     rating: 4,
     pros: [
       'Central Reykjavik location',
-      'Great social atmosphere — met people doing the same south coast day trips',
+      'Great social atmosphere, met people doing the same south coast day trips',
       'Staff give genuinely useful local advice',
       "Good value for Iceland's price level",
     ],
@@ -43,7 +43,7 @@ export const STAYS: Stay[] = [
       'Dorm noise on weekend nights when the city goes out',
     ],
     verdict:
-      'A solid base for exploring Iceland. Central location in Reykjavik, good social atmosphere, and the staff actually know the city well — they pointed me toward day trip operators that were worth the money. For a hostel in one of the most expensive cities in Europe, the value is genuinely good.',
+      'A solid base for exploring Iceland. Central location in Reykjavik, good social atmosphere, and the staff actually know the city well. They pointed me toward day trip operators that were worth the money. For a hostel in one of the most expensive cities in Europe, the value is genuinely good.',
     bookingUrl: null,
     stayDate: 'September 2022',
     verified: true,

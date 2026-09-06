@@ -22,9 +22,9 @@ export const TOURS_META: ListMeta = {
   slug: 'tours',
   title: 'Tours',
   intro:
-    'Every tour on this page is one I actually went on. If a booking link earns a commission it is marked — but nothing gets listed because it pays, only because it was worth the day.',
+    'Every tour on this page is one I actually went on. If a booking link earns a commission it is marked, but nothing gets listed because it pays, only because it was worth the day.',
   empty:
-    'Nothing listed yet. The Iceland south-coast trips are first up once I write them down properly — operator, route, what it actually cost.',
+    'Nothing listed yet. The Iceland south-coast trips are first up once I write them down properly: operator, route, what it actually cost.',
   order: ['Day trips', 'Walking tours', 'Food & drink', 'Outdoors'],
 };
 

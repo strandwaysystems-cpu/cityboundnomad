@@ -22,15 +22,15 @@ export const WARDROBE_META: ListMeta = {
 };
 
 export const WARDROBE: Entry[] = [
-  { name: 'Merino wool crew neck', category: 'Tops', detail: 'Uniqlo · €35', note: '3× — black, navy, grey', url: null, verified: false },
-  { name: 'Oxford button-down', category: 'Tops', detail: 'COS · €65', note: '2× — white, light blue', url: null, verified: false },
-  { name: 'Merino T-shirt', category: 'Tops', detail: 'Outlier · €95', note: '2× — black, charcoal', url: null, verified: false },
-  { name: 'Slim chino', category: 'Bottoms', detail: 'COS · €75', note: '2× — black, navy', url: null, verified: false },
-  { name: 'Technical jogger', category: 'Bottoms', detail: 'Lululemon · €110', note: '1× — black', url: null, verified: false },
-  { name: 'Packable down jacket', category: 'Outerwear', detail: "Arc'teryx · €280", note: '1× — black. The one splurge.', url: null, verified: false },
-  { name: 'Merino cardigan', category: 'Outerwear', detail: 'Uniqlo · €45', note: '1× — charcoal', url: null, verified: false },
-  { name: 'White leather sneaker', category: 'Footwear', detail: 'Common Projects · €350', note: '1× — the only pair', url: null, verified: false },
-  { name: 'Merino wool socks', category: 'Footwear', detail: 'Darn Tough · €22', note: '5× — black', url: null, verified: false },
+  { name: 'Merino wool crew neck', category: 'Tops', detail: 'Uniqlo · €35', note: '3× black, navy, grey', url: null, verified: false },
+  { name: 'Oxford button-down', category: 'Tops', detail: 'COS · €65', note: '2× white, light blue', url: null, verified: false },
+  { name: 'Merino T-shirt', category: 'Tops', detail: 'Outlier · €95', note: '2× black, charcoal', url: null, verified: false },
+  { name: 'Slim chino', category: 'Bottoms', detail: 'COS · €75', note: '2× black, navy', url: null, verified: false },
+  { name: 'Technical jogger', category: 'Bottoms', detail: 'Lululemon · €110', note: '1× black', url: null, verified: false },
+  { name: 'Packable down jacket', category: 'Outerwear', detail: "Arc'teryx · €280", note: '1× black. The one splurge.', url: null, verified: false },
+  { name: 'Merino cardigan', category: 'Outerwear', detail: 'Uniqlo · €45', note: '1× charcoal', url: null, verified: false },
+  { name: 'White leather sneaker', category: 'Footwear', detail: 'Common Projects · €350', note: '1× the only pair', url: null, verified: false },
+  { name: 'Merino wool socks', category: 'Footwear', detail: 'Darn Tough · €22', note: '5× black', url: null, verified: false },
   { name: 'Everyday Backpack 26L', category: 'Bag', detail: 'Peak Design · €290', note: 'The entire wardrobe fits in this.', url: null, verified: false },
 ];
 
@@ -39,7 +39,7 @@ export const WARDROBE_PRINCIPLES = [
   {
     num: '01',
     title: 'Functionality first',
-    body: "Every piece has to work. Not just look good — work. If it can't be worn three different ways, it doesn't go in the bag.",
+    body: "Every piece has to work. Not just look good. Work. If it can't be worn three different ways, it doesn't go in the bag.",
   },
   {
     num: '02',

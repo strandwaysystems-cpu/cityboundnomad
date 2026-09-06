@@ -76,11 +76,16 @@
   --dur-panel: 260ms;
   --dur-reveal: 440ms;
 
-  /* Radii */
+  /* Radii — one scale, and one rule for which step a thing gets:
+       pills and tags      --r-full
+       controls (buttons, nav links, inputs, the menu button)  --r-md
+       surfaces (any card, panel, image, media frame)          --r-lg
+     Nothing picks a step for looks. A card is --r-lg whether it is a city
+     tile or a stay log, so the page has one corner language rather than
+     several that happen to coexist. */
   --r-sm: 6px;
   --r-md: 10px;
   --r-lg: 14px;
-  --r-xl: 20px;
   --r-full: 999px;
 
   /* Elevation — layered and shallow; a card is a sheet of paper, not a box */
@@ -206,20 +211,6 @@ h6 {
   line-height: 1.15;
   letter-spacing: -0.02em;
   text-wrap: balance;
-}
-
-/* `<em>` inside a heading is emphasis, not italic filigree: the sans face has
-   no italic worth setting at display size, so the second clause steps back in
-   weight and colour instead. */
-h1 em,
-h2 em,
-h3 em,
-.display-xl em,
-.display-lg em,
-.display-md em {
-  font-style: normal;
-  font-weight: 400;
-  color: var(--c-ink-muted);
 }
 
 a {
@@ -636,11 +627,52 @@ ol {
 }
 
 .cell-grid--cards {
-  grid-template-columns: repeat(auto-fill, minmax(min(280px, 100%), 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(min(220px, 100%), 1fr));
 }
 
 .cell-grid--wide {
   grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr));
+}
+
+/* A trio composed rather than repeated: the first cell takes the taller left
+   column and the other two stack beside it. Three cells for three items, per
+   the bento cell-count rule. */
+.cell-grid--trio {
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 880px) {
+  .cell-grid--trio {
+    grid-template-columns: 1.2fr 1fr;
+  }
+
+  .cell-grid--trio > :first-child {
+    grid-row: span 2;
+    padding: 2.25rem 2.25rem 3.5rem;
+  }
+
+  /* The tall cell earns its height: whichever element leads it is set as a
+     headline rather than as body copy, so the extra room reads as emphasis and
+     not as dead space. Pillar cards lead with a tagline, collection cards with
+     their title. */
+  .cell-grid--trio > :first-child .serif-lead {
+    font-size: 1.5rem;
+    line-height: 1.25;
+    letter-spacing: -0.024em;
+    color: var(--c-ink);
+    margin-bottom: 1rem;
+  }
+
+  .cell-grid--trio > .collection:first-child h2,
+  .cell-grid--trio > .collection:first-child h3 {
+    font-size: 1.875rem;
+    letter-spacing: -0.03em;
+    margin-bottom: 0.75rem;
+  }
+
+  .cell-grid--trio > .collection:first-child .body-sm {
+    font-size: 0.9375rem;
+  }
 }
 
 .cell-grid--tight {
@@ -902,10 +934,6 @@ ol {
   margin-bottom: 1.25rem;
 }
 
-.hero h1 em {
-  color: oklch(0.99 0.002 95 / 0.66);
-}
-
 .hero__lede {
   color: oklch(0.86 0.004 95);
   font-size: 1.0625rem;
@@ -939,23 +967,23 @@ ol {
   color: inherit;
 }
 
-.pillar-card__num {
-  font-family: var(--font-display);
-  font-size: 0.8125rem;
-  font-weight: 600;
-  font-variant-numeric: tabular-nums;
-  letter-spacing: 0.02em;
-  color: var(--c-ink-faint);
-  line-height: 1;
-  margin-bottom: 1.5rem;
-  user-select: none;
-}
-
 .pillar-card__head {
   display: flex;
   align-items: center;
   gap: 0.5rem;
   margin-bottom: 0.5rem;
+}
+
+/* The card's own name. It was a `.pillar-label` eyebrow, but the pillar card
+   carries no other heading, so the label was doing a heading's job without a
+   heading's semantics or its weight. */
+.pillar-card__name {
+  font-family: var(--font-display);
+  font-size: 1.0625rem;
+  font-weight: 600;
+  letter-spacing: -0.018em;
+  line-height: 1.3;
+  color: var(--c-ink);
 }
 
 .pillar-card__monetization {
@@ -1002,7 +1030,7 @@ ol {
   display: block;
   text-decoration: none;
   color: inherit;
-  border-radius: var(--r-md);
+  border-radius: var(--r-lg);
   border: 1px solid var(--c-line);
   background: var(--c-bg-raised);
   overflow: hidden;
@@ -1099,6 +1127,17 @@ ol {
   letter-spacing: -0.018em;
 }
 
+/* The trip's dates, set beside the heading they qualify rather than stacked
+   above it as one more eyebrow. */
+.trip-period {
+  font-family: var(--font-body);
+  font-size: 0.875rem;
+  font-weight: 500;
+  letter-spacing: 0.002em;
+  color: var(--c-ink-muted);
+  white-space: nowrap;
+}
+
 .tag-row {
   display: flex;
   gap: 0.375rem;
@@ -1160,6 +1199,16 @@ ol {
   grid-template-columns: repeat(auto-fit, minmax(min(180px, 100%), 1fr));
   gap: 1.25rem;
   margin-bottom: 1.25rem;
+}
+
+/* Titles the pros / cons column. Sized like a label because that is the right
+   weight for it, but a heading, because that is what it is. */
+.stay__col-title {
+  font-size: 0.8125rem;
+  font-weight: 500;
+  letter-spacing: 0.002em;
+  color: var(--c-ink-muted);
+  margin-bottom: 0.5rem;
 }
 
 .pro-con {
@@ -1474,7 +1523,7 @@ ol {
 .photo-grid img {
   width: 100%;
   height: auto;
-  border-radius: var(--r-md);
+  border-radius: var(--r-lg);
   background: var(--c-bg-alt);
 }
 
