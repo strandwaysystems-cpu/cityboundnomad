@@ -180,6 +180,55 @@ Three steps, no framework work:
 3. Add it to the `COLLECTIONS` array in `src/pages/things.astro` and to `LISTS`
    in `src/components/Footer.astro`.
 
+## The design system
+
+Everything visual lives in `src/styles/global.css`. It is built on
+[Emil Kowalski's design-engineering skills](https://github.com/emilkowalski/skills)
+(`emil-design-eng`, `animate`, `apple-design`), and the rules below are the ones
+worth knowing before you change anything in it.
+
+**Colour is signal.** Surfaces are neutral; the single green accent marks
+affordances — links, active nav, list markers — and nothing else. Primary
+buttons are ink, not accent. Every value is a token in `:root`, with a dark
+counterpart under `prefers-color-scheme: dark`, so light and dark are one design
+rather than two. There is also a `prefers-reduced-transparency` block that makes
+the translucent chrome solid, and a `prefers-contrast: more` block that
+strengthens the hairlines.
+
+**Type is sized *and* tracked.** Tracking runs from `-0.035em` on `.display-xl`
+to roughly `0` on body and slightly positive on the small sizes — a single
+`letter-spacing` across a scale is wrong at one end of it. The face is the
+platform's own, so there is no webfont, no `preconnect`, and no third-party
+request on a site that otherwise loads nothing before consent.
+
+**Motion is decided, not decorated.** Before adding any:
+
+- Ask whether it should animate. Something seen tens of times a day gets a
+  near-imperceptible effect or none.
+- Name the exact properties. `transition: all` is never correct.
+- Use one of the three curves in `:root` — `--ease-out` for entering and
+  exiting, `--ease-in-out` for on-screen movement, `--ease-drawer` for sheets.
+  Never `ease-in`: it delays the moment the user is watching most closely.
+- Use the duration tokens. UI stays under 300ms; the scroll reveal at 440ms is
+  the one exception, because it explains rather than responds.
+- Animate `transform` and `opacity` only — they skip layout and paint.
+- Never enter from `scale(0)`. Start at `0.95`–`0.98` with `opacity: 0`.
+- Exits are faster than entrances.
+- Ship the `prefers-reduced-motion` and `(hover: hover) and (pointer: fine)`
+  variants *with* the animation, not afterwards. Reduced motion means gentler,
+  not absent: colour and opacity stay, travel goes.
+
+**Scroll reveals are progressive enhancement.** Content is visible by default;
+the inline head script in `BaseLayout` only adds `.has-scroll-fx` once it has
+confirmed the browser can both animate and observe. `public/script.js` staggers
+each batch by 60ms in document order, capped at four steps, and a 2.5s safety
+net reveals anything still hidden. A blocked or slow `script.js` can never leave
+a section invisible.
+
+Add `fade-in` to an element to opt it into the reveal. Put it on the cards in a
+grid rather than on the grid itself — that is what makes the row cascade instead
+of arriving as one slab.
+
 ## Photos from Apple Photos
 
 `tools/import-photos.mjs` turns a folder of exported photos into site content:

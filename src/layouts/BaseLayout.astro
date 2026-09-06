@@ -115,14 +115,16 @@ const allJsonLd = [personSchema, webSchema, ...jsonLd];
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png" />
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
     <link rel="manifest" href="/site.webmanifest" />
-    <meta name="theme-color" content="#1c1c1a" />
+    {/* The chrome follows the viewer's scheme, so the browser bar matches the page */}
+    <meta name="theme-color" media="(prefers-color-scheme: light)" content="#fcfcfa" />
+    <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#22252a" />
 
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300;1,9..40,400&display=swap"
-      rel="stylesheet"
-    />
+    {/*
+      No webfont. The type is the platform's own face, which already ships
+      optical sizing, tracking tables and legibility tuning — and costs no
+      render-blocking stylesheet, no preconnect, and no third-party request on
+      a site that otherwise loads nothing until consent (apple-design §15).
+    */}
 
     {allJsonLd.map((block) => <script type="application/ld+json" set:html={JSON.stringify(block)} />)}
 

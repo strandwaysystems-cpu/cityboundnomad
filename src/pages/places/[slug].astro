@@ -114,7 +114,7 @@ const jsonLd = [
         <img
           src={city.image}
           alt={`${city.name}, ${city.country}`}
-          style="width:100%; max-height:520px; object-fit:cover"
+          style="width:100%; max-height:520px; object-fit:cover; border-radius:var(--r-lg)"
           loading="lazy"
           decoding="async"
         />
@@ -182,7 +182,7 @@ const jsonLd = [
 
       {
         !hasAnything && (
-          <div style="padding:3rem 2rem; border:1px solid var(--c-line); background:var(--c-bg)">
+          <div style="padding:3rem 2rem; border:1px solid var(--c-line); background:var(--c-bg-raised); border-radius:var(--r-lg)">
             <p class="display-md mb-1">Nothing written up yet</p>
             <p class="body-lg measure-wide">
               I've been here, but the cafés, stays and tours from this trip aren't written down

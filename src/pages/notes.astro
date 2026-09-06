@@ -30,7 +30,7 @@ const essays = published(ESSAYS);
           <img
             src={IMAGES.journey}
             alt="Chandler in a European city"
-            style="max-width:380px; height:380px; object-fit:cover; object-position:center 30%; margin-left:auto"
+            style="max-width:380px; height:380px; object-fit:cover; object-position:center 30%; margin-left:auto; border-radius:var(--r-lg)"
             loading="lazy"
             decoding="async"
           />
@@ -74,7 +74,7 @@ const essays = published(ESSAYS);
               const Tag = hasBody ? 'a' : 'div';
               return (
                 <Tag
-                  class={`entry${hasBody ? ' card-hover' : ''}`}
+                  class={`entry fade-in${hasBody ? ' card-hover' : ''}`}
                   href={hasBody ? `/notes/${essay.slug}` : undefined}
                   style="text-decoration:none; color:inherit; display:block"
                 >

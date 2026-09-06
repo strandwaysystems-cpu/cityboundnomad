@@ -40,7 +40,7 @@ const COLLECTIONS = [
         <img
           src={IMAGES.style}
           alt="An all-black travel outfit"
-          style="max-width:360px; height:420px; object-fit:cover; object-position:center 15%; margin-left:auto"
+          style="max-width:360px; height:420px; object-fit:cover; object-position:center 15%; margin-left:auto; border-radius:var(--r-lg)"
           loading="lazy"
           decoding="async"
         />
@@ -53,7 +53,7 @@ const COLLECTIONS = [
       <div class="cell-grid cell-grid--wide">
         {
           COLLECTIONS.map(({ meta, count }) => (
-            <a class="collection card-hover" href={`/${meta.slug}`}>
+            <a class="collection card-hover fade-in" href={`/${meta.slug}`}>
               <p class="collection__count">
                 {count > 0 ? String(count).padStart(2, '0') : '—'}
               </p>

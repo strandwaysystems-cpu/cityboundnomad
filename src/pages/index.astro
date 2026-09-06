@@ -61,7 +61,7 @@ const COUNTS = [
       <div class="cell-grid cell-grid--3">
         {
           SECTIONS.map((section, i) => (
-            <a class="pillar-card card-hover" href={section.href}>
+            <a class="pillar-card card-hover fade-in" href={section.href}>
               <p class="pillar-card__num">{section.num}</p>
               <div class="pillar-card__head">
                 <Icon name={SECTION_ICONS[i]} size={14} color="var(--c-accent)" />
@@ -87,7 +87,7 @@ const COUNTS = [
       <dl class="stats">
         {
           COUNTS.map((c) => (
-            <div>
+            <div class="fade-in">
               <dd class="stat__value">{c.value}</dd>
               <dt class="stat__label">{c.label}</dt>
             </div>
@@ -102,8 +102,8 @@ const COUNTS = [
   <!-- ─── Places ───────────────────────────────────────────────────────── -->
   <section class="section">
     <div class="container">
-      <div class="fade-in" style="display:grid; gap:3rem">
-        <div>
+      <div style="display:grid; gap:3rem">
+        <div class="fade-in">
           <p class="pillar-label mb-1">01 — Places</p>
           <h2 class="display-lg mb-1">From Reykjavik<br /><em>to Chania.</em></h2>
           <p class="body-lg measure mb-3">
@@ -116,7 +116,7 @@ const COUNTS = [
         <div class="cell-grid cell-grid--cards">
           {
             featuredCities.map((city) => (
-              <a class="tile card-hover" href={`/places/${citySlug(city.name)}`}>
+              <a class="tile card-hover fade-in" href={`/places/${citySlug(city.name)}`}>
                 {city.image && (
                   <div class="zoom-frame">
                     <img
@@ -146,8 +146,8 @@ const COUNTS = [
   <!-- ─── Things ───────────────────────────────────────────────────────── -->
   <section class="section">
     <div class="container">
-      <div class="cell-grid cell-grid--wide fade-in">
-        <a class="feature-card card-hover" href="/things">
+      <div class="cell-grid cell-grid--wide">
+        <a class="feature-card card-hover fade-in" href="/things">
           <div class="zoom-frame" style="height:260px">
             <img src={IMAGES.style} alt="An all-black travel outfit" loading="lazy" decoding="async" />
           </div>
@@ -162,7 +162,7 @@ const COUNTS = [
           <span class="card-arrow"><Icon name="arrow-right" size={16} /></span>
         </a>
 
-        <a class="feature-card card-hover" href="/notes">
+        <a class="feature-card card-hover fade-in" href="/notes">
           <div class="zoom-frame" style="height:260px">
             <img src={IMAGES.journey} alt="Chandler in a European cafe" loading="lazy" decoding="async" />
           </div>
@@ -183,11 +183,11 @@ const COUNTS = [
   <!-- ─── Quote ────────────────────────────────────────────────────────── -->
   <section class="section section--dark">
     <div class="container">
-      <blockquote class="pullquote">
+      <blockquote class="pullquote fade-in">
         “It's funny how it feels like you did nothing the past year… until you look back at your
         camera roll.”
       </blockquote>
-      <p class="pullquote__attr">— Chandler, December 2022</p>
+      <p class="pullquote__attr fade-in">— Chandler, December 2022</p>
     </div>
   </section>
 </BaseLayout>

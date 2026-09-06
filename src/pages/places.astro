@@ -69,7 +69,7 @@ const jsonLd = [
       <div class="cell-grid cell-grid--3">
         {
           SUBLISTS.map(({ meta, count, href }) => (
-            <a class="collection card-hover" href={href}>
+            <a class="collection card-hover fade-in" href={href}>
               <p class="collection__count">{count > 0 ? String(count).padStart(2, '0') : '—'}</p>
               <h2>{meta.title}</h2>
               <p class="body-sm">{count > 0 ? meta.intro : meta.empty}</p>
