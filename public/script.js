@@ -5,7 +5,8 @@
  * holds the curves and durations, this file only decides *when* things run.
  *
  *   1. Header scroll edge, and the mobile nav (open, and every way out of it).
- *   2. GA4 click events, which no-op entirely until consent is granted.
+ *   2. Outbound, affiliate and contact clicks, sent to Plausible as custom
+ *      events. No-ops if Plausible has not loaded.
  *
  * There is no reveal machinery here. The site's one entrance is the hero's, it
  * is authored in CSS, it runs on load, and it never hides content.
@@ -77,8 +78,11 @@
   }
 
   /* ── 2. Click tracking ───────────────────────────────────────────────── */
+  /* Custom Plausible events. Each one needs a matching goal in the Plausible
+     dashboard before it shows up in reports; until then the calls are
+     harmless no-ops on their side. */
   document.addEventListener('click', function (e) {
-    if (typeof window.gtag !== 'function') return;
+    if (typeof window.plausible !== 'function') return;
 
     var link = e.target.closest('a[href]');
     if (!link) return;
@@ -86,7 +90,9 @@
     var href = link.getAttribute('href') || '';
 
     if (href.indexOf('mailto:') === 0) {
-      window.gtag('event', 'contact_click', { event_label: href.replace('mailto:', '') });
+      window.plausible('Contact click', {
+        props: { address: href.replace('mailto:', '') },
+      });
       return;
     }
 
@@ -94,9 +100,8 @@
     if (!isExternal) return;
 
     var sponsored = (link.getAttribute('rel') || '').indexOf('sponsored') !== -1;
-    window.gtag('event', sponsored ? 'affiliate_click' : 'outbound_click', {
-      link_url: link.href,
-      link_domain: link.hostname,
+    window.plausible(sponsored ? 'Affiliate click' : 'Outbound click', {
+      props: { url: link.href, domain: link.hostname },
     });
   });
 })();

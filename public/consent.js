@@ -15,6 +15,10 @@
  * the shared hooks (#cookie-banner, [data-consent]).
  */
 (function () {
+  /* Plausible is deliberately NOT loaded from here. It is cookieless, so it
+     runs for every visitor from BaseLayout and needs no consent. This file
+     still governs anything that would store on the device: GA if a gaId is
+     ever set, Crazy Egg, and the marketing category. */
   var CONFIG = {
     brand: 'CityboundNomad',
     gaId: '', // per-site GA4 Measurement ID, e.g. 'G-XXXXXXXXXX'

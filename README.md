@@ -274,10 +274,16 @@ matter most:
    per entry.
 2. **Self-host the images.** `src/data/images.ts` still points at Manus's
    CloudFront CDN, which we do not control.
-3. **Set the GA4 ID** in `ANALYTICS.gaId` (`src/data/site.ts`) and
-   `CONFIG.gaId` (`public/consent.js`), plus the Search Console verification
-   token. Until then the site simply runs without analytics — it stays
-   compliant either way, because `consent.js` is fail-closed.
+3. **Analytics are already wired.** Plausible runs from
+   `ANALYTICS.plausibleSrc` (`src/data/site.ts`), loaded in `BaseLayout` for
+   every visitor rather than through `consent.js`: it is cookieless, so it
+   stores nothing on the device and there is nothing to consent to. The cookie
+   and privacy policies describe it that way. `consent.js` still governs
+   anything that would store on the device, and is still fail-closed, so
+   setting `gaId` later would put GA behind the banner where it belongs.
+   Outbound, affiliate and contact clicks are sent as Plausible custom events
+   from `public/script.js`; each needs a matching goal in the Plausible
+   dashboard before it appears in reports.
 
 ## Provenance
 

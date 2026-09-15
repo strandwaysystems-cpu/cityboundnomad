@@ -113,8 +113,8 @@ const allJsonLd = [personSchema, webSchema, ...jsonLd];
       One self-hosted display face for headings, preloaded so the swap happens
       before first paint rather than after it. Body and UI text stay on the
       platform's own stack, which already ships optical sizing and legibility
-      tuning. No preconnect, no stylesheet, and no third-party request on a site
-      that otherwise loads nothing before consent.
+      tuning. No preconnect and no stylesheet: the font is served from this
+      origin, so it adds no third-party request of its own.
     */}
     <link
       rel="preload"
@@ -123,6 +123,32 @@ const allJsonLd = [personSchema, webSchema, ...jsonLd];
       type="font/woff2"
       crossorigin
     />
+
+    {/*
+      Plausible, loaded for everyone rather than through consent.js. It sets no
+      cookies and stores nothing on the device, so there is nothing for a
+      visitor to consent to; the banner still gates anything that would.
+    */}
+    {
+      ANALYTICS.plausibleSrc && (
+        <Fragment>
+          <script is:inline async src={ANALYTICS.plausibleSrc} />
+          <script is:inline>
+            window.plausible =
+              window.plausible ||
+              function () {
+                (plausible.q = plausible.q || []).push(arguments);
+              };
+            plausible.init =
+              plausible.init ||
+              function (i) {
+                plausible.o = i || {};
+              };
+            plausible.init();
+          </script>
+        </Fragment>
+      )
+    }
 
     {allJsonLd.map((block) => <script type="application/ld+json" set:html={JSON.stringify(block)} />)}
 

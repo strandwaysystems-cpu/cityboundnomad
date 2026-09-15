@@ -36,6 +36,12 @@ export const CONTACT = {
 export const ANALYTICS = {
   gaId: '',
   crazyEggSrc: '',
+  /* Plausible runs for every visitor, outside the consent gate, because it is
+     cookieless: it stores nothing on the device and reads nothing from it, so
+     it does not trigger the ePrivacy consent requirement that GA does. This is
+     a deliberate departure from analytics-privacy-standard.md, which assumes a
+     GA-shaped tool. The cookie and privacy policies describe it as it is. */
+  plausibleSrc: 'https://plausible.io/js/pa-OEjwVouxfvdyZvJ9oikFn.js',
   searchConsoleVerification: 'O6YoGAwfwusHOCZG1KQ-s9l4I4zSq_515shWQY1XQoI',
 } as const;
 
