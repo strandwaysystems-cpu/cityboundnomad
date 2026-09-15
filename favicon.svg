@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="CityboundNomad">
+  <!-- Rounded square in the brand near-black, with the C monogram drawn as an
+       arc rather than text so it renders identically without Cormorant loaded. -->
+  <rect width="512" height="512" rx="96" fill="#1A1A18"/>
+  <path d="M 336.3 141.3 A 140 140 0 1 0 336.3 370.7"
+        fill="none" stroke="#4E8A6F" stroke-width="46" stroke-linecap="round"/>
+</svg>
