@@ -36,7 +36,7 @@ export const CONTACT = {
 export const ANALYTICS = {
   gaId: '',
   crazyEggSrc: '',
-  searchConsoleVerification: '',
+  searchConsoleVerification: 'O6YoGAwfwusHOCZG1KQ-s9l4I4zSq_515shWQY1XQoI',
 } as const;
 
 export const NAV = [
