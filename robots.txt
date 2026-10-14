@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://cityboundnomad.com/sitemap-index.xml
