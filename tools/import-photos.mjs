@@ -46,7 +46,15 @@ const ROOT = path.resolve(import.meta.dirname, '..');
 const OUT_DIR = path.join(ROOT, 'public/images/places');
 const DATA_FILE = path.join(ROOT, 'src/data/photos.ts');
 
-const WIDTH = 1600; // enough for a full-bleed city header on a 2x display
+/*
+ * Two widths per photo. The grid shows them at roughly 340px, so shipping only
+ * the 1600px file meant every photo arrived about five times larger than it was
+ * drawn: 2.3MB for four images on one city page. The wide file is still needed,
+ * because a photo can also be a city's header image, where it runs the full
+ * container. The markup picks between them with srcset.
+ */
+const WIDTH = 1600; // full width: a city header, full-bleed on a 2x display
+const GRID_WIDTH = 720; // the photo grid, at 2x its ~340px cell
 const QUALITY = 78;
 const MATCH_RADIUS_KM = 60;
 
@@ -115,9 +123,34 @@ if (strayCoords.length) {
 const dryRun = process.argv.includes('--dry-run');
 const inputDir = process.argv[2];
 
+/*
+ * --city places photos that carry no GPS at all. The export path documented
+ * above keeps location, but photos that travel through a messaging app,
+ * AirDrop-to-Windows, or a chat window arrive stripped of every EXIF tag, and
+ * without this they are simply skipped. Photos that DO have GPS are still
+ * matched by it, so a mixed folder behaves sensibly; the summary says how many
+ * were placed each way.
+ */
+const cityFlagIndex = process.argv.indexOf('--city');
+const forcedCityName = cityFlagIndex === -1 ? null : process.argv[cityFlagIndex + 1];
+
 if (!inputDir || inputDir.startsWith('--')) {
-  console.error('Usage: node tools/import-photos.mjs <folder-of-exported-photos> [--dry-run]');
+  console.error(
+    'Usage: node tools/import-photos.mjs <folder-of-exported-photos> [--dry-run] [--city "Name"]'
+  );
   process.exit(1);
+}
+
+let forcedCity = null;
+if (forcedCityName !== null) {
+  forcedCity = CITIES.find((c) => c.name === forcedCityName);
+  if (!forcedCity) {
+    console.error(
+      `--city "${forcedCityName}" is not a city in src/data/cities.ts.\n` +
+        `  Known: ${CITIES.map((c) => c.name).join(', ')}`
+    );
+    process.exit(1);
+  }
 }
 
 function haversineKm([lat1, lon1], [lat2, lon2]) {
@@ -175,7 +208,11 @@ for (const file of files) {
   }
 
   if (!gps || typeof gps.latitude !== 'number') {
-    noGps.push(file);
+    if (forcedCity) {
+      matched.push({ file, city: forcedCity, km: null, taken, placedByFlag: true });
+    } else {
+      noGps.push(file);
+    }
     continue;
   }
 
@@ -202,10 +239,18 @@ for (const [city, items] of [...byCity].sort((a, b) => b[1].length - a[1].length
   console.log(`  ${String(items.length).padStart(3)}  ${city}`);
 }
 
+const placedByFlag = matched.filter((m) => m.placedByFlag).length;
+if (placedByFlag) {
+  console.log(
+    `\n${placedByFlag} photo(s) had no location and were placed in ${forcedCity.name} by --city.`
+  );
+}
+
 if (noGps.length) {
   console.log(
     `\n${noGps.length} photo(s) had no location. Most likely the "Location Information"` +
-      ' box was unchecked on export — see the notes at the top of this file.'
+      ' box was unchecked on export — see the notes at the top of this file.' +
+      ' If they came through a messaging app, which strips EXIF, pass --city "Name".'
   );
   noGps.slice(0, 5).forEach((f) => console.log(`  · ${path.basename(f)}`));
   if (noGps.length > 5) console.log(`  · …and ${noGps.length - 5} more`);
@@ -226,6 +271,47 @@ if (dryRun) {
   process.exit(0);
 }
 
+/*
+ * The banner this script writes promises that ALT_OVERRIDES survives a
+ * re-import. It did not: the generated body hardcoded an empty object, so
+ * every hand-written alt string was silently lost on the next run. Read the
+ * existing block back and carry it through verbatim, comments and all.
+ */
+async function readExistingAltOverrides() {
+  let current;
+  try {
+    current = await readFile(DATA_FILE, 'utf8');
+  } catch {
+    return '{}';
+  }
+  const marker = 'ALT_OVERRIDES: Record<string, string> = ';
+  const start = current.indexOf(marker);
+  if (start === -1) return '{}';
+  const open = current.indexOf('{', start);
+  if (open === -1) return '{}';
+  // Brace counter rather than a regex: the values are strings that may well
+  // contain a brace, and a greedy match would swallow the rest of the file.
+  let depth = 0;
+  let inString = null;
+  for (let i = open; i < current.length; i += 1) {
+    const ch = current[i];
+    if (inString) {
+      if (ch === '\\') i += 1;
+      else if (ch === inString) inString = null;
+      continue;
+    }
+    if (ch === "'" || ch === '"' || ch === '`') inString = ch;
+    else if (ch === '{') depth += 1;
+    else if (ch === '}') {
+      depth -= 1;
+      if (depth === 0) return current.slice(open, i + 1);
+    }
+  }
+  return '{}';
+}
+
+const altOverrides = await readExistingAltOverrides();
+
 const photos = [];
 
 for (const [cityName, items] of byCity) {
@@ -236,7 +322,9 @@ for (const [cityName, items] of byCity) {
   let i = 0;
   for (const item of items) {
     i += 1;
-    const name = `${slug}-${String(i).padStart(2, '0')}.webp`;
+    const stem = `${slug}-${String(i).padStart(2, '0')}`;
+    const name = `${stem}.webp`;
+    const gridName = `${stem}-${GRID_WIDTH}.webp`;
     const dest = path.join(dir, name);
 
     // .rotate() applies the EXIF orientation before that tag is discarded —
@@ -248,9 +336,16 @@ for (const [cityName, items] of byCity) {
       .webp({ quality: QUALITY })
       .toFile(dest);
 
+    await sharp(item.file)
+      .rotate()
+      .resize({ width: GRID_WIDTH, withoutEnlargement: true })
+      .webp({ quality: QUALITY })
+      .toFile(path.join(dir, gridName));
+
     const country = item.city.country;
     photos.push({
       src: `/images/places/${slug}/${name}`,
+      thumb: `/images/places/${slug}/${gridName}`,
       width: info.width,
       height: info.height,
       city: cityName,
@@ -280,6 +375,8 @@ const banner = `/*
 const body = `${banner}
 export interface Photo {
   src: string;
+  /** Narrower copy for the photo grid; \`src\` is for full-width use. */
+  thumb: string;
   width: number;
   height: number;
   /** Matches a name in cities.ts */
@@ -290,7 +387,7 @@ export interface Photo {
 }
 
 /** Hand-written alt text, keyed by \`src\`. Survives re-importing. */
-export const ALT_OVERRIDES: Record<string, string> = {};
+export const ALT_OVERRIDES: Record<string, string> = ${altOverrides};
 
 const RAW: Photo[] = ${JSON.stringify(photos, null, 2)};
 

@@ -4,16 +4,10 @@
  * Written by tools/import-photos.mjs from exported photos. Re-running the
  * import overwrites this file, so any manual change here is lost.
  *
- * This is the empty starting state. To fill it:
- *
- *   1. Export from Apple Photos with "Location Information" ticked
- *      (see the notes at the top of tools/import-photos.mjs — that checkbox is
- *      the step that usually goes wrong).
- *   2. npm run photos -- ~/Desktop/cbn-export --dry-run     # see the matches
- *   3. npm run photos -- ~/Desktop/cbn-export               # write them
- *
- * Improve the default "City, Country" alt text by adding entries to
- * ALT_OVERRIDES below — those survive a re-import.
+ * The one thing worth editing is `alt`: it defaults to "City, Country", which
+ * is accurate but says nothing. Better alt text describes what is in the frame.
+ * If you improve it, move the photo's object into ALT_OVERRIDES below instead,
+ * which the importer preserves.
  *
  * No coordinates are stored here, and the .webp files carry no EXIF — see the
  * privacy notes in tools/import-photos.mjs.
@@ -21,6 +15,8 @@
 
 export interface Photo {
   src: string;
+  /** Narrower copy for the photo grid; `src` is for full-width use. */
+  thumb: string;
   width: number;
   height: number;
   /** Matches a name in cities.ts */
@@ -31,9 +27,55 @@ export interface Photo {
 }
 
 /** Hand-written alt text, keyed by `src`. Survives re-importing. */
-export const ALT_OVERRIDES: Record<string, string> = {};
+export const ALT_OVERRIDES: Record<string, string> = {
+  '/images/places/tallinn/tallinn-01.webp':
+    "Red tile roofs of Tallinn's old town seen from a viewing platform, with ferries in the harbour beyond",
+  '/images/places/tallinn/tallinn-02.webp':
+    'Alexander Nevsky Cathedral and a tower of the medieval town wall, across the park below Toompea',
+  '/images/places/tallinn/tallinn-03.webp':
+    "An empty cobbled street in Tallinn's old town, lit by wall lamps at dusk",
+  '/images/places/tallinn/tallinn-04.webp':
+    'Chandler walking below the Toompea limestone cliff in Tallinn, under bare spring branches',
+};
 
-const RAW: Photo[] = [];
+const RAW: Photo[] = [
+  {
+    "src": "/images/places/tallinn/tallinn-01.webp",
+    "thumb": "/images/places/tallinn/tallinn-01-720.webp",
+    "width": 1600,
+    "height": 2133,
+    "city": "Tallinn",
+    "taken": null,
+    "alt": "Tallinn, Estonia"
+  },
+  {
+    "src": "/images/places/tallinn/tallinn-02.webp",
+    "thumb": "/images/places/tallinn/tallinn-02-720.webp",
+    "width": 1600,
+    "height": 2133,
+    "city": "Tallinn",
+    "taken": null,
+    "alt": "Tallinn, Estonia"
+  },
+  {
+    "src": "/images/places/tallinn/tallinn-03.webp",
+    "thumb": "/images/places/tallinn/tallinn-03-720.webp",
+    "width": 1600,
+    "height": 2133,
+    "city": "Tallinn",
+    "taken": null,
+    "alt": "Tallinn, Estonia"
+  },
+  {
+    "src": "/images/places/tallinn/tallinn-04.webp",
+    "thumb": "/images/places/tallinn/tallinn-04-720.webp",
+    "width": 1600,
+    "height": 2133,
+    "city": "Tallinn",
+    "taken": null,
+    "alt": "Tallinn, Estonia"
+  }
+];
 
 export const PHOTOS: Photo[] = RAW.map((p) => ({ ...p, alt: ALT_OVERRIDES[p.src] ?? p.alt }));
 

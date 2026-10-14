@@ -29,8 +29,11 @@ export const IMAGES = {
   reykjavik: `${CDN}/IMG_7501_59090165.jpeg`,
   parnu: `${CDN}/parnu-dusk_7e356beb.jpeg`,
 
+  /* Chandler's own, imported by tools/import-photos.mjs and served from this
+     origin rather than a CDN we do not control. */
+  tallinn: '/images/places/tallinn/tallinn-01.webp',
+
   /* Stock stand-ins from the original seed — replace with Chandler's own shots */
-  tallinn: 'https://images.unsplash.com/photo-1560969184-10fe8719e047?w=900&h=600&fit=crop&auto=format',
   copenhagen: 'https://images.unsplash.com/photo-1513622470522-26c3c8a854bc?w=900&h=600&fit=crop&auto=format',
   chania: 'https://images.unsplash.com/photo-1533105079780-92b9be482077?w=900&h=600&fit=crop&auto=format',
 
