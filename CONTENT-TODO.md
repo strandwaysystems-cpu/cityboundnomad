@@ -24,12 +24,19 @@ is exactly what this site exists not to be.
 
 ### Tours and the GetYourGuide store
 
-`url` is `null` on every tour entry because there is no GetYourGuide partner ID
-in this repo yet. Once there is:
+`url` is `null` on every tour entry because no tour has been written up yet.
+The programme is settled: tours book through **GetYourGuide**, partner
+`M0TZRO3`, recorded in `AFFILIATES` in `src/data/site.ts` alongside Stay22,
+which covers stays. Travelpayouts is not a booking network here — the row on
+`/links` is a referral for joining Travelpayouts itself.
 
-1. Put the real partner link in `url`.
+For each tour:
+
+1. Build the link in the GetYourGuide partner portal and paste it whole into
+   `url`. Do not assemble one by hand: an untagged gyg URL works perfectly for
+   the visitor and earns nothing, which is a failure nobody notices.
 2. Set `affiliate: true` — that adds `rel="noopener sponsored"`, which is what
-   makes the analytics tracker fire `affiliate_click`, and surfaces the
+   makes the click tracker fire the affiliate event, and surfaces the
    disclosure line on the page.
 
 Never commit a placeholder ID — `affiliate-id-guard.yml` fails the build on

@@ -86,11 +86,12 @@ export const BIO_GROUPS: BioGroup[] = [
         affiliate: true,
       },
       /*
-       * Room for more. The obvious next ones for this brand are a
-       * GetYourGuide partner link (which would also unblock src/data/tours.ts)
-       * and whatever accommodation programme ends up being used. Add them the
-       * same way — real link, `affiliate: true`, and a sublabel that says what
-       * the thing actually is rather than selling it.
+       * Room for more. Note what this row is: a referral link for joining
+       * Travelpayouts, not a booking link. Tours and stays book through
+       * GetYourGuide and Stay22 — see AFFILIATES in src/data/site.ts — and
+       * those belong on the entries themselves, not in this group. Anything
+       * added here gets the same treatment: real link, `affiliate: true`, and
+       * a sublabel saying what the thing actually is rather than selling it.
        */
     ],
   },

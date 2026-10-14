@@ -6,12 +6,15 @@
  * feed, which is what the rest of the portfolio already does. This one is a
  * record.
  *
- * `url` stays null until there is a real GetYourGuide partner link — the
- * affiliate-id-guard CI fails on placeholder IDs, and a bare gyg link with no
- * partner ID earns nothing anyway. Set `affiliate: true` alongside a real URL
- * and the entry renders with rel="sponsored" and the disclosure note.
+ * Tours book through GetYourGuide, partner M0TZRO3 — see AFFILIATES in
+ * src/data/site.ts for which programme covers what, and why Travelpayouts is
+ * not the one. Build the link in the GetYourGuide partner portal and paste it
+ * whole; a gyg URL without the partner ID on it earns nothing and looks
+ * identical to one that does. Set `affiliate: true` alongside it and the entry
+ * renders with rel="sponsored" and the disclosure note.
  *
- * The Iceland south-coast day trips out of Reykjavik are the obvious first
+ * What is still missing is the tours themselves, not the programme. The
+ * Iceland south-coast day trips out of Reykjavik are the obvious first
  * entries — the Hi Loft staff recommended the operators — but the specifics
  * (which operator, which route, what it cost) need to come from Chandler.
  */

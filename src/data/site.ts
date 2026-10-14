@@ -45,6 +45,31 @@ export const ANALYTICS = {
   searchConsoleVerification: 'O6YoGAwfwusHOCZG1KQ-s9l4I4zSq_515shWQY1XQoI',
 } as const;
 
+/*
+ * Which affiliate programme is used for what.
+ *
+ * Writing this down because mixing them up is easy and fails quietly: a link
+ * sent through the wrong programme, or sent untagged, still works for the
+ * visitor and simply earns nothing, so nobody notices.
+ *
+ *   Tours   GetYourGuide, partner M0TZRO3.
+ *   Stays   Stay22, partner `strandwayventures`. See src/data/stays.ts.
+ *
+ * Travelpayouts is NOT a booking network for this site. The row on /links is a
+ * referral link for joining Travelpayouts itself, which is a different thing
+ * from booking a tour or a room through it. Do not reach for it when adding a
+ * tour or a stay.
+ *
+ * Both programmes build their links in their own dashboard. Paste the finished
+ * link in whole rather than assembling one by hand: the builders already carry
+ * the partner ID, and a hand-built URL is how an untagged link gets shipped.
+ * The ID below is here to check a pasted link against, not to concatenate.
+ */
+export const AFFILIATES = {
+  getYourGuidePartnerId: 'M0TZRO3',
+  stay22Partner: 'strandwayventures',
+} as const;
+
 export const NAV = [
   { label: 'Places', href: '/places' },
   { label: 'Things', href: '/things' },
