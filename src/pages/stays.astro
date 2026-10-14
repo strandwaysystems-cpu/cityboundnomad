@@ -2,6 +2,7 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import StayLog from '../components/StayLog.astro';
 import EmptyState from '../components/EmptyState.astro';
+import AffiliateNote from '../components/AffiliateNote.astro';
 import { SITE } from '../data/site';
 import { STAYS } from '../data/stays';
 import { published } from '../data/flags';
@@ -27,11 +28,14 @@ const stays = published(STAYS);
     <div class="container">
       {
         stays.length > 0 ? (
-          <div class="cell-grid cell-grid--stack">
-            {stays.map((stay) => (
-              <StayLog stay={stay} />
-            ))}
-          </div>
+          <>
+            <div class="cell-grid cell-grid--stack">
+              {stays.map((stay) => (
+                <StayLog stay={stay} />
+              ))}
+            </div>
+            {stays.some((s) => s.bookingUrl) && <AffiliateNote />}
+          </>
         ) : (
           <EmptyState
             title="Being rewritten"

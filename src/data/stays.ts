@@ -25,6 +25,27 @@ export interface Stay {
 }
 
 export const STAYS: Stay[] = [
+  /* The May 2022 Tallinn apartment: the month on Narva Mantee that the whole
+     site starts from. The booking link is a Stay22 search across the Avangard
+     building rather than a link to one unit, because the building has several
+     and the exact apartment is not reliably listed. Unpublished until the
+     review is written from real notes: rating, what it actually cost, what was
+     good, what was not. See src/data/flags.ts. */
+  {
+    name: 'Avangard building, Narva Mantee',
+    city: 'Tallinn',
+    country: 'Estonia',
+    stayType: 'airbnb',
+    pricePerNight: '',
+    rating: 0,
+    pros: [],
+    cons: [],
+    verdict: '',
+    bookingUrl: 'https://booking.stay22.com/strandwayventures/h2cpn3i8BI',
+    stayDate: 'May 2022',
+    verified: false,
+  },
+
   {
     name: 'Hi Loft Hostel',
     city: 'Reykjavik',

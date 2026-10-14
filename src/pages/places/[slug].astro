@@ -3,6 +3,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import EntryList from '../../components/EntryList.astro';
 import StayLog from '../../components/StayLog.astro';
 import Icon from '../../components/Icon.astro';
+import AffiliateNote from '../../components/AffiliateNote.astro';
 import { SITE } from '../../data/site';
 import { CITIES, TRIPS, citySlug, type City } from '../../data/cities';
 import { CAFES } from '../../data/cafes';
@@ -44,6 +45,11 @@ const cost =
 const photos = photosFor(city.name);
 
 const hasAnything = cafes.length + tours.length + stays.length + photos.length > 0;
+/* One disclosure per page, shown if anything on it is a paid link — a stay's
+   booking link or an affiliate entry in either list. */
+const hasPaidLink =
+  stays.some((s) => s.bookingUrl) ||
+  [...cafes, ...tours].some((e) => e.affiliate && e.url);
 
 const jsonLd = [
   {
@@ -185,6 +191,8 @@ const jsonLd = [
           </div>
         )
       }
+
+      {hasPaidLink && <AffiliateNote />}
 
       <p class="mt-4">
         <a class="link-cta" href="/places">
