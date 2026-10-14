@@ -80,18 +80,27 @@ travel, style, journey, Stockholm, Reykjavik, Pärnu. Download each, convert to
 **Lost in the Manus export** — these lived at `/manus-storage/...` paths that
 only resolved inside Manus's runtime:
 
-- `tartuPortrait` — the Tartu portrait, used on the Tartu card and About
-- `londonTowerBridge` — the London card and About
+- `londonTowerBridge` — the London card
 
-Both are `null`, and every component treats a null image as "render without
-media" — city cards without a photo get a typographic panel with the country
-flag instead, so the grid stays even.
+It is `null`, and every component treats a null image as "render without
+media" — a city card without a photo gets a typographic panel carrying the
+city's name, so the grid stays even.
 
-**Stock stand-ins** worth replacing with Chandler's own shots: Tallinn,
-Copenhagen, Chania (all Unsplash).
+`tartuPortrait` was on this list and is now restored from Chandler's own
+photos.
+
+**Stock stand-ins** worth replacing with Chandler's own shots: Copenhagen and
+Chania (both Unsplash). Tallinn is done.
 
 **Photographs wanted** for the 21 cities with none — the whole 2023 run, plus
-Lisbon, Lagos, Sevilla, Gothenburg and Jönköping.
+Lisbon, Lagos, Sevilla, Gothenburg and Jönköping. Seven have one: Tallinn,
+Tartu, Pärnu, Reykjavik, Chania, Stockholm and Copenhagen.
+
+**Adding photos.** `npm run photos -- <folder>` reads the GPS your camera
+wrote and sorts them by city. Photos that came through a messaging app or a
+chat window have had their EXIF stripped, so pass `--city "Name"` to place
+them by hand. Alt text goes in `ALT_OVERRIDES` in `src/data/photos.ts`, which
+survives re-importing.
 
 The fastest way to fix all of this at once is the photo importer: export the
 camera roll out of Apple Photos with location data intact and run

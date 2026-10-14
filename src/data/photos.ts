@@ -36,44 +36,41 @@ export const ALT_OVERRIDES: Record<string, string> = {
     "An empty cobbled street in Tallinn's old town, lit by wall lamps at dusk",
   '/images/places/tallinn/tallinn-04.webp':
     'Chandler walking below the Toompea limestone cliff in Tallinn, under bare spring branches',
+  '/images/places/tartu/tartu-01.webp':
+    "Chandler at a railing above Tartu's rooftops, with the brick tower of St John's Church behind",
+  '/images/places/tartu/tartu-02.webp':
+    'An empty street in central Tartu in the low evening light',
+  '/images/places/tartu/tartu-03.webp':
+    "Tartu's town hall across Raekoja plats, café umbrellas in the foreground under a storm sky",
 };
 
 const RAW: Photo[] = [
   {
-    "src": "/images/places/tallinn/tallinn-01.webp",
-    "thumb": "/images/places/tallinn/tallinn-01-720.webp",
+    "src": "/images/places/tartu/tartu-01.webp",
+    "thumb": "/images/places/tartu/tartu-01-720.webp",
     "width": 1600,
     "height": 2133,
-    "city": "Tallinn",
+    "city": "Tartu",
     "taken": null,
-    "alt": "Tallinn, Estonia"
+    "alt": "Tartu, Estonia"
   },
   {
-    "src": "/images/places/tallinn/tallinn-02.webp",
-    "thumb": "/images/places/tallinn/tallinn-02-720.webp",
+    "src": "/images/places/tartu/tartu-02.webp",
+    "thumb": "/images/places/tartu/tartu-02-720.webp",
     "width": 1600,
     "height": 2133,
-    "city": "Tallinn",
+    "city": "Tartu",
     "taken": null,
-    "alt": "Tallinn, Estonia"
+    "alt": "Tartu, Estonia"
   },
   {
-    "src": "/images/places/tallinn/tallinn-03.webp",
-    "thumb": "/images/places/tallinn/tallinn-03-720.webp",
+    "src": "/images/places/tartu/tartu-03.webp",
+    "thumb": "/images/places/tartu/tartu-03-720.webp",
     "width": 1600,
     "height": 2133,
-    "city": "Tallinn",
+    "city": "Tartu",
     "taken": null,
-    "alt": "Tallinn, Estonia"
-  },
-  {
-    "src": "/images/places/tallinn/tallinn-04.webp",
-    "thumb": "/images/places/tallinn/tallinn-04-720.webp",
-    "width": 1600,
-    "height": 2133,
-    "city": "Tallinn",
-    "taken": null,
-    "alt": "Tallinn, Estonia"
+    "alt": "Tartu, Estonia"
   }
 ];
 

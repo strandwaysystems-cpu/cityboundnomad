@@ -37,8 +37,10 @@ export const IMAGES = {
   copenhagen: 'https://images.unsplash.com/photo-1513622470522-26c3c8a854bc?w=900&h=600&fit=crop&auto=format',
   chania: 'https://images.unsplash.com/photo-1533105079780-92b9be482077?w=900&h=600&fit=crop&auto=format',
 
+  /* Chandler's own, imported by tools/import-photos.mjs */
+  tartuPortrait: '/images/places/tartu/tartu-01.webp',
+
   /* Lost in the Manus export */
-  tartuPortrait: null,
   londonTowerBridge: null,
 } as const;
 
