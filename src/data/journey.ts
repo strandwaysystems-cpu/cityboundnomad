@@ -21,7 +21,7 @@ export interface Milestone {
 export const MILESTONES: Milestone[] = [
   {
     date: 'May 2022',
-    label: 'Booked a one-month Airbnb on Narva Mantee, Tallinn. First solo trip.',
+    label: 'Booked a one-month Airbnb on Narva maantee, Tallinn. First solo trip.',
   },
   {
     date: 'May 2022',
@@ -78,9 +78,9 @@ export const ESSAYS: Essay[] = [
     slug: 'tallinn-may-2022',
     type: 'origin_story',
     excerpt:
-      "I booked the Airbnb on a Tuesday. One month, Narva Mantee, Tallinn, Estonia. I had always known I wanted to travel, but it was May 2022 when I found out that travel wasn't just something I wanted to do. It was something I needed to do.",
+      "I booked the Airbnb on a Tuesday. One month, Narva maantee, Tallinn, Estonia. I had always known I wanted to travel, but it was May 2022 when I found out that travel wasn't just something I wanted to do. It was something I needed to do.",
     body: [
-      "I booked the Airbnb on a Tuesday. One month, Narva Mantee, Tallinn, Estonia. I had always known I wanted to travel: that vague, persistent feeling that the life I was living wasn't quite the right shape. But it was May 2022 when I found out that travel wasn't just something I wanted to do. It was something I needed to do.",
+      "I booked the Airbnb on a Tuesday. One month, Narva maantee, Tallinn, Estonia. I had always known I wanted to travel: that vague, persistent feeling that the life I was living wasn't quite the right shape. But it was May 2022 when I found out that travel wasn't just something I wanted to do. It was something I needed to do.",
       'The apartment was on a long, straight road that runs east from the old town. Nothing glamorous about the street itself: tram lines, Soviet-era blocks, a few cafes. But it was mine for a month, and that felt like everything.',
       "I didn't have a plan. I walked. I found the old town, which is one of the best-preserved medieval centres in Europe and somehow still feels lived-in rather than museumified. I found the Butterfly Lounge, which became a regular stop. I found that I was capable of walking into a room full of strangers and starting a conversation, something I hadn't been entirely sure about before I left.",
       "One night I met a group of people at the Butterfly Lounge. We ended up at someone's apartment. I walked home at 8am as the city was waking up, and I remember thinking: this is what I came for. Not the party specifically. The feeling of being somewhere completely new, with people I'd never met, having a night that couldn't have happened anywhere else.",

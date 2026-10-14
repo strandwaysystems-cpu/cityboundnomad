@@ -42,7 +42,7 @@ export const TRIPS: Trip[] = [
     label: 'Tallinn & the Baltics',
     period: 'May 2022',
     blurb:
-      'One month on Narva Mantee, and the trip that started everything. Day trips to Tartu and Pärnu, the ferry across to Helsinki.',
+      'One month on Narva maantee, and the trip that started everything. Day trips to Tartu and Pärnu, the ferry across to Helsinki.',
   },
   {
     id: '2022-iceland',
@@ -79,7 +79,7 @@ export const CITIES: City[] = [
     country: 'Estonia',
     flag: '🇪🇪',
     description:
-      'Where it all started. In May 2022 I booked a month-long Airbnb on Narva Mantee and discovered that solo travel was my passion. Medieval walls, a functioning digital-nomad visa, €35/night apartments, and a nightlife scene centred around places like the Butterfly Lounge, where you end up at apartment parties at 7am. I met more interesting people here in four weeks than I had in years.',
+      'Where it all started. In May 2022 I booked a month-long Airbnb on Narva maantee and discovered that solo travel was my passion. Medieval walls, a functioning digital-nomad visa, €35/night apartments, and a nightlife scene centred around places like the Butterfly Lounge, where you end up at apartment parties at 7am. I met more interesting people here in four weeks than I had in years.',
     costPerDayMin: 35,
     costPerDayMax: 55,
     tags: ['Origin Story', 'Budget', 'Digital Nomad', 'Nightlife', 'Medieval'],
